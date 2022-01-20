@@ -2,12 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Difficulty : MonoBehaviour
+public class GamaManager : MonoBehaviour
 {
     // Start is called before the first frame update
     void Start()
     {
-        
+        Debug.Log(GameValues.Difficulty);
     }
 
     // Update is called once per frame
