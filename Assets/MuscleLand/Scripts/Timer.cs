@@ -12,7 +12,7 @@ namespace Game.Timer
 
         [SerializeField] Text timeText;
 
-        [SerializeField] public float duration, currentTime;
+        public float duration, currentTime;
 
         public static Timer Instance;
        // private float ;
@@ -24,12 +24,15 @@ namespace Game.Timer
             switch (GameValues.Difficulty)
             {
                 case GameValues.Difficulties.Easy:
+                    Debug.Log("Eazy");
                     duration = 10;
                     break;
                 case GameValues.Difficulties.Medium:
+                    Debug.Log("Medic");
                     duration = 20;
                     break;
                 case GameValues.Difficulties.Hard:
+                    Debug.Log("Harder");
                     duration = 30;
                     break;
             }
@@ -64,10 +67,5 @@ namespace Game.Timer
             Popup.SetActive(true);
         }
     }
-    public class GameValues : MonoBehaviour
-    {
-        public enum Difficulties { Easy, Medium, Hard };
-        public static Difficulties Difficulty = Difficulties.Easy;
-
-    }
+    
 }

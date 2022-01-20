@@ -17,22 +17,19 @@ public class Spawner : MonoBehaviour
     public GameObject Timer;
     private Timer Timer_script;
     
-    
-    
-
     // Start is called before the first frame update
     void Start()
     {
         switch (GameValues.Difficulty)
         {
             case GameValues.Difficulties.Easy:
-
+                Debug.Log("Eazy");
                 break;
             case GameValues.Difficulties.Medium:
-
+                Debug.Log("Medic!!!");
                 break;
             case GameValues.Difficulties.Hard:
-
+                Debug.Log("Harder!!!");
                 break;
         }
         Timer_script = Timer.GetComponent<Timer>();
