@@ -3,7 +3,7 @@
 // Use of this source code is governed by an MIT-style
 // license that can be found in the LICENSE file or at
 // https://opensource.org/licenses/MIT.
-
+using System.Collections.Generic;
 using System.Collections;
 using UnityEngine;
 
@@ -141,7 +141,7 @@ namespace Mediapipe.Unity.PoseTracking
           _screen.ReadSync(textureFrame);
 
           // When running synchronously, wait for the outputs here (blocks the main thread).
-          var value = _graphRunner.FetchNextValue();
+          var value = _graphRunner.FetchNextValue();          
           _poseDetectionAnnotationController.DrawNow(value.poseDetection);
           _poseLandmarksAnnotationController.DrawNow(value.poseLandmarks);
           _poseWorldLandmarksAnnotationController.DrawNow(value.poseWorldLandmarks);
@@ -160,6 +160,7 @@ namespace Mediapipe.Unity.PoseTracking
     private void OnPoseLandmarksOutput(NormalizedLandmarkList poseLandmarks)
     {
       _poseLandmarksAnnotationController.DrawLater(poseLandmarks);
+      MediaPipeValues.poseLandmarks = poseLandmarks;
     }
 
     private void OnPoseWorldLandmarksOutput(LandmarkList poseWorldLandmarks)

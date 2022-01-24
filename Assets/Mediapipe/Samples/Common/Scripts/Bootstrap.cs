@@ -106,8 +106,8 @@ namespace Mediapipe.Unity
       isFinished = true;
 
       Logger.LogInfo(_TAG, "Loading the first scene...");
-      var sceneLoadReq = SceneManager.LoadSceneAsync("Pose Tracking");
-      yield return new WaitUntil(() => sceneLoadReq.isDone);
+      // var sceneLoadReq = SceneManager.LoadSceneAsync("Pose Tracking");
+      // yield return new WaitUntil(() => sceneLoadReq.isDone);
     }
 
     private void DecideInferenceMode()

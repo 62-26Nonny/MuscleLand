@@ -7,6 +7,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine.Events;
+using UnityEngine;
 
 namespace Mediapipe.Unity.PoseTracking
 {
