@@ -23,33 +23,48 @@ public class Spawner : MonoBehaviour
         switch (GameValues.Difficulty)
         {
             case GameValues.Difficulties.Easy:
-                Debug.Log("Eazy");
+               // Debug.Log("Eazy");
                 break;
             case GameValues.Difficulties.Medium:
-                Debug.Log("Medic!!!");
+               // Debug.Log("Medic!!!");
                 break;
             case GameValues.Difficulties.Hard:
-                Debug.Log("Harder!!!");
+                //Debug.Log("Harder!!!");
                 break;
         }
         Timer_script = Timer.GetComponent<Timer>();
-        StartCoroutine(monsterSpawner());
-        //Debug.Log("Is true " + (Timer_script.currentTime >= 0));
+        secondSpawn = (Timer_script.duration / 10);
+
+        
+
+        StartCoroutine(StartCountDown());
+        
+        //Debug.Log("Duration/10: " + (Timer_script.duration / 10));
     }
 
     private void Update()
     {
-        
-        //Debug.Log(Timer_script.currentTime);
-        //Debug.Log(secondSpawn);
-       
+        Debug.Log("Monster Max: " + ((int)(Timer_script.duration / secondSpawn)));
+        GameValues.monsterMax = ((int)(Timer_script.duration / secondSpawn));
+
+        // Debug.Log("currentTime: " + Timer_script.currentTime);
+        //Debug.Log("Duration/10: " + (Timer_script.duration / 10));
+        // Debug.Log("secondSpawn: " + secondSpawn);
+        //Debug.Log("Is Spawn: " + (Timer_script.currentTime >= 3));
+
     }
+    IEnumerator StartCountDown()
+    {
+        yield return new WaitForSeconds(3f);
+        StartCoroutine(monsterSpawner());
+    }
+
 
 
     IEnumerator monsterSpawner()
     {
         
-        while (Timer_script.currentTime >= 0)
+        while (Timer_script.currentTime >= secondSpawn)
         {
             
             var pos_range_x = Random.Range(minTras, maxTras);
@@ -57,15 +72,19 @@ public class Spawner : MonoBehaviour
             var position = new Vector3(pos_range_x, pos_range_y, GameObject.Find("Canvas").transform.position.z+1);
             GameObject gameObject = Instantiate(monsterPrefab[Random.Range(0, monsterPrefab.Length)],
                                     position, Quaternion.identity);
+            Debug.Log("Create monster!");
             void Delete()
             {
+                GameValues.monsterKill++;
                 Destroy(gameObject);
             }
 
             gameObject.transform.SetParent(GameObject.Find("Canvas").transform, true);
             gameObject.GetComponent<Button>().onClick.AddListener(Delete);
+            
 
             yield return new WaitForSeconds(secondSpawn);
+
 
             Destroy(gameObject);
         }

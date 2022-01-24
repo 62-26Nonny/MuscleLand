@@ -25,15 +25,15 @@ namespace Game.Timer
             {
                 case GameValues.Difficulties.Easy:
                     Debug.Log("Eazy");
-                    duration = 10;
+                    duration = 30;
                     break;
                 case GameValues.Difficulties.Medium:
                     Debug.Log("Medic");
-                    duration = 20;
+                    duration = 60;
                     break;
                 case GameValues.Difficulties.Hard:
                     Debug.Log("Harder");
-                    duration = 30;
+                    duration = 90;
                     break;
             }
 
@@ -43,13 +43,21 @@ namespace Game.Timer
             Popup.SetActive(false);
             currentTime = duration;
             timeText.text = currentTime.ToString();
+            StartCoroutine(StartCountDown());
+        }
+
+        IEnumerator StartCountDown()
+        {
+            yield return new WaitForSeconds(3f);
             StartCoroutine(TimeIEn());
         }
+
+
 
         IEnumerator TimeIEn()
         {
             while (currentTime >= 0)
-            {
+            {  
                 timeText.text = currentTime.ToString();
                 yield return new WaitForSeconds(1f);
                 currentTime--;
@@ -60,12 +68,16 @@ namespace Game.Timer
             }
 
             OpenPopup();
+
         }
 
         void OpenPopup()
         {
+            
             Popup.SetActive(true);
         }
+
+   
     }
     
 }
