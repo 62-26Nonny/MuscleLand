@@ -68,8 +68,8 @@ public class SquatCounter : MonoBehaviour
 
     private void Update() {
         stage_text.text = stage;
-        count_text.text = count.ToString();
-        hand_status.text = hand_gesture().ToString();
-        leg_status.text = leg_gesture().ToString();
+        count_text.text = "Reps: " + count.ToString();
+        hand_status.text = "Hand: " + hand_gesture().ToString();
+        leg_status.text = "Leg: " + leg_gesture().ToString();
     }
 }
