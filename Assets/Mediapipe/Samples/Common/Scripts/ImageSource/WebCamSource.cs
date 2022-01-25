@@ -126,7 +126,11 @@ namespace Mediapipe.Unity
 
       if (availableSources != null && availableSources.Length > 0)
       {
-        webCamDevice = availableSources[0];
+        int i = 0;
+        while (!availableSources[i].isFrontFacing) {
+          i += 1;
+        }
+        webCamDevice = availableSources[i];
       }
 
       _isInitialized = true;

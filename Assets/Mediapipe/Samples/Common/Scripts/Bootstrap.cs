@@ -6,6 +6,7 @@
 
 using System.Collections;
 using System.IO;
+using System.Threading;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
@@ -106,8 +107,8 @@ namespace Mediapipe.Unity
       isFinished = true;
 
       Logger.LogInfo(_TAG, "Loading the first scene...");
-      // var sceneLoadReq = SceneManager.LoadSceneAsync("Pose Tracking");
-      // yield return new WaitUntil(() => sceneLoadReq.isDone);
+      var sceneLoadReq = SceneManager.LoadSceneAsync("Main Menu");
+      yield return new WaitUntil(() => sceneLoadReq.isDone);
     }
 
     private void DecideInferenceMode()
