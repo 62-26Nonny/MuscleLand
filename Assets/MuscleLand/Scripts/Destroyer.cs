@@ -4,27 +4,17 @@ using UnityEngine;
 
 public class Destroyer : MonoBehaviour
 {
-    public float lifeTime = 10f;
+    public static GameObject gameObject;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
+    private void Update() {
+        gameObject = GameObject.FindGameObjectsWithTag("Monster")[0];
+        // Debug.Log(gameObject);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        if (lifeTime > 0){
-            lifeTime -= Time.deltaTime;
-        }
-        
-        if (lifeTime <= 0){
-            Destruction();
-        }
-    }
-
-    void Destruction(){
-        Destroy(this.gameObject);
+    public static void Destruction(){
+        // Debug.Log("Destroy!!!");
+        Destroy(gameObject);
     }
 }
+
+

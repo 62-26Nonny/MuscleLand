@@ -37,14 +37,14 @@ public class Spawner : MonoBehaviour
 
         
 
-        StartCoroutine(StartCountDown());
+        // StartCoroutine(StartCountDown());
         
         //Debug.Log("Duration/10: " + (Timer_script.duration / 10));
     }
 
     private void Update()
     {
-        Debug.Log("Monster Max: " + ((int)(Timer_script.duration / secondSpawn)));
+        // Debug.Log("Monster Max: " + ((int)(Timer_script.duration / secondSpawn)));
         GameValues.monsterMax = ((int)(Timer_script.duration / secondSpawn));
 
         // Debug.Log("currentTime: " + Timer_script.currentTime);
@@ -53,22 +53,15 @@ public class Spawner : MonoBehaviour
         //Debug.Log("Is Spawn: " + (Timer_script.currentTime >= 3));
 
     }
-    IEnumerator StartCountDown()
-    {
-        yield return new WaitForSeconds(3f);
-        StartCoroutine(monsterSpawner());
-    }
 
-
-
-    IEnumerator monsterSpawner()
+    public IEnumerator monsterSpawner()
     {
         
         while (Timer_script.currentTime >= secondSpawn)
         {
             
             var pos_range_x = Random.Range(minTras, maxTras);
-            var pos_range_y = Random.Range(GameObject.Find("Canvas").transform.position.y - 3, GameObject.Find("Canvas").transform.position.y + 1); 
+            var pos_range_y = Random.Range(GameObject.Find("Canvas").transform.position.y - 300, GameObject.Find("Canvas").transform.position.y + 100); 
             var position = new Vector3(pos_range_x, pos_range_y, GameObject.Find("Canvas").transform.position.z+1);
             GameObject gameObject = Instantiate(monsterPrefab[Random.Range(0, monsterPrefab.Length)],
                                     position, Quaternion.identity);
@@ -84,7 +77,6 @@ public class Spawner : MonoBehaviour
             
 
             yield return new WaitForSeconds(secondSpawn);
-
 
             Destroy(gameObject);
         }

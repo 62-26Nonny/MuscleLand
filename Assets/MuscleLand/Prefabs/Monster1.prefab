@@ -12,9 +12,9 @@ GameObject:
   - component: {fileID: 4217797300462834821}
   - component: {fileID: 4217797300462834820}
   - component: {fileID: 4217797300462834823}
-  - component: {fileID: -5694642065164498591}
+  - component: {fileID: 2982590795878967522}
   m_Layer: 5
-  m_Name: Monster2
+  m_Name: Monster1
   m_TagString: Monster
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -67,7 +67,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: a5a4da0500654e342b1fad1f2eabb80b, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 2ebed2d9298195049834f412aebdab78, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -117,11 +117,11 @@ MonoBehaviour:
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
   m_Interactable: 1
-  m_TargetGraphic: {fileID: 4217797300462834820}
+  m_TargetGraphic: {fileID: 0}
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
---- !u!82 &-5694642065164498591
+--- !u!82 &2982590795878967522
 AudioSource:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

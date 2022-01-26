@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using Mediapipe;
+using Game.Timer;
 public class MediaPipeManager : MonoBehaviour
 {
     public enum pose {
@@ -55,10 +56,33 @@ public class MediaPipeManager : MonoBehaviour
     [SerializeField] public Text L_Ankle_Text;
     [SerializeField] public Text R_Ankle_Text;
 
+    [SerializeField] public Text L_Shoulder_Text_Box;
+    [SerializeField] public Text R_Shoulder_Text_Box;
+    [SerializeField] public Text L_Elbow_Text_Box;
+    [SerializeField] public Text R_Elbow_Text_Box;
+    [SerializeField] public GameObject loading;
+    [SerializeField] public GameObject countdown;
+    public GameObject Timer;
+    private Timer Timer_script;
+
+    private bool firstLoad;
+
+    private void Start() {
+        firstLoad = true;
+        Timer_script = Timer.GetComponent<Timer>();
+    }
+
     void Update()
     {
-        
         if (MediaPipeValues.poseLandmarks != null) {
+            loading.SetActive(false);
+            if (firstLoad) {
+                countdown.SetActive(true);
+                StartCoroutine(Timer_script.StartCountDown());
+                firstLoad = false;
+            }
+            
+
             // Debug.Log(MediaPipeValues.poseLandmarks.Landmark);
 
             NormalizedLandmark L_shoulder = MediaPipeValues.poseLandmarks.Landmark[(int)pose.L_SHOULDER];
@@ -96,6 +120,12 @@ public class MediaPipeManager : MonoBehaviour
 
             setAngleText(L_Knee_Text, SquatCounter.L_knee_angle.ToString());
             setAngleText(R_Knee_Text, SquatCounter.R_knee_angle.ToString());
+
+            setAngleText(L_Elbow_Text_Box, SquatCounter.L_elbow_angle.ToString());
+            setAngleText(R_Elbow_Text_Box, SquatCounter.R_elbow_angle.ToString());
+
+            setAngleText(L_Shoulder_Text_Box, SquatCounter.L_shoulder_angle.ToString());
+            setAngleText(R_Shoulder_Text_Box, SquatCounter.R_shoulder_angle.ToString());
 
             setPosText(L_Shoulder_Text , L_shoulder.X * 1200 - 600, (1 - L_shoulder.Y) * 540 - 270, -250);
             setPosText(R_Shoulder_Text , R_shoulder.X * 1200 - 600, (1 - R_shoulder.Y) * 540 - 270, -250);

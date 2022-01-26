@@ -9,14 +9,17 @@ namespace Game.Timer
     {
 
         [SerializeField] GameObject Popup;
-
+        [SerializeField] GameObject countdown;
         [SerializeField] Text timeText;
+        [SerializeField] Text countdownText;
 
-        public float duration, currentTime;
+        public float duration, currentTime, countdownTime;
 
         public static Timer Instance;
        // private float ;
 
+        public GameObject Spawner;
+        private Spawner spawner_script;
 
         void Start()
         {
@@ -43,13 +46,21 @@ namespace Game.Timer
             Popup.SetActive(false);
             currentTime = duration;
             timeText.text = currentTime.ToString();
-            StartCoroutine(StartCountDown());
+            countdownTime = 3;
+            spawner_script = Spawner.GetComponent<Spawner>();
+            // StartCoroutine(StartCountDown());
         }
 
-        IEnumerator StartCountDown()
+        public IEnumerator StartCountDown()
         {
-            yield return new WaitForSeconds(3f);
+            while (countdownTime > 0) {
+                countdownText.text = countdownTime.ToString();
+                yield return new WaitForSeconds(1f);
+                countdownTime--;
+            }
+            countdown.SetActive(false);
             StartCoroutine(TimeIEn());
+            StartCoroutine(spawner_script.monsterSpawner());
         }
 
 

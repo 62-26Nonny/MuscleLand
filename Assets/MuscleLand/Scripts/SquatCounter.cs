@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+
 public class SquatCounter : MonoBehaviour
 {
 
@@ -9,6 +10,7 @@ public class SquatCounter : MonoBehaviour
     [SerializeField] public Text count_text;
     [SerializeField] public Text hand_status;
     [SerializeField] public Text leg_status;
+    [SerializeField] public Text stand_status;
     public static string stage = "None";
     public static int count = 0;
     public static int L_elbow_angle;
@@ -20,7 +22,7 @@ public class SquatCounter : MonoBehaviour
 
     public static bool hand_gesture() {
         if (L_elbow_angle >= 150 & R_elbow_angle >= 150 & L_shoulder_angle <= 130 & R_shoulder_angle <= 130 
-            & L_shoulder_angle >= 100 & R_shoulder_angle >= 100) {
+            & L_shoulder_angle >= 80 & R_shoulder_angle >= 80) {
             return true;
         }
         else {
@@ -38,7 +40,7 @@ public class SquatCounter : MonoBehaviour
     }
 
     public static bool isStand() {
-        if (hand_gesture() & L_knee_angle >= 150 & R_knee_angle >= 150) {
+        if (hand_gesture() & L_knee_angle >= 130 & R_knee_angle >= 130) {
             return true;
         }
         else {
@@ -63,6 +65,7 @@ public class SquatCounter : MonoBehaviour
         if (isStand() & stage == "Down") {
             stage = "Up";
             count += 1;
+            Destroyer.Destruction();
         }
     }
 
@@ -71,5 +74,6 @@ public class SquatCounter : MonoBehaviour
         count_text.text = "Reps: " + count.ToString();
         hand_status.text = "Hand: " + hand_gesture().ToString();
         leg_status.text = "Leg: " + leg_gesture().ToString();
+        stand_status.text = "Stand: " + isStand().ToString();
     }
 }
