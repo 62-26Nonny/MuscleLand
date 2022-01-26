@@ -14,5 +14,12 @@ public static class GameValues
     public static int Gold = 0;
     public static int Exp = 0;
 
+    public static void ResetValues(){
+        GameValues.Exp = 0;
+        GameValues.Gold = 0;
+        GameValues.monsterKill = 0;
+        GameValues.monsterMax = 0;
+    }
+
 }
 

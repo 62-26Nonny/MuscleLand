@@ -68,7 +68,7 @@ public class Spawner : MonoBehaviour
             Debug.Log("Create monster!");
             void Delete()
             {
-                GameValues.monsterKill++;
+                
                 Destroy(gameObject);
             }
 

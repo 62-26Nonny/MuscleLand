@@ -34,6 +34,7 @@ public class Destroyer : MonoBehaviour
         AudioManager.Instance.SFX();
         yield return new WaitForSeconds(0.5f);
         Destroy(gameObject);
+        GameValues.monsterKill++;
     }
 }
 

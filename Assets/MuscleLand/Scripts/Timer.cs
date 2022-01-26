@@ -12,6 +12,9 @@ namespace Game.Timer
         [SerializeField] GameObject countdown;
         [SerializeField] Text timeText;
         [SerializeField] Text countdownText;
+        [SerializeField] Image Reward;
+        [SerializeField] Sprite[] Reward_rank;
+        [SerializeField] Text Header;
 
         public float duration, currentTime, countdownTime;
 
@@ -61,9 +64,8 @@ namespace Game.Timer
             StartCoroutine(TimeIEn());
             StartCoroutine(spawner_script.monsterSpawner());
             AudioManager.Instance.play_BGM();
+            GameValues.ResetValues();
         }
-
-
 
         IEnumerator TimeIEn()
         {
@@ -79,7 +81,21 @@ namespace Game.Timer
             }
             AudioManager.Instance.stop_BGM();
             OpenPopup();
+            GameValues.Gold += GameValues.monsterKill * 20;
+            GameValues.Exp += GameValues.monsterKill * 2;
 
+            if (GameValues.monsterKill == GameValues.monsterMax) {
+                Reward.sprite = Reward_rank[0];
+            } else if (GameValues.monsterKill >= GameValues.monsterMax * 0.7) {
+                Reward.sprite = Reward_rank[1];
+            } else if (GameValues.monsterKill >= GameValues.monsterMax * 0.5) {
+                Reward.sprite = Reward_rank[2];
+            } else {
+                Header.text = "Try Better";
+                Reward.sprite = Reward_rank[3];
+                GameValues.Gold = 0;
+                GameValues.Exp = 0;
+            }
         }
 
         void OpenPopup()

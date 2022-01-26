@@ -16,6 +16,5 @@ public class MonsterDetail : MonoBehaviour
         MonsterMax = GameValues.monsterMax;
         detail = (MonsterKilled + " / " + MonsterMax);
         this.GetComponent<Text>().text = detail;
-
     }
 }

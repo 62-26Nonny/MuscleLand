@@ -3904,7 +3904,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 87d93e555be4ccf46bce8cca016dad98, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 0.3
+  m_Volume: 0.025
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -4911,6 +4911,7 @@ GameObject:
   - component: {fileID: 971553003}
   - component: {fileID: 971553005}
   - component: {fileID: 971553004}
+  - component: {fileID: 971553006}
   m_Layer: 5
   m_Name: Gold_text
   m_TagString: Untagged
@@ -4979,6 +4980,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 971553002}
   m_CullTransparentMesh: 1
+--- !u!114 &971553006
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 971553002}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a1896c0e209cd1843818775849894fc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &972473870
 GameObject:
   m_ObjectHideFlags: 0
@@ -5380,6 +5393,7 @@ GameObject:
   - component: {fileID: 1069150886}
   - component: {fileID: 1069150888}
   - component: {fileID: 1069150887}
+  - component: {fileID: 1069150889}
   m_Layer: 5
   m_Name: XP_text
   m_TagString: Untagged
@@ -5448,6 +5462,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1069150885}
   m_CullTransparentMesh: 1
+--- !u!114 &1069150889
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1069150885}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1601cd445ad3f99469fb6f2a61e6fb7c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1072156013
 GameObject:
   m_ObjectHideFlags: 0
@@ -7359,6 +7385,13 @@ MonoBehaviour:
   countdown: {fileID: 1892099891}
   timeText: {fileID: 1420380416}
   countdownText: {fileID: 558678491}
+  Reward: {fileID: 1252119338}
+  Reward_rank:
+  - {fileID: 21300000, guid: c8c756c24b41c3c4d9c668128211d603, type: 3}
+  - {fileID: 21300000, guid: 6c14d9f3d1cf78d458a56a332ed73b7c, type: 3}
+  - {fileID: 21300000, guid: 9c201421d51d8e44ea282d68a701ce29, type: 3}
+  - {fileID: 21300000, guid: 8912c2285480f0b4bb5ade61bce76759, type: 3}
+  Header: {fileID: 153880127}
   duration: 30
   currentTime: 0
   countdownTime: 0
