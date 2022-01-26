@@ -65,7 +65,7 @@ public class SquatCounter : MonoBehaviour
         if (isStand() & stage == "Down") {
             stage = "Up";
             count += 1;
-            Destroyer.Destruction();
+            Destroyer.Destruction();            
         }
     }
 

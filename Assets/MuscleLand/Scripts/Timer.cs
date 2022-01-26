@@ -42,7 +42,6 @@ namespace Game.Timer
 
 
             Instance = this;
-
             Popup.SetActive(false);
             currentTime = duration;
             timeText.text = currentTime.ToString();
@@ -61,13 +60,14 @@ namespace Game.Timer
             countdown.SetActive(false);
             StartCoroutine(TimeIEn());
             StartCoroutine(spawner_script.monsterSpawner());
+            AudioManager.Instance.play_BGM();
         }
 
 
 
         IEnumerator TimeIEn()
         {
-            while (currentTime >= 0)
+            while (currentTime > 0)
             {  
                 timeText.text = currentTime.ToString();
                 yield return new WaitForSeconds(1f);
@@ -77,7 +77,7 @@ namespace Game.Timer
                     timeText.color = Color.red;
                 }
             }
-
+            AudioManager.Instance.stop_BGM();
             OpenPopup();
 
         }
