@@ -13,12 +13,7 @@ public class AudioManager : MonoBehaviour
     void Start()
     {
         Instance = this;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+    
     }
 
     public void SFX(){

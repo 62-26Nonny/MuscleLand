@@ -63,7 +63,7 @@ namespace Game.Timer
             countdown.SetActive(false);
             StartCoroutine(TimeIEn());
             StartCoroutine(spawner_script.monsterSpawner());
-            AudioManager.Instance.play_BGM();
+            BGM.Instance.dungeon_play();
             GameValues.ResetValues();
         }
 
@@ -79,7 +79,6 @@ namespace Game.Timer
                     timeText.color = Color.red;
                 }
             }
-            AudioManager.Instance.stop_BGM();
             OpenPopup();
             GameValues.Gold += GameValues.monsterKill * 20;
             GameValues.Exp += GameValues.monsterKill * 2;

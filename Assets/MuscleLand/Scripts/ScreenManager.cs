@@ -7,6 +7,8 @@ using UnityEngine.UI;
 public class ScreenManager : MonoBehaviour
 {
 
+    public BGM Instance;
+
     public void MainMenuPage()
     {
         SceneManager.LoadScene("Main Menu");
@@ -25,6 +27,7 @@ public class ScreenManager : MonoBehaviour
     public void DungeonPlayPage()
     {
         SceneManager.LoadScene("Playing");
+        
     }
    
     public void ExplorationPage()
