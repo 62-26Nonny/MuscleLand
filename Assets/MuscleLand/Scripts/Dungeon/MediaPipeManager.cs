@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using Mediapipe;
 using Game.Timer;
+
 public class MediaPipeManager : MonoBehaviour
 {
     public enum pose {
@@ -62,14 +63,12 @@ public class MediaPipeManager : MonoBehaviour
     [SerializeField] public Text R_Elbow_Text_Box;
     [SerializeField] public GameObject loading;
     [SerializeField] public GameObject countdown;
-    public GameObject Timer;
-    private Timer Timer_script;
+    public Timer Timer_script;
 
     private bool firstLoad;
 
     private void Start() {
         firstLoad = true;
-        Timer_script = Timer.GetComponent<Timer>();
     }
 
     void Update()
@@ -78,13 +77,10 @@ public class MediaPipeManager : MonoBehaviour
             loading.SetActive(false);
             if (firstLoad) {
                 countdown.SetActive(true);
-                StartCoroutine(Timer_script.StartCountDown());
+                StartCoroutine(Timer_script.StartCountdown());
                 firstLoad = false;
             }
             
-
-            // Debug.Log(MediaPipeValues.poseLandmarks.Landmark);
-
             NormalizedLandmark L_shoulder = MediaPipeValues.poseLandmarks.Landmark[(int)pose.L_SHOULDER];
             NormalizedLandmark R_shoulder = MediaPipeValues.poseLandmarks.Landmark[(int)pose.R_SHOULDER];
             

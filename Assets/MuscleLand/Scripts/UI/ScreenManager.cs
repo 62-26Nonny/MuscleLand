@@ -7,8 +7,6 @@ using UnityEngine.UI;
 public class ScreenManager : MonoBehaviour
 {
 
-    public BGM Instance;
-
     public void MainMenuPage()
     {
         SceneManager.LoadScene("Main Menu");
@@ -19,15 +17,27 @@ public class ScreenManager : MonoBehaviour
         SceneManager.LoadScene("Select");
     }
 
-    public void DungeonDetailPage()
-    {
-        SceneManager.LoadScene("Detail");
-    }
-
-    public void DungeonPlayPage()
+    public void DungeonPlayingPage()
     {
         SceneManager.LoadScene("Playing");
-        
+    }
+
+    public void SquatPage()
+    {
+        SceneManager.LoadScene("Detail");
+        DungeonValues.Dungeon_name = DungeonValues.Name.Squat;
+    }
+
+    public void JumpPage()
+    {
+        SceneManager.LoadScene("Detail");
+        DungeonValues.Dungeon_name = DungeonValues.Name.Jump;
+    }
+
+    public void KneePage()
+    {
+        SceneManager.LoadScene("Detail");
+        DungeonValues.Dungeon_name = DungeonValues.Name.Knee;
     }
    
     public void ExplorationPage()

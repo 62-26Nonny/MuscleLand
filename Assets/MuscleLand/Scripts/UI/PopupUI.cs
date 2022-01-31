@@ -5,33 +5,19 @@ using UnityEngine.UI;
 
 namespace UI.Popup
 {
-    public class Popup
-    {
-        
-    }
-
     public class PopupUI : MonoBehaviour
     {
         [SerializeField] GameObject canvas;
-        [SerializeField] Button claimButton;
-
-        Popup popup = new Popup();
+        [SerializeField] Button close_button;
 
         public static PopupUI Instance;
 
-        // Start is called before the first frame update
         void Start()
         {
             Instance = this;
 
-            claimButton.onClick.RemoveAllListeners();
-            claimButton.onClick.AddListener(Hide);
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
-
+            close_button.onClick.RemoveAllListeners();
+            close_button.onClick.AddListener(Hide);
         }
 
         // Show popup

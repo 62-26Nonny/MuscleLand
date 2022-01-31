@@ -7,9 +7,11 @@ public class Destroyer : MonoBehaviour
 {
     [SerializeField] Sprite hit_effect;
 
-    public static GameObject gameObject;
+    public static GameObject monster;
 
     public static Destroyer Instance;
+
+    public SFX hit_sound;
 
     private void Start() {
         Instance = this;
@@ -17,24 +19,22 @@ public class Destroyer : MonoBehaviour
 
     private void Update() {
         if (GameObject.FindGameObjectsWithTag("Monster").Length > 0) {
-            gameObject = GameObject.FindGameObjectsWithTag("Monster")[0];
+            monster = GameObject.FindGameObjectsWithTag("Monster")[0];
         }
-        // Debug.Log(gameObject);
     }
 
     public static void Destruction(){
-        // Debug.Log("Destroy!!!");
-        if (gameObject != null) {
+        if (monster != null) {
             Instance.StartCoroutine(Instance.hit());
         }
     }
 
     IEnumerator hit(){
-        gameObject.GetComponent<Image>().sprite = hit_effect;
-        AudioManager.Instance.SFX();
+        monster.GetComponent<Image>().sprite = hit_effect;
+        hit_sound.play();
         yield return new WaitForSeconds(0.5f);
-        Destroy(gameObject);
-        GameValues.monsterKill++;
+        Destroy(monster);
+        DungeonValues.monsterKilled++;
     }
 }
 
