@@ -3,14 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Android;
 
+[System.Serializable]
 public class LocationTracking : MonoBehaviour
 {
-    public static float latitude_old;
-    public static float longitude_old;
-    public static float latitude;
-    public static float longitude;
+    public float latitude_old;
+    public float longitude_old;
+    public float latitude;
+    public float longitude;
+    public static LocationTracking Instance;
 
     private void Start() {
+        Instance = this;
         DontDestroyOnLoad(gameObject);
         StartCoroutine(CheckPermissions());
     }
@@ -21,6 +24,8 @@ public class LocationTracking : MonoBehaviour
             longitude_old = longitude;
             latitude = Input.location.lastData.latitude;
             longitude = Input.location.lastData.longitude;
+            DistanceCalculator.Instance.updateDistance();
+            StartCoroutine(ProgressBar.Instance.updateProgress());
         }
     }
 
