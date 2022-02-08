@@ -6,27 +6,32 @@ using UnityEngine.Android;
 [System.Serializable]
 public class LocationTracking : MonoBehaviour
 {
-    public float latitude_old;
-    public float longitude_old;
+    public float? latitude_old = null;
+    public float? longitude_old = null;
     public float latitude;
     public float longitude;
     public static LocationTracking Instance;
+    public bool isfirstLoad;
 
     private void Start() {
         Instance = this;
+        isfirstLoad = true;
         DontDestroyOnLoad(gameObject);
         StartCoroutine(CheckPermissions());
     }
 
     private void Update() {
         if (Input.location.lastData.latitude != latitude || Input.location.lastData.longitude != longitude){
-            latitude_old = latitude;
-            longitude_old = longitude;
+            if (!isfirstLoad){
+                latitude_old = latitude;
+                longitude_old = longitude;
+            }
             latitude = Input.location.lastData.latitude;
             longitude = Input.location.lastData.longitude;
             DistanceCalculator.Instance.updateDistance();
             StartCoroutine(ProgressBar.Instance.updateProgress());
-        }
+            isfirstLoad = false;
+        } 
     }
 
     private IEnumerator CheckPermissions(){
@@ -41,7 +46,7 @@ public class LocationTracking : MonoBehaviour
 
     private IEnumerator StartLocationService(){
         if (!Input.location.isEnabledByUser){
-            Debug.Log("User has not enable GPS");
+            // Debug.Log("User has not enable GPS");
             yield break;
         }
 
