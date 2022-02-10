@@ -329,7 +329,7 @@ android_ndk_repository(
     # If you need to support older versions of Android, please specify the API Level.
     # Otherwise, some symbols in libmediapipe_jni.so cannot be resolved and `DllNotFoundException` will be thrown.
 
-    # api_level = 21,
+    api_level = 21,
 )
 
 android_sdk_repository(
