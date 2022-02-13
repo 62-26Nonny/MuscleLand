@@ -21,7 +21,6 @@ public class CrateDB : MonoBehaviour
     EPandgold();
   }
 
-
   public void EPandgold()
   {
     using (var conection = new SqliteConnection(dbName))

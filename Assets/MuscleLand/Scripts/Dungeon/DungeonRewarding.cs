@@ -43,9 +43,6 @@ public class DungeonRewarding : MonoBehaviour
     }
 
     public void rewarding(){
-        // Gold and Exp
-        Player.Gold += Gold_each * DungeonValues.monsterKilled;
-        Player.Exp += Exp_each * DungeonValues.monsterKilled;
         DungeonValues.Gold_recieved = Gold_each * DungeonValues.monsterKilled;
         DungeonValues.Exp_recieved = Exp_each * DungeonValues.monsterKilled;
 
@@ -59,7 +56,15 @@ public class DungeonRewarding : MonoBehaviour
         } else {
             Header.text = "Try Better";
             Reward.sprite = Reward_rank[3];
+            DungeonValues.Gold_recieved = 0;
+            DungeonValues.Exp_recieved = 0;
         }
+
+        // Gold and Exp
+        Player.Gold += DungeonValues.Gold_recieved;
+        Player.Exp += DungeonValues.Exp_recieved;
+        Database.Instance.DungeonRewarding();
+
         showRewardingPopup();
     }
 
