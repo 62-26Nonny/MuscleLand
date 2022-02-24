@@ -62,4 +62,8 @@ public class ScreenManager : MonoBehaviour
     {
         SceneManager.LoadScene("Shop");
     }
+    
+    public void ProfilePage(){
+        SceneManager.LoadScene("Profile");
+    }
 }
