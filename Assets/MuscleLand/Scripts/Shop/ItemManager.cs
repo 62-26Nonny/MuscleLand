@@ -13,27 +13,51 @@ public class ItemManager : MonoBehaviour
     [SerializeField] GameObject Prefab_Item;
     void Start()
     {
+        Debug.LogWarning("Reload shop");
         AddItem();
     }
         void Update()
     {
         
     }
-    public List<string> Opendata(){
+    public List<string> GetPathList(){
         
-        List<string> Path_list = new List<string>();
-       
-          using (var conection = new SqliteConnection(db_client)){
+        string userID = GetUserID().ToString();
+        List<string> Nothave_list = new List<string>();
+        using (var conection = new SqliteConnection(db_sever)){
             conection.Open();
             using (var command = conection.CreateCommand()){
-                command.CommandText = "SELECT * FROM item ORDER BY itemID;";
+                command.CommandText = "SELECT * FROM item WHERE itemID NOT IN (SELECT itemID FROM inventory WHERE userID = '" + userID + "') ORDER BY itemID ;";
+                using (var reader = command.ExecuteReader()){
+                    
+                        foreach(var item in reader)
+                        {
+                            Debug.Log("ID:" + reader["itemID"] + " Item name:" + reader["itemname"] + " Item price:" + reader["price"]);
+                        
+                            Nothave_list.Add(reader["itemID"].ToString());
+                        }
+                        
+      
+                    reader.Close();
+                }
+            }
+            conection.Close();
+        }
+
+        List<string> Path_list = new List<string>();
+        
+        using (var conection = new SqliteConnection(db_client)){
+            conection.Open();
+            using (var command = conection.CreateCommand()){
+                command.CommandText = "SELECT * FROM item ORDER BY itemID ;";
                 using (var reader = command.ExecuteReader()){
 
-                        
                         foreach (var item in reader)
                         {
-                            
-                            Path_list.Add(reader["pic"].ToString());
+                            if( Nothave_list.Contains(reader["itemID"].ToString()) ){
+                                Path_list.Add(reader["pic"].ToString());
+                            }
+
                         }
                         
                         
@@ -47,12 +71,12 @@ public class ItemManager : MonoBehaviour
     }  
 
     public void AddItem(){
-        
-        List<string> path_list = Opendata();
+        string userID = GetUserID().ToString();
+        List<string> path_list = GetPathList();
          using (var conection = new SqliteConnection(db_sever)){
             conection.Open();
             using (var command = conection.CreateCommand()){
-                command.CommandText = "SELECT * FROM item ORDER BY itemID;";
+                command.CommandText = "SELECT * FROM item WHERE itemID NOT IN (SELECT itemID FROM inventory WHERE userID = '" + userID + "') ORDER BY itemID ;";
                 using (var reader = command.ExecuteReader()){
                     
                         
@@ -64,6 +88,7 @@ public class ItemManager : MonoBehaviour
                         
                            
                             GameObject box = Instantiate(Prefab_Item);
+                            
                             box.SetActive(true);
                             box.name = reader["itemID"].ToString();
 
@@ -90,4 +115,27 @@ public class ItemManager : MonoBehaviour
             conection.Close();
         }
     }
+
+    public int GetUserID(){ 
+
+        int ID = 0;
+
+        using (var conection = new SqliteConnection(db_sever)){
+            conection.Open();
+            using (var command = conection.CreateCommand()){
+                command.CommandText = "SELECT * FROM User WHERE username='" + Player.username + "';";
+                using (var reader = command.ExecuteReader()){
+
+       
+                    ID = int.Parse(reader["ID"].ToString());
+                        
+      
+                    reader.Close();
+                }
+            }
+            conection.Close();
+        }
+        return ID;
+    }
+
 }

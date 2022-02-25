@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    
     public static string username = "";
     public static int Level = 0;
     public static int Exp = 0;
