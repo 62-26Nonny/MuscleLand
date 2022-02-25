@@ -22,6 +22,11 @@ public class ScreenManager : MonoBehaviour
         SceneManager.LoadScene("Playing");
     }
 
+    public void DungeonDetailgPage()
+    {
+        SceneManager.LoadScene("Detail");
+    }
+
     public void SquatPage()
     {
         SceneManager.LoadScene("Detail");
