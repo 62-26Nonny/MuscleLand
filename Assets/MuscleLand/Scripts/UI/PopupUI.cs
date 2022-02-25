@@ -15,7 +15,7 @@ namespace UI.Popup
         void Start()
         {
             Instance = this;
-
+        
             close_button.onClick.RemoveAllListeners();
             close_button.onClick.AddListener(Hide);
         }
