@@ -5,7 +5,6 @@ using UnityEngine;
 using UnityEngine.UI;
 using Mediapipe;
 using Game.Timer;
-
 public class MediaPipeManager : MonoBehaviour
 {
     public enum pose {
@@ -63,6 +62,7 @@ public class MediaPipeManager : MonoBehaviour
     [SerializeField] public Text R_Elbow_Text_Box;
     [SerializeField] public GameObject loading;
     [SerializeField] public GameObject countdown;
+    public Image[] frame_status;
     public Timer Timer_script;
 
     private bool firstLoad;
@@ -77,8 +77,10 @@ public class MediaPipeManager : MonoBehaviour
             loading.SetActive(false);
             if (firstLoad) {
                 countdown.SetActive(true);
-                StartCoroutine(Timer_script.StartCountdown());
-                firstLoad = false;
+                if (isInFrame()){
+                    StartCoroutine(Timer_script.StartCountdown());
+                    firstLoad = false;
+                }
             }
             
             NormalizedLandmark L_shoulder = MediaPipeValues.poseLandmarks.Landmark[(int)pose.L_SHOULDER];
@@ -99,29 +101,35 @@ public class MediaPipeManager : MonoBehaviour
             NormalizedLandmark L_ankle = MediaPipeValues.poseLandmarks.Landmark[(int)pose.L_ANKLE];
             NormalizedLandmark R_ankle = MediaPipeValues.poseLandmarks.Landmark[(int)pose.R_ANKLE];
 
-            SquatCounter.L_elbow_angle = get3DAngle(L_shoulder, L_elbow, L_wrist);
-            SquatCounter.R_elbow_angle = get3DAngle(R_shoulder, R_elbow, R_wrist);
+            Counter.L_elbow_angle = get3DAngle(L_shoulder, L_elbow, L_wrist);
+            Counter.R_elbow_angle = get3DAngle(R_shoulder, R_elbow, R_wrist);
 
-            SquatCounter.L_shoulder_angle = get3DAngle(L_elbow, L_shoulder, L_hip);
-            SquatCounter.R_shoulder_angle = get3DAngle(R_elbow, R_shoulder, R_hip);
+            Counter.L_shoulder_angle = get3DAngle(L_elbow, L_shoulder, L_hip);
+            Counter.R_shoulder_angle = get3DAngle(R_elbow, R_shoulder, R_hip);
 
-            SquatCounter.L_knee_angle = get3DAngle(L_hip, L_knee, L_ankle);
-            SquatCounter.R_knee_angle = get3DAngle(R_hip, R_knee, R_ankle);
+            Counter.L_hip_angle = get3DAngle(L_shoulder, L_hip, L_knee);
+            Counter.R_hip_angle = get3DAngle(R_shoulder, R_hip, R_knee);
 
-            setAngleText(L_Elbow_Text, SquatCounter.L_elbow_angle.ToString());
-            setAngleText(R_Elbow_Text, SquatCounter.R_elbow_angle.ToString());
+            Counter.L_knee_angle = get3DAngle(L_hip, L_knee, L_ankle);
+            Counter.R_knee_angle = get3DAngle(R_hip, R_knee, R_ankle);
 
-            setAngleText(L_Shoulder_Text, SquatCounter.L_shoulder_angle.ToString());
-            setAngleText(R_Shoulder_Text, SquatCounter.R_shoulder_angle.ToString());
+            setAngleText(L_Elbow_Text, Counter.L_elbow_angle.ToString());
+            setAngleText(R_Elbow_Text, Counter.R_elbow_angle.ToString());
 
-            setAngleText(L_Knee_Text, SquatCounter.L_knee_angle.ToString());
-            setAngleText(R_Knee_Text, SquatCounter.R_knee_angle.ToString());
+            setAngleText(L_Shoulder_Text, Counter.L_shoulder_angle.ToString());
+            setAngleText(R_Shoulder_Text, Counter.R_shoulder_angle.ToString());
 
-            setAngleText(L_Elbow_Text_Box, SquatCounter.L_elbow_angle.ToString());
-            setAngleText(R_Elbow_Text_Box, SquatCounter.R_elbow_angle.ToString());
+            setAngleText(L_Knee_Text, Counter.L_knee_angle.ToString());
+            setAngleText(R_Knee_Text, Counter.R_knee_angle.ToString());
 
-            setAngleText(L_Shoulder_Text_Box, SquatCounter.L_shoulder_angle.ToString());
-            setAngleText(R_Shoulder_Text_Box, SquatCounter.R_shoulder_angle.ToString());
+            setAngleText(L_Hip_Text, Counter.L_hip_angle.ToString());
+            setAngleText(R_Hip_Text, Counter.R_hip_angle.ToString());
+
+            setAngleText(L_Elbow_Text_Box, Counter.L_elbow_angle.ToString());
+            setAngleText(R_Elbow_Text_Box, Counter.R_elbow_angle.ToString());
+
+            setAngleText(L_Shoulder_Text_Box, Counter.L_shoulder_angle.ToString());
+            setAngleText(R_Shoulder_Text_Box, Counter.R_shoulder_angle.ToString());
 
             setPosText(L_Shoulder_Text , L_shoulder.X * 1200 - 600, (1 - L_shoulder.Y) * 540 - 270, -250);
             setPosText(R_Shoulder_Text , R_shoulder.X * 1200 - 600, (1 - R_shoulder.Y) * 540 - 270, -250);
@@ -141,8 +149,7 @@ public class MediaPipeManager : MonoBehaviour
             setPosText(L_Ankle_Text , L_ankle.X * 1200 - 600, (1 - L_ankle.Y) * 540 - 270, -250);
             setPosText(R_Ankle_Text , R_ankle.X * 1200 - 600, (1 - R_ankle.Y) * 540 - 270, -250);
             
-            SquatCounter.counter();
-
+            Counter.counter();
         }
 
     }
@@ -177,6 +184,22 @@ public class MediaPipeManager : MonoBehaviour
 
     public void setPosText(Text text_box, double posX, double posY, double posZ){
         text_box.transform.position = new Vector3((float)posX, (float)posY, (float)posZ);
+    }
+
+    public bool isInFrame(){
+        foreach(int index in Enum.GetValues(typeof(pose))){
+            NormalizedLandmark landmark = MediaPipeValues.poseLandmarks.Landmark[index];
+            float posX = landmark.X * 1200 - 600;
+            float posY = landmark.Y * 540 - 270;
+            if (posX < -530 || posX > 530 || posY < -530 || posY > 530){
+                frame_status[0].color = new Color32(255,0,0,100);
+                frame_status[1].color = new Color32(255,0,0,100);
+                return false;
+            }
+        }
+        frame_status[0].color = new Color32(0,255,0,100);
+        frame_status[1].color = new Color32(0,255,0,100);
+        return true;
     }
 
 }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Currency : MonoBehaviour
+public class CurrencyDisplayer : MonoBehaviour
 {
     public Text Gold_Text;
     public Text EP_Text;

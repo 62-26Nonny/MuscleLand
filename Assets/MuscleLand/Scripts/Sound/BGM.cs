@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 public class BGM : MonoBehaviour
 {
     public static BGM Instance;
+    public string current_scene;
 
     public AudioSource bgm;
 
@@ -14,6 +15,7 @@ public class BGM : MonoBehaviour
     private void Awake() {
         if (Instance == null) {
             Instance = this;
+            current_scene = SceneManager.GetActiveScene().name;
             DontDestroyOnLoad(gameObject);
         }
         else {
@@ -41,5 +43,17 @@ public class BGM : MonoBehaviour
         bgm.Play();
     }
 
+    private void Update() {
+        if (current_scene != SceneManager.GetActiveScene().name){
+            if (current_scene == "Detail" & SceneManager.GetActiveScene().name == "Playing"){
+                dungeon_play();
+                
+            }
+            else if (current_scene == "Playing" & (SceneManager.GetActiveScene().name == "Detail" || SceneManager.GetActiveScene().name == "Main Menu")){
+                main_menu();
+            }
+        }
+        current_scene = SceneManager.GetActiveScene().name;
+    }
 
 }

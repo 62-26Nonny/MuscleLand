@@ -41,7 +41,6 @@ public class CrateDB : MonoBehaviour
 
       conection.Close();
     }
-
   }
   public void CreateDB()
   {

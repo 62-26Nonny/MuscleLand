@@ -17,5 +17,6 @@ public class ExplorationRewarding : MonoBehaviour
         Player.EP += ProgressBar.Instance.total_reward * 2;
         Player.Exp += ProgressBar.Instance.total_reward * 2;
         ProgressBar.Instance.ResetProgress();
+        Database.Instance.ExplorationRewarding();
     }
 }
