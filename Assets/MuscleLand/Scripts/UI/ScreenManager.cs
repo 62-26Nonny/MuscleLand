@@ -22,6 +22,11 @@ public class ScreenManager : MonoBehaviour
         SceneManager.LoadScene("Playing");
     }
 
+    public void DungeonDetailgPage()
+    {
+        SceneManager.LoadScene("Detail");
+    }
+
     public void SquatPage()
     {
         SceneManager.LoadScene("Detail");
@@ -61,5 +66,9 @@ public class ScreenManager : MonoBehaviour
     public void ShopPage()
     {
         SceneManager.LoadScene("Shop");
+    }
+    
+    public void ProfilePage(){
+        SceneManager.LoadScene("Profile");
     }
 }
