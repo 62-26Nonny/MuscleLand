@@ -11,12 +11,14 @@ public class ItemManager : MonoBehaviour
 
     [SerializeField] GameObject list;
     [SerializeField] GameObject Prefab_Item;
+
     void Start()
     {
         Debug.LogWarning("Reload shop");
         AddItem();
     }
-        void Update()
+
+    void Update()
     {
         
     }
@@ -71,7 +73,6 @@ public class ItemManager : MonoBehaviour
     }
 
     public void AddItem(){
-
         List<string> path_list = GetPathList();
          using (var conection = new SqliteConnection(db_sever)){
             conection.Open();
