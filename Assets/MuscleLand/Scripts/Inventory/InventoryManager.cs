@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using Mono.Data.Sqlite;
-public class ItemManager : MonoBehaviour
+public class InventoryManager : MonoBehaviour
 {
 
     private string db_sever = "URI=file:DB/server.db";
@@ -16,25 +16,21 @@ public class ItemManager : MonoBehaviour
         Debug.LogWarning("Reload shop");
         AddItem();
     }
-        void Update()
-    {
-        
-    }
     public List<string> GetPathList(){
         
         string userID = GetUserID().ToString();
-        List<string> Nothave_list = new List<string>();
+        List<string> have_list = new List<string>();
         using (var conection = new SqliteConnection(db_sever)){
             conection.Open();
             using (var command = conection.CreateCommand()){
-                command.CommandText = "SELECT * FROM item WHERE itemID NOT IN (SELECT itemID FROM inventory WHERE userID = '" + userID + "') ORDER BY itemID ;";
+                command.CommandText = "SELECT * FROM item WHERE itemID IN (SELECT itemID FROM inventory WHERE userID = '" + userID + "') ORDER BY itemID ;";
                 using (var reader = command.ExecuteReader()){
                     
                         foreach(var item in reader)
                         {
                             Debug.Log("ID:" + reader["itemID"] + " Item name:" + reader["itemname"] + " Item price:" + reader["price"]);
                         
-                            Nothave_list.Add(reader["itemID"].ToString());
+                            have_list.Add(reader["itemID"].ToString());
                         }
                         
       
@@ -54,7 +50,7 @@ public class ItemManager : MonoBehaviour
 
                         foreach (var item in reader)
                         {
-                            if( Nothave_list.Contains(reader["itemID"].ToString()) ){
+                            if( have_list.Contains(reader["itemID"].ToString()) ){
                                 Path_list.Add(reader["pic"].ToString());
                             }
 
@@ -76,7 +72,7 @@ public class ItemManager : MonoBehaviour
          using (var conection = new SqliteConnection(db_sever)){
             conection.Open();
             using (var command = conection.CreateCommand()){
-                command.CommandText = "SELECT * FROM item WHERE itemID NOT IN (SELECT itemID FROM inventory WHERE userID = '" + userID + "') ORDER BY itemID ;";
+                command.CommandText = "SELECT * FROM item WHERE itemID IN (SELECT itemID FROM inventory WHERE userID = '" + userID + "') ORDER BY itemID ;";
                 using (var reader = command.ExecuteReader()){
                     
                         
@@ -102,8 +98,6 @@ public class ItemManager : MonoBehaviour
                             Transform img = boxtran.Find("Image");
                             img.transform.GetComponent<Image>().sprite = Resources.Load<Sprite>(path_list[index]);
 
-                            Transform price = boxtran.Find("price");
-                            price.transform.GetComponent<Text>().text = reader["price"].ToString() + " Gold";
                   
                             index++;
                         }

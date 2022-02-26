@@ -9,8 +9,6 @@ public class ItemPopup : MonoBehaviour
 {
     private string db_client = "URI=file:DB/client.db";
     [SerializeField] GameObject canvas;
-    [SerializeField] Button close_button;
-    //[SerializeField] GameObject item;
     [SerializeField] Text popup_name;
     [SerializeField] Image popup_image;
     [SerializeField] Text popup_des;

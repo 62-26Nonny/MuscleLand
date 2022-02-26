@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
+    
     public static string username = "";
     public static Sprite user_profile;
     public static int Level = 0;
