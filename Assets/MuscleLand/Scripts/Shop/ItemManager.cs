@@ -11,12 +11,14 @@ public class ItemManager : MonoBehaviour
 
     [SerializeField] GameObject list;
     [SerializeField] GameObject Prefab_Item;
+
     void Start()
     {
         Debug.LogWarning("Reload shop");
         AddItem();
     }
-        void Update()
+
+    void Update()
     {
         
     }
@@ -71,7 +73,7 @@ public class ItemManager : MonoBehaviour
     }  
 
     public void AddItem(){
-        string userID = GetUserID().ToString();
+        string userID = GetUserID();
         List<string> path_list = GetPathList();
          using (var conection = new SqliteConnection(db_sever)){
             conection.Open();
@@ -116,9 +118,9 @@ public class ItemManager : MonoBehaviour
         }
     }
 
-    public int GetUserID(){ 
+    public string GetUserID(){ 
 
-        int ID = 0;
+        string ID = "";
 
         using (var conection = new SqliteConnection(db_sever)){
             conection.Open();
@@ -126,10 +128,8 @@ public class ItemManager : MonoBehaviour
                 command.CommandText = "SELECT * FROM User WHERE username='" + Player.username + "';";
                 using (var reader = command.ExecuteReader()){
 
-       
-                    ID = int.Parse(reader["ID"].ToString());
-                        
-      
+                    ID = reader["ID"].ToString();
+
                     reader.Close();
                 }
             }

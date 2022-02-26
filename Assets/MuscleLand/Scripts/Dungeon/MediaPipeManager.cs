@@ -101,17 +101,35 @@ public class MediaPipeManager : MonoBehaviour
             NormalizedLandmark L_ankle = MediaPipeValues.poseLandmarks.Landmark[(int)pose.L_ANKLE];
             NormalizedLandmark R_ankle = MediaPipeValues.poseLandmarks.Landmark[(int)pose.R_ANKLE];
 
-            Counter.L_elbow_angle = get3DAngle(L_shoulder, L_elbow, L_wrist);
-            Counter.R_elbow_angle = get3DAngle(R_shoulder, R_elbow, R_wrist);
+            switch (DungeonValues.Dungeon_displayname){
+                case "Squat":
+                case "Rising Knee":
+                    Counter.L_elbow_angle = get3DAngle(L_shoulder, L_elbow, L_wrist);
+                    Counter.R_elbow_angle = get3DAngle(R_shoulder, R_elbow, R_wrist);
 
-            Counter.L_shoulder_angle = get3DAngle(L_elbow, L_shoulder, L_hip);
-            Counter.R_shoulder_angle = get3DAngle(R_elbow, R_shoulder, R_hip);
+                    Counter.L_shoulder_angle = get3DAngle(L_elbow, L_shoulder, L_hip);
+                    Counter.R_shoulder_angle = get3DAngle(R_elbow, R_shoulder, R_hip);
 
-            Counter.L_hip_angle = get3DAngle(L_shoulder, L_hip, L_knee);
-            Counter.R_hip_angle = get3DAngle(R_shoulder, R_hip, R_knee);
+                    Counter.L_hip_angle = get3DAngle(L_shoulder, L_hip, L_knee);
+                    Counter.R_hip_angle = get3DAngle(R_shoulder, R_hip, R_knee);
 
-            Counter.L_knee_angle = get3DAngle(L_hip, L_knee, L_ankle);
-            Counter.R_knee_angle = get3DAngle(R_hip, R_knee, R_ankle);
+                    Counter.L_knee_angle = get3DAngle(L_hip, L_knee, L_ankle);
+                    Counter.R_knee_angle = get3DAngle(R_hip, R_knee, R_ankle);
+                    break;
+                case "Jumping Jack":
+                    Counter.L_elbow_angle = get2DAngle(L_shoulder, L_elbow, L_wrist);
+                    Counter.R_elbow_angle = get2DAngle(R_shoulder, R_elbow, R_wrist);
+
+                    Counter.L_shoulder_angle = get2DAngle(L_elbow, L_shoulder, L_hip);
+                    Counter.R_shoulder_angle = get2DAngle(R_elbow, R_shoulder, R_hip);
+
+                    Counter.L_hip_angle = get2DAngle(L_shoulder, L_hip, L_knee);
+                    Counter.R_hip_angle = get2DAngle(R_shoulder, R_hip, R_knee);
+
+                    Counter.L_knee_angle = get2DAngle(L_hip, L_knee, L_ankle);
+                    Counter.R_knee_angle = get2DAngle(R_hip, R_knee, R_ankle);
+                    break;
+            }
 
             setAngleText(L_Elbow_Text, Counter.L_elbow_angle.ToString());
             setAngleText(R_Elbow_Text, Counter.R_elbow_angle.ToString());

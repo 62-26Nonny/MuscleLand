@@ -17,6 +17,7 @@ public class ItemPopup : MonoBehaviour
     [SerializeField] Text item_name;
     [SerializeField] Image item_image;
     [SerializeField] Text item_price;
+    
     public void Show(){
         
         popup_name.text = item_name.text;
