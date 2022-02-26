@@ -20,6 +20,7 @@ public class Authentication : MonoBehaviour
                     if (password.text == reader["password"].ToString()){
                         Debug.Log("Login Sucessful");
                         Player.username = username.text;
+                        Player.userID = reader["ID"].ToString();
                         Player.Gold = (int)reader["GOLD"];
                         Player.EP = (int)reader["EP"];
                         Player.Exp = (int)reader["EXP"];

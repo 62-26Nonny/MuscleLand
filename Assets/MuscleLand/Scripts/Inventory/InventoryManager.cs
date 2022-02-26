@@ -18,12 +18,12 @@ public class InventoryManager : MonoBehaviour
     }
     public List<string> GetPathList(){
         
-        string userID = GetUserID().ToString();
         List<string> have_list = new List<string>();
+
         using (var conection = new SqliteConnection(db_sever)){
             conection.Open();
             using (var command = conection.CreateCommand()){
-                command.CommandText = "SELECT * FROM item WHERE itemID IN (SELECT itemID FROM inventory WHERE userID = '" + userID + "') ORDER BY itemID ;";
+                command.CommandText = "SELECT * FROM item WHERE itemID IN (SELECT itemID FROM inventory WHERE userID = '" + Player.userID + "') ORDER BY itemID ;";
                 using (var reader = command.ExecuteReader()){
                     
                         foreach(var item in reader)
@@ -41,7 +41,7 @@ public class InventoryManager : MonoBehaviour
         }
 
         List<string> Path_list = new List<string>();
-        
+
         using (var conection = new SqliteConnection(db_client)){
             conection.Open();
             using (var command = conection.CreateCommand()){
@@ -67,12 +67,12 @@ public class InventoryManager : MonoBehaviour
     }  
 
     public void AddItem(){
-        string userID = GetUserID().ToString();
+
         List<string> path_list = GetPathList();
          using (var conection = new SqliteConnection(db_sever)){
             conection.Open();
             using (var command = conection.CreateCommand()){
-                command.CommandText = "SELECT * FROM item WHERE itemID IN (SELECT itemID FROM inventory WHERE userID = '" + userID + "') ORDER BY itemID ;";
+                command.CommandText = "SELECT * FROM item WHERE itemID IN (SELECT itemID FROM inventory WHERE userID = '" + Player.userID + "') ORDER BY itemID ;";
                 using (var reader = command.ExecuteReader()){
                     
                         
@@ -83,19 +83,19 @@ public class InventoryManager : MonoBehaviour
                             Debug.Log("ID:" + reader["itemID"] + " Item name:" + reader["itemname"] + " Item price:" + reader["price"]);
                         
                            
-                            GameObject box = Instantiate(Prefab_Item);
+                            GameObject Clone = Instantiate(Prefab_Item);
                             
-                            box.SetActive(true);
-                            box.name = reader["itemID"].ToString();
+                            Clone.SetActive(true);
+                            Clone.name = reader["itemID"].ToString();
 
-                            box.transform.SetParent(list.transform, false);
+                            Clone.transform.SetParent(list.transform, false);
 
-                            Transform boxtran = box.transform;
+                            Transform CloneTran = Clone.transform;
 
-                            Transform name = boxtran.Find("name");
+                            Transform name = CloneTran.Find("name");
                             name.transform.GetComponent<Text>().text = reader["itemname"].ToString();
 
-                            Transform img = boxtran.Find("Image");
+                            Transform img = CloneTran.Find("Image");
                             img.transform.GetComponent<Image>().sprite = Resources.Load<Sprite>(path_list[index]);
 
                   
@@ -108,28 +108,6 @@ public class InventoryManager : MonoBehaviour
             }
             conection.Close();
         }
-    }
-
-    public int GetUserID(){ 
-
-        int ID = 0;
-
-        using (var conection = new SqliteConnection(db_sever)){
-            conection.Open();
-            using (var command = conection.CreateCommand()){
-                command.CommandText = "SELECT * FROM User WHERE username='" + Player.username + "';";
-                using (var reader = command.ExecuteReader()){
-
-       
-                    ID = int.Parse(reader["ID"].ToString());
-                        
-      
-                    reader.Close();
-                }
-            }
-            conection.Close();
-        }
-        return ID;
     }
 
 }

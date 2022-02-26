@@ -7,6 +7,7 @@ public class Player : MonoBehaviour
 {
     
     public static string username = "";
+    public static string userID = "";
     public static Sprite user_profile;
     public static int Level = 0;
     public static int Exp = 0;
