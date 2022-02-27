@@ -19,10 +19,10 @@ public class reDailyquest : MonoBehaviour
   // Start is called before the first frame update
   void Start()
   {
-    DateTime utcDate = DateTime.UtcNow;
+    DateTime utcDate = DateTime.UtcNow.Date;
     datetime = utcDate.ToString();
-    lastactive();
-    daycheck();
+    //lastactive();
+    //daycheck();
   }
   public void daycheck()
   {
