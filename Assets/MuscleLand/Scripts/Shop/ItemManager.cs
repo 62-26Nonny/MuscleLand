@@ -83,7 +83,7 @@ public class ItemManager : MonoBehaviour
                         List<string> DontHave = NotHaveList();
                         int index = 0;
 
-                        int child_lenght = list.transform.GetChildCount();
+                        int child_lenght = list.transform.childCount;
                         
                         foreach(var item in  reader)
                         {
@@ -117,7 +117,7 @@ public class ItemManager : MonoBehaviour
                                 
                             } else {
                                 Debug.LogWarning("Sent " + CloneTran.name + " to back");
-                                CloneTran.SetSiblingIndex(child_lenght);
+                                CloneTran.SetAsLastSibling();
                                 Clone.GetComponent<Button>().onClick.RemoveAllListeners();
                             }
 
