@@ -9,9 +9,6 @@ public class reDailyquest : MonoBehaviour
 {
   private string dbName = "URI=file:DB/server.db";
   private string dbNameC = "URI=file:DB/client.db";
-  private int rnd;
-  string lastdatetime;
-  string datetime;
   List<int> numbers = new List<int>();
   List<int> QID = new List<int>();
 
@@ -19,64 +16,36 @@ public class reDailyquest : MonoBehaviour
   // Start is called before the first frame update
   void Start()
   {
-    DateTime utcDate = DateTime.UtcNow;
-    datetime = utcDate.ToString();
-    lastactive();
     daycheck();
+    //rndDailyquest();
   }
   public void daycheck()
   {
+    string startday;
 
-    lastdatecheck();
-    DateTime utcDate = DateTime.UtcNow;
-    datetime = utcDate.ToString();
-    DateTime test = Convert.ToDateTime(lastdatetime);
-
-    if(test.Day != utcDate.Day || test.Month != utcDate.Month || test.Year != utcDate.Year)
+    using (var conection = new SqliteConnection(dbNameC))
     {
-      Debug.Log("re");
-      rndDailyquest();
-    }
-    else
-    {
-      Debug.Log("non");
-    }
-  }
-  public void lastactive()
-  {
-    using (var conection = new SqliteConnection(dbName))
-    {
-      //int sumquest;
       conection.Open();
       using (var command = conection.CreateCommand())
       {
-
-        command.CommandText = "UPDATE User set last_active = '" + datetime + "' where ID='1';";
-        command.ExecuteNonQuery();
-      }
-      conection.Close();
-    }
-  }
-
-  public void lastdatecheck()
-  {
-    using (var conection = new SqliteConnection(dbName))
-    {
-      //int sumquest;
-      conection.Open();
-      using (var command = conection.CreateCommand())
-      {
-        command.CommandText = "SELECT * FROM User WHERE ID == '1';";
+        command.CommandText = "SELECT * FROM dailyquest;";
         using (var reader = command.ExecuteReader())
         {
-          lastdatetime = reader["last_active"].ToString();
+          startday = reader["startdate"].ToString();
           reader.Close();
         }
       }
       conection.Close();
     }
+
+    DateTime startdate = Convert.ToDateTime(startday);
+
+    if (datetimer.currentdate.Date > startdate)
+    {
+      Debug.Log("reset");
+      rndDailyquest();
+    }
   }
-  // Update is called once per frame
   void Update()
   {
   }
@@ -84,13 +53,16 @@ public class reDailyquest : MonoBehaviour
   public void rndDailyquest()
   {
     int count;
-    int x;
+    int quest;
+    int rnd;
+    int i;
+
     using (var conection = new SqliteConnection(dbName))
     {
-      //int sumquest;
       conection.Open();
       using (var command = conection.CreateCommand())
       {
+
         command.CommandText = "SELECT questID FROM quest WHERE type == 'Daily';";
         using (var reader = command.ExecuteReader())
         {
@@ -106,26 +78,25 @@ public class reDailyquest : MonoBehaviour
           reader.Close();
         }
         conection.Close();
-        int i;
-        for (i = 0; i < 3; i++)
-        {
-          rnd = NewNumber(count);
-        };
-
-        for (i = 0; i < numbers.Count; i++)
-        {
-          x = i + 1;
-          resetDailyquest(QID[numbers[i]], x);
-        }
       }
     }
-  }
 
-  public void resetDailyquest(int id,int questnum)
+    for (i = 0; i < 3; i++)
+    {
+      rnd = NewNumber(count);
+    };
+
+    for (i = 0; i < numbers.Count; i++)
+    {
+      quest = i + 1;
+      ResetDailyquest(QID[numbers[i]], quest);
+    }
+
+  }
+  public void ResetDailyquest(int id,int questnum)
   {
     using (var conection = new SqliteConnection(dbNameC))
     {
-      //int sumquest;
       conection.Open();
       using (var command = conection.CreateCommand())
       {
@@ -133,16 +104,17 @@ public class reDailyquest : MonoBehaviour
         command.CommandText = "UPDATE dailyquest set questID = '" + id + "' where quest='" + questnum + "';";
         command.ExecuteNonQuery();
 
-        command.CommandText = "UPDATE dailyquest set claimed = 'false' where quest='" + questnum + "';";
+        command.CommandText = "UPDATE dailyquest set claimed = '0' where quest='" + questnum + "';";
         command.ExecuteNonQuery();
 
+        command.CommandText = "UPDATE dailyquest set startdate = '" + datetimer.currentdate.Date + "' where quest='" + questnum + "';";
+        command.ExecuteNonQuery();
       }
       conection.Close();
     }
   }
   public int NewNumber(int r)
   {
-
     int a = 0;
 
     while (a == 0)
