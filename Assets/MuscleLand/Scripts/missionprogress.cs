@@ -29,6 +29,7 @@ public class missionprogress : MonoBehaviour
   {
     float Svalue;
     float times;
+    bool claimed;
     string questdescription;
     int i;
 
@@ -50,6 +51,20 @@ public class missionprogress : MonoBehaviour
         conection.Close();
       }
 
+      using (var conection = new SqliteConnection(dbNameC))
+      {
+        conection.Open();
+        using (var command = conection.CreateCommand())
+        {
+          command.CommandText = "SELECT * FROM dailyquest WHERE questID = '" + DQID[i] + "';";
+          using (var reader = command.ExecuteReader())
+          {
+            claimed = (bool)reader["claimed"];
+          }
+        }
+        conection.Close();
+      }
+
       Svalue = missionboxDaily[i].transform.Find("Progress Slider").gameObject.GetComponent<Slider>().value;
       missionboxDaily[i].transform.Find("Progress Slider").gameObject.GetComponent<Slider>().maxValue = times;
       missionboxDaily[i].transform.Find("Missioninfo").gameObject.GetComponent<Text>().text = questdescription;
@@ -61,8 +76,16 @@ public class missionprogress : MonoBehaviour
       }
       else
       {
-        missionboxDaily[i].transform.Find("progress Text").gameObject.GetComponent<Text>().text = times.ToString() + "/" + times.ToString();
-        missionboxDaily[i].transform.Find("Button").gameObject.SetActive(true);
+        if (claimed)
+        {
+          missionboxDaily[i].transform.Find("progress Text").gameObject.SetActive(false);
+          missionboxDaily[i].transform.Find("complete Text").gameObject.SetActive(true);
+        }
+        else
+        {
+          missionboxDaily[i].transform.Find("progress Text").gameObject.GetComponent<Text>().text = times.ToString() + "/" + times.ToString();
+          missionboxDaily[i].transform.Find("Button").gameObject.SetActive(true);
+        }
       }
     }
 

@@ -933,7 +933,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 438055532}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &314149716
 GameObject:
@@ -2003,6 +2003,7 @@ Transform:
   m_LocalPosition: {x: 1206.2122, y: 552.0475, z: -74.79445}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
+  - {fileID: 965141539}
   - {fileID: 313693960}
   - {fileID: 1451280583}
   - {fileID: 703183011}
@@ -2895,7 +2896,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 438055532}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &703183012
 MonoBehaviour:
@@ -2909,7 +2910,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 40c0f99fe4dc82e44b11800f03b53dad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  datetime: 
 --- !u!1 &719063887
 GameObject:
   m_ObjectHideFlags: 0
@@ -3999,7 +3999,7 @@ GameObject:
   - component: {fileID: 918659603}
   - component: {fileID: 918659602}
   m_Layer: 5
-  m_Name: 'complteText '
+  m_Name: complete Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4228,6 +4228,49 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 947465078}
   m_CullTransparentMesh: 1
+--- !u!1 &965141538
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 965141539}
+  - component: {fileID: 965141540}
+  m_Layer: 0
+  m_Name: time
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &965141539
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 965141538}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 438055532}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &965141540
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 965141538}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd6491b2471762049bd130fd2d8693e6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &979769655
 GameObject:
   m_ObjectHideFlags: 0
@@ -4421,7 +4464,7 @@ GameObject:
   - component: {fileID: 996545758}
   - component: {fileID: 996545757}
   m_Layer: 5
-  m_Name: 'complteText '
+  m_Name: complete Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5116,7 +5159,7 @@ GameObject:
   - component: {fileID: 1108632821}
   - component: {fileID: 1108632820}
   m_Layer: 5
-  m_Name: 'complteText '
+  m_Name: complete Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6039,7 +6082,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 438055532}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1302749498
 MonoBehaviour:
@@ -6667,7 +6710,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 438055532}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1454191741
 GameObject:
@@ -6682,7 +6725,7 @@ GameObject:
   - component: {fileID: 1454191744}
   - component: {fileID: 1454191743}
   m_Layer: 5
-  m_Name: 'complteText '
+  m_Name: complete Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8524,7 +8567,7 @@ GameObject:
   - component: {fileID: 1942984530}
   - component: {fileID: 1942984529}
   m_Layer: 5
-  m_Name: 'complteText '
+  m_Name: complete Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8622,7 +8665,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1944730866
 Transform:
   m_ObjectHideFlags: 0
@@ -8635,7 +8678,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 438055532}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1944730867
 MonoBehaviour:
@@ -9033,7 +9076,7 @@ GameObject:
   - component: {fileID: 2138176802}
   - component: {fileID: 2138176801}
   m_Layer: 5
-  m_Name: 'complteText '
+  m_Name: complete Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
