@@ -18,7 +18,12 @@ public class Equipitem : MonoBehaviour
         UpdateWareItem(GetItemID());
 
         List<string> appearance_list  = GetAppearanceList();
-        Steve_Image.sprite = Resources.Load<Sprite>(appearance_list[0]);
+        if(appearance_list.Count > 0){
+            Steve_Image.sprite = Resources.Load<Sprite>(appearance_list[0]);
+        } else {
+            
+        }
+        
 
         
         Item_popup.SetActive(false);
@@ -58,7 +63,12 @@ public class Equipitem : MonoBehaviour
         using (var conection = new SqliteConnection(db_sever)){
             conection.Open();
             using (var command = conection.CreateCommand()){
-                command.CommandText = "UPDATE wearitem SET itemID = '" + itemID + "' WHERE userID = '" + Player.userID + "';;";
+                if(string.Equals(GetCurrentWare(), GetItemID())){
+                    command.CommandText = "UPDATE wearitem SET itemID = NULL WHERE userID = '" + Player.userID + "';;";
+                } else {
+                    command.CommandText = "UPDATE wearitem SET itemID = '" + itemID + "' WHERE userID = '" + Player.userID + "';;";
+                }
+                
                 command.ExecuteNonQuery();
             }
             conection.Close();
@@ -89,6 +99,31 @@ public class Equipitem : MonoBehaviour
         }
         return ID;
     }
+
+    public string GetCurrentWare(){ 
+
+        string ID = "";
+
+        using (var conection = new SqliteConnection(db_sever)){
+            conection.Open();
+            using (var command = conection.CreateCommand()){
+                command.CommandText = "SELECT * FROM wearitem WHERE userID='" + Player.userID + "';";
+                using (var reader = command.ExecuteReader()){
+
+       
+                    ID = reader["itemID"].ToString();
+                        
+      
+                    reader.Close();
+                }
+            }
+            conection.Close();
+        }
+        return ID;
+    }
+
+
+
 
     public List<string> EquipList(){
 

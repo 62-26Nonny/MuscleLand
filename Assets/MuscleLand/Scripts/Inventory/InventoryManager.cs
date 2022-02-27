@@ -118,8 +118,6 @@ public class InventoryManager : MonoBehaviour
 
                             Transform Equipped = CloneTran.Find("Equipped");
 
-                            Transform BuyButton = Detail.Find("Buy Button");
-
                             Transform name = Detail.Find("Name");
                             name.transform.GetComponent<Text>().text = reader["itemname"].ToString();
 
@@ -128,13 +126,8 @@ public class InventoryManager : MonoBehaviour
 
                             if(Equipped_list.Contains(reader["itemID"].ToString()) ){
                                 Equipped.gameObject.SetActive(true);
+
                             } 
-                            // else 
-                            // {
-                            //     Debug.LogWarning("Sent " + CloneTran.name + " to back");
-                            //     CloneTran.SetAsLastSibling();
-                            //     Clone.GetComponent<Button>().onClick.RemoveAllListeners();
-                            // }
 
                             index++;
                         }
