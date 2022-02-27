@@ -73,7 +73,7 @@ public class reWeeklyquest : MonoBehaviour
         command.CommandText = "UPDATE weeklyquest set questID = '" + id + "' where quest='" + questnum + "';";
         command.ExecuteNonQuery();
 
-        command.CommandText = "UPDATE weeklyquest set claimed = 'false' where quest='" + questnum + "';";
+        command.CommandText = "UPDATE weeklyquest set claimed = '0' where quest='" + questnum + "';";
         command.ExecuteNonQuery();
 
       }

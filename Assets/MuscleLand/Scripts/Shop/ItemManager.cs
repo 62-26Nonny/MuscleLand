@@ -11,20 +11,39 @@ public class ItemManager : MonoBehaviour
 
     [SerializeField] GameObject list;
     [SerializeField] GameObject Prefab_Item;
-
     void Start()
     {
         Debug.LogWarning("Reload shop");
         AddItem();
     }
-
-    void Update()
+        void Update()
     {
         
     }
     public List<string> GetPathList(){
         
-        
+        string userID = GetUserID().ToString();
+        List<string> Nothave_list = new List<string>();
+        using (var conection = new SqliteConnection(db_sever)){
+            conection.Open();
+            using (var command = conection.CreateCommand()){
+                command.CommandText = "SELECT * FROM item WHERE itemID NOT IN (SELECT itemID FROM inventory WHERE userID = '" + userID + "') ORDER BY itemID ;";
+                using (var reader = command.ExecuteReader()){
+                    
+                        foreach(var item in reader)
+                        {
+                            Debug.Log("ID:" + reader["itemID"] + " Item name:" + reader["itemname"] + " Item price:" + reader["price"]);
+                        
+                            Nothave_list.Add(reader["itemID"].ToString());
+                        }
+                        
+      
+                    reader.Close();
+                }
+            }
+            conection.Close();
+        }
+
         List<string> Path_list = new List<string>();
         
         using (var conection = new SqliteConnection(db_client)){
@@ -35,11 +54,13 @@ public class ItemManager : MonoBehaviour
 
                         foreach (var item in reader)
                         {
-        
-                            Path_list.Add(reader["pic"].ToString());
+                            if( Nothave_list.Contains(reader["itemID"].ToString()) ){
+                                Path_list.Add(reader["pic"].ToString());
+                            }
 
                         }
-                                 
+                        
+                        
       
                     reader.Close();
                 }
@@ -49,78 +70,41 @@ public class ItemManager : MonoBehaviour
         return Path_list;
     }  
 
-    public List<string> NotHaveList(){
-
-        List<string> Nothave_list = new List<string>();
-        using (var conection = new SqliteConnection(db_sever)){
-            conection.Open();
-            using (var command = conection.CreateCommand()){
-                command.CommandText = "SELECT * FROM item WHERE itemID NOT IN (SELECT itemID FROM inventory WHERE userID = '" + Player.userID + "') ORDER BY itemID ;";
-                using (var reader = command.ExecuteReader()){
-                    
-                        foreach(var item in reader)
-                        {
-                            Nothave_list.Add(reader["itemID"].ToString());
-                        }
-                        
-      
-                    reader.Close();
-                }
-            }
-            conection.Close();
-        }
-        return Nothave_list;
-    }
-
     public void AddItem(){
+        string userID = GetUserID().ToString();
         List<string> path_list = GetPathList();
          using (var conection = new SqliteConnection(db_sever)){
             conection.Open();
             using (var command = conection.CreateCommand()){
-                command.CommandText = "SELECT * FROM item ORDER BY itemID ;";
+                command.CommandText = "SELECT * FROM item WHERE itemID NOT IN (SELECT itemID FROM inventory WHERE userID = '" + userID + "') ORDER BY itemID ;";
                 using (var reader = command.ExecuteReader()){
                     
-                        List<string> DontHave = NotHaveList();
+                        
                         int index = 0;
 
-                        int child_lenght = list.transform.GetChildCount();
-                        
-                        foreach(var item in  reader)
+                        foreach(var item in reader)
                         {
+                            Debug.Log("ID:" + reader["itemID"] + " Item name:" + reader["itemname"] + " Item price:" + reader["price"]);
+                        
+                           
+                            GameObject box = Instantiate(Prefab_Item);
+                            
+                            box.SetActive(true);
+                            box.name = reader["itemID"].ToString();
 
-                            GameObject Clone = Instantiate(Prefab_Item);
+                            box.transform.SetParent(list.transform, false);
 
-                            Clone.SetActive(true);
-                            Clone.name = reader["itemID"].ToString();
+                            Transform boxtran = box.transform;
 
-                            Clone.transform.SetParent(list.transform, false);
-
-                            Transform CloneTran = Clone.transform;
-
-                            Transform Detail = CloneTran.Find("Detail");
-
-                            Transform Sold = CloneTran.Find("Sold Out");
-
-                            Transform BuyButton = Detail.Find("Buy Button");
-
-                            Transform name = Detail.Find("Name");
+                            Transform name = boxtran.Find("name");
                             name.transform.GetComponent<Text>().text = reader["itemname"].ToString();
 
-                            Transform img = Detail.Find("Image");
+                            Transform img = boxtran.Find("Image");
                             img.transform.GetComponent<Image>().sprite = Resources.Load<Sprite>(path_list[index]);
 
-                            Transform price = BuyButton.Find("Price");
+                            Transform price = boxtran.Find("price");
                             price.transform.GetComponent<Text>().text = reader["price"].ToString() + " Gold";
-
-                            if(DontHave.Contains(reader["itemID"].ToString()) ){
-                                Sold.gameObject.SetActive(false);
-                                
-                            } else {
-                                Debug.LogWarning("Sent " + CloneTran.name + " to back");
-                                CloneTran.SetSiblingIndex(child_lenght);
-                                Clone.GetComponent<Button>().onClick.RemoveAllListeners();
-                            }
-
+                  
                             index++;
                         }
                         
@@ -130,6 +114,28 @@ public class ItemManager : MonoBehaviour
             }
             conection.Close();
         }
+    }
+
+    public int GetUserID(){ 
+
+        int ID = 0;
+
+        using (var conection = new SqliteConnection(db_sever)){
+            conection.Open();
+            using (var command = conection.CreateCommand()){
+                command.CommandText = "SELECT * FROM User WHERE username='" + Player.username + "';";
+                using (var reader = command.ExecuteReader()){
+
+       
+                    ID = int.Parse(reader["ID"].ToString());
+                        
+      
+                    reader.Close();
+                }
+            }
+            conection.Close();
+        }
+        return ID;
     }
 
 }

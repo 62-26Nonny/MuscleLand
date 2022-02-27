@@ -23,24 +23,24 @@ public class reDailyquest : MonoBehaviour
     datetime = utcDate.ToString();
     //lastactive();
     //daycheck();
+    rndDailyquest();
   }
   public void daycheck()
   {
-
-    lastdatecheck();
+    //lastdatecheck();
     DateTime utcDate = DateTime.UtcNow;
     datetime = utcDate.ToString();
     DateTime test = Convert.ToDateTime(lastdatetime);
-
-    if(test.Day != utcDate.Day || test.Month != utcDate.Month || test.Year != utcDate.Year)
-    {
-      Debug.Log("re");
-      rndDailyquest();
-    }
-    else
-    {
-      Debug.Log("non");
-    }
+    //rndDailyquest();
+    //if(test.Day != utcDate.Day || test.Month != utcDate.Month || test.Year != utcDate.Year)
+    //{
+    //  Debug.Log("re");
+    //  rndDailyquest();
+    //}
+    //else
+    //{
+    //  Debug.Log("non");
+    //}
   }
   public void lastactive()
   {
@@ -133,7 +133,7 @@ public class reDailyquest : MonoBehaviour
         command.CommandText = "UPDATE dailyquest set questID = '" + id + "' where quest='" + questnum + "';";
         command.ExecuteNonQuery();
 
-        command.CommandText = "UPDATE dailyquest set claimed = 'false' where quest='" + questnum + "';";
+        command.CommandText = "UPDATE dailyquest set claimed = '0' where quest='" + questnum + "';";
         command.ExecuteNonQuery();
 
       }
