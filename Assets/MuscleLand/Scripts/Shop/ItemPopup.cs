@@ -17,12 +17,12 @@ public class ItemPopup : MonoBehaviour
     [SerializeField] Text item_name;
     [SerializeField] Image item_image;
     [SerializeField] Text item_price;
+    
     public void Show(){
         
         popup_name.text = item_name.text;
         popup_image.sprite = item_image.sprite;
         popup_price.text = item_price.text;
-        
 
         using (var conection = new SqliteConnection(db_client)){
             conection.Open();
@@ -37,18 +37,6 @@ public class ItemPopup : MonoBehaviour
             }
             conection.Close();
         }
-
-        
-       // popup_name.text = transform.parent.GetChildCount
-        // Transform itemTran = item.transform;
-
-        // Transform name = itemTran.Find("name");
-        // Debug.Log("name before replace:" + name.transform.GetComponent<Text>().text);
-        // popup_name.text = name.transform.GetComponent<Text>().text;
-        // Debug.Log("name after replace:" + name.transform.GetComponent<Text>().text);
-
-        // Transform img = itemTran.Find("Image");
-        // popup_image.sprite = img.transform.GetComponent<Image>().sprite;
 
         canvas.SetActive(true);
     }

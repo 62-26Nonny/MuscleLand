@@ -23,7 +23,7 @@ public class Database : MonoBehaviour
         using (var conection = new SqliteConnection(dbName)){
             conection.Open();
             using (var command = conection.CreateCommand()){
-                command.CommandText = "UPDATE User SET GOLD = " + Player.Gold +", EXP = " + Player.Exp + " WHERE username='" + Player.username + "';";
+                command.CommandText = "UPDATE User SET GOLD = " + Player.Gold +", EXP = " + (Player.Exp + (Player.Level - 1) * 100) + " WHERE username='" + Player.username + "';";
                 command.ExecuteNonQuery();
             }
             conection.Close();
