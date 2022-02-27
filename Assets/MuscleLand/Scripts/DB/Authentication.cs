@@ -22,8 +22,7 @@ public class Authentication : MonoBehaviour
                         Player.username = username.text;
                         Player.Gold = (int)reader["GOLD"];
                         Player.EP = (int)reader["EP"];
-                        Player.Exp = (int)reader["EXP"] % 100;
-                        Player.Level += (int)reader["EXP"] / 100;
+                        Player.Exp = (int)reader["EXP"];
                         SceneManager.LoadScene("Main Menu");
                     } else {
                         Debug.Log("Wrong password");

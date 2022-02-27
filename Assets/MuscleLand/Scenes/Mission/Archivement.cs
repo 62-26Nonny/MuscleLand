@@ -42,7 +42,11 @@ public class Archivement : MonoBehaviour
           {
             times = float.Parse(reader["times"].ToString());
             arc = reader["arcname"].ToString();
-            level = (int)reader["level"];
+          }
+          command.CommandText = "SELECT * FROM userachievement WHERE userID == 1 AND arcID = '" + arcID + "';";
+          using (var reader = command.ExecuteReader())
+          {
+            level = (int)reader["curlvl"];
           }
         }
         conection.Close();

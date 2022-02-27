@@ -32,8 +32,8 @@ public class Counter : MonoBehaviour
                     return false;
                 }
             case "Jumping Jack":
-                if (L_elbow_angle >= 130 & R_elbow_angle >= 130 & L_shoulder_angle <= 175 & R_shoulder_angle <= 175 
-                & L_shoulder_angle >= 145 & R_shoulder_angle >= 145) {
+                if (L_elbow_angle >= 100 & R_elbow_angle >= 100 & L_shoulder_angle <= 160 & R_shoulder_angle <= 160 
+                & L_shoulder_angle >= 140 & R_shoulder_angle >= 140) {
                     return true;
                 }
                 else{
@@ -62,7 +62,7 @@ public class Counter : MonoBehaviour
                     return false;
                 }
             case "Jumping Jack":
-                if (L_knee_angle >= 165 & R_knee_angle >= 165 & L_hip_angle <= 170 & R_hip_angle <= 170 & L_hip_angle >= 160 & R_hip_angle >= 160) {
+                if (L_knee_angle >= 110 & R_knee_angle >= 110 & L_hip_angle <= 160 & R_hip_angle <= 160 & L_hip_angle >= 150 & R_hip_angle >= 150) {
                     return true;
                 }
                 else {
