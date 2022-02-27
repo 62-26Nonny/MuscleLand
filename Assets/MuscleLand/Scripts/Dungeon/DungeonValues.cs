@@ -14,7 +14,7 @@ public class DungeonValues: MonoBehaviour
     public static int monsterKilled = 0;
     public static int monsterMax = 0;
     public static int Duration = 0;
-    public static int Interval = 0;
+    public static float Interval = 0;
     public static int Gold_recieved = 0;
     public static int Exp_recieved = 0;
 
@@ -25,21 +25,21 @@ public class DungeonValues: MonoBehaviour
                 Dungeon_detail = "Squat Squat let's to squat";
                 monsterMax = 10;
                 Interval = 3;
-                Duration = monsterMax * Interval;
+                Duration = (int)(monsterMax * Interval);
                 break;
             case Name.Jump:
                 Dungeon_displayname = "Jumping Jack";
                 Dungeon_detail = "Fight your ways through the enemy by jumping to a position with the legs spread wide and the hands going overhead";
                 monsterMax = 20;
-                Interval = 2;
-                Duration = monsterMax * Interval;
+                Interval = 1.5f;
+                Duration = (int)(monsterMax * Interval);
                 break;
             case Name.Knee:
                 Dungeon_displayname = "Rising Knee";
                 Dungeon_detail = "Fight your ways through the enemy by move your knee up and down repeatly";
                 monsterMax = 30;
-                Interval = 2;
-                Duration = monsterMax * Interval;
+                Interval = 1;
+                Duration = (int)(monsterMax * Interval);
                 break;
         }
         
@@ -53,21 +53,21 @@ public class DungeonValues: MonoBehaviour
                 Dungeon_detail = "Squat Squat let's to squat";
                 monsterMax = 10;
                 Interval = 3;
-                Duration = monsterMax * Interval;
+                Duration = (int)(monsterMax * Interval);
                 break;
             case Name.Jump:
                 Dungeon_displayname = "Jumping Jack";
                 Dungeon_detail = "Fight your ways through the enemy by jumping to a position with the legs spread wide and the hands going overhead";
                 monsterMax = 20;
-                Interval = 2;
-                Duration = monsterMax * Interval;
+                Interval = 1.5f;
+                Duration = (int)(monsterMax * Interval);
                 break;
             case Name.Knee:
                 Dungeon_displayname = "Rising Knee";
                 Dungeon_detail = "Fight your ways through the enemy by move your knee up and down repeatly";
                 monsterMax = 30;
-                Interval = 2;
-                Duration = monsterMax * Interval;
+                Interval = 1;
+                Duration = (int)(monsterMax * Interval);
                 break;
         }
         difficulty_check();
