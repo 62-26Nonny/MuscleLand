@@ -63,14 +63,6 @@ public class DungeonRewarding : MonoBehaviour
         // Gold and Exp
         Player.Gold += DungeonValues.Gold_recieved;
         Player.Exp += DungeonValues.Exp_recieved;
-        
-        if (Player.Exp >= 100){
-            Player.Level += Player.Exp / 100;
-            Player.Exp = Player.Exp % 100;
-        }
-
-        Database.Instance.DungeonRewarding();
-
         showRewardingPopup();
     }
 

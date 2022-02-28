@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using Mono.Data.Sqlite;
 
+[System.Serializable]
 public class Player : MonoBehaviour
 {
     private static string db_sever = "URI=file:DB/server.db";
@@ -16,12 +17,21 @@ public class Player : MonoBehaviour
     public static int Exp = 0;
     public static int Gold = 0;
     public static int EP = 0;
+    public static int total_reward = 0;
+    public static float current_progress = 0f;
     public static string[] items;
 
     public static List<string>  appearance_list  = GetAppearanceList();
 
     private void Start() {
         DontDestroyOnLoad(gameObject);
+    }
+
+    private void Update() {
+        if (Exp >= 100){
+            Level += Exp / 100;
+            Exp = Exp % 100;
+        }
     }
 
     public static List<string> GetAppearanceList(){

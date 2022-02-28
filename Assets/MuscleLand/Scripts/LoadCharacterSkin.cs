@@ -9,15 +9,12 @@ public class LoadCharacterSkin : MonoBehaviour
 {
     public string current_scene;
     
-    List<string> scence_list = new List<string> {"Inventory", "Main Menu", "Shop", "Profile"} ;
+    List<string> scence_list = new List<string> {"Inventory", "Main Menu", "Shop", "Profile"};
     private void Awake() {
 
         DontDestroyOnLoad(gameObject);
 
     }
-
-
-
     private void Update() {
         
         if( scence_list.Contains(SceneManager.GetActiveScene().name)){
