@@ -11,6 +11,7 @@ public class Counter : MonoBehaviour
     [SerializeField] public Text leg_status;
     [SerializeField] public Text stand_status;
     public static string stage = "None";
+    public static string knee_stage = "";
     public static int count = 0;
     public static int L_elbow_angle;
     public static int R_elbow_angle;
@@ -40,8 +41,7 @@ public class Counter : MonoBehaviour
                     return false;
                 }
             case "Rising Knee":
-                if (L_elbow_angle >= 150 & R_elbow_angle >= 150 & L_shoulder_angle <= 130 & R_shoulder_angle <= 130 
-                & L_shoulder_angle >= 80 & R_shoulder_angle >= 80) {
+                if (L_elbow_angle >= 120 & R_elbow_angle >= 120 & L_shoulder_angle <= 45 & R_shoulder_angle <= 45) {
                     return true;
                 }
                 else{
@@ -69,7 +69,12 @@ public class Counter : MonoBehaviour
                     return false;
                 }
             case "Rising Knee":
-                if (L_knee_angle <= 60 & R_knee_angle <= 60) {
+                if (L_knee_angle <= 60 & L_hip_angle <= 110){
+                    knee_stage = "left";
+                    return true;
+                }
+                else if (R_knee_angle <= 60 & R_hip_angle <= 110) {
+                    knee_stage = "right";
                     return true;
                 }
                 else {
@@ -110,23 +115,52 @@ public class Counter : MonoBehaviour
     }
 
     public static bool isCorrectGesture() {
-        if (hand_gesture() & leg_gesture()) {
-            return true;
-        }
-        else {
-            return false;
+        switch (DungeonValues.Dungeon_displayname){
+            case "Squat":
+            case "Jumping Jack":
+                if (hand_gesture() & leg_gesture()) {
+                    return true;
+                }
+                else {
+                    return false;
+                }
+            case "Rising Knee":
+                if (leg_gesture()) {
+                    return true;
+                }
+                else {
+                    return false;
+                }
+            default:
+                return false;
         }
     }
 
     public static void counter() {
-        if (isCorrectGesture()) {
-            stage = "Down";
-        }
-        
-        if (isStand() & stage == "Down") {
-            stage = "Up";
-            count += 1;
-            Destroyer.Destruction();            
+        switch (DungeonValues.Dungeon_displayname){
+            case "Squat":
+            case "Jumping Jack":
+                if (isCorrectGesture()) {
+                    stage = "Down";
+                }
+                if (isStand() & stage == "Down") {
+                    stage = "Up";
+                    count += 1;
+                    Destroyer.Destruction();   
+                }
+                break;
+            case "Rising Knee":
+                if (isCorrectGesture() & (knee_stage == "left" || knee_stage == "right")){
+                    if (stage == "None"){
+                        stage = knee_stage;
+                    }
+                    else if (stage != knee_stage){
+                        stage = knee_stage;
+                        count += 1;
+                        Destroyer.Destruction();
+                    }
+                }
+                break;
         }
     }
 

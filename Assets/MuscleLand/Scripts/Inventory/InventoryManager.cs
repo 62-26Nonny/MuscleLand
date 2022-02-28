@@ -66,25 +66,47 @@ public class InventoryManager : MonoBehaviour
         return Path_list;
     }  
 
+     public List<string> EquipList(){
+
+        List<string> Equip_list = new List<string>();
+        using (var conection = new SqliteConnection(db_sever)){
+            conection.Open();
+            using (var command = conection.CreateCommand()){
+                command.CommandText = "SELECT * FROM wearitem WHERE userID = '" + Player.userID + "';";
+                using (var reader = command.ExecuteReader()){
+                    
+                        foreach(var item in reader)
+                        {
+                            Equip_list.Add(reader["itemID"].ToString());
+                        }
+                        
+      
+                    reader.Close();
+                }
+            }
+            conection.Close();
+        }
+        return Equip_list;
+    }
+
     public void AddItem(){
 
         List<string> path_list = GetPathList();
+        
          using (var conection = new SqliteConnection(db_sever)){
             conection.Open();
             using (var command = conection.CreateCommand()){
                 command.CommandText = "SELECT * FROM item WHERE itemID IN (SELECT itemID FROM inventory WHERE userID = '" + Player.userID + "') ORDER BY itemID ;";
                 using (var reader = command.ExecuteReader()){
                     
-                        
+                        List<string> Equipped_list = EquipList();
                         int index = 0;
 
-                        foreach(var item in reader)
+                     foreach(var item in  reader)
                         {
-                            Debug.Log("ID:" + reader["itemID"] + " Item name:" + reader["itemname"] + " Item price:" + reader["price"]);
-                        
-                           
+
                             GameObject Clone = Instantiate(Prefab_Item);
-                            
+
                             Clone.SetActive(true);
                             Clone.name = reader["itemID"].ToString();
 
@@ -92,13 +114,21 @@ public class InventoryManager : MonoBehaviour
 
                             Transform CloneTran = Clone.transform;
 
-                            Transform name = CloneTran.Find("name");
+                            Transform Detail = CloneTran.Find("Detail");
+
+                            Transform Equipped = CloneTran.Find("Equipped");
+
+                            Transform name = Detail.Find("Name");
                             name.transform.GetComponent<Text>().text = reader["itemname"].ToString();
 
-                            Transform img = CloneTran.Find("Image");
+                            Transform img = Detail.Find("Image");
                             img.transform.GetComponent<Image>().sprite = Resources.Load<Sprite>(path_list[index]);
 
-                  
+                            if(Equipped_list.Contains(reader["itemID"].ToString()) ){
+                                Equipped.gameObject.SetActive(true);
+
+                            } 
+
                             index++;
                         }
                         

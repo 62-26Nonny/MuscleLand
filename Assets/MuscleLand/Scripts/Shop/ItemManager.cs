@@ -118,7 +118,7 @@ public class ItemManager : MonoBehaviour
                             } else {
                                 Debug.LogWarning("Sent " + CloneTran.name + " to back");
                                 CloneTran.SetAsLastSibling();
-                                Clone.GetComponent<Button>().onClick.RemoveAllListeners();
+                                Destroy(CloneTran.GetComponent<Button>());
                             }
 
                             index++;

@@ -15,6 +15,14 @@ public class ProgressBar : MonoBehaviour
     private void Start() {
         Instance = this;
         isFirstBar = true;
+        total_reward = Player.total_reward;
+        if (total_reward > 0){
+            progress.value = 10000;
+            next_bar_value = Player.current_progress;
+        }
+        else {
+            progress.value = Player.current_progress;
+        }
     }
 
     private void Update() {
@@ -26,23 +34,28 @@ public class ProgressBar : MonoBehaviour
         float inc_distance = DistanceCalculator.Instance.distance / (updateTimed * 100);
         while (updateTimed > 0){
             // If reach max distance
-            if (progress.value + inc_distance >= 10000){
+            if (Player.current_progress + inc_distance >= 10000){
                 // Store next bar distance value
                 next_bar_value += (progress.value + inc_distance) % 10000;
+                Player.current_progress = next_bar_value;
                 // If next bar value stack reach max distance
                 if (next_bar_value >= 10000){
                     total_reward += (int)Mathf.Floor(next_bar_value / 10000);
+                    Player.total_reward += (int)Mathf.Floor(next_bar_value / 10000);
                     next_bar_value = next_bar_value % 10000;
                 }
                 else if (isFirstBar){
                     // Stack reward following number of reaching max distance
                     total_reward += (int)Mathf.Floor((progress.value + inc_distance) / 10000);
+                    Player.total_reward += (int)Mathf.Floor((progress.value + inc_distance) / 10000);
                     isFirstBar = false;
                 }
                 // Set value to reach max distance
                 progress.value = 10000;
             } else {
                 progress.value += inc_distance;
+                Player.current_progress += inc_distance;
+                LoopGround.Instance.loop(inc_distance);
             }
             yield return new WaitForSeconds(0.01f);
             updateTimed -= 0.01f;
@@ -51,8 +64,10 @@ public class ProgressBar : MonoBehaviour
     
     public void ResetProgress(){
         progress.value = next_bar_value;
+        Player.current_progress = next_bar_value;
         next_bar_value = 0;
         total_reward = 0;
+        Player.total_reward = 0;
         isFirstBar = true;
     }
 

@@ -9,19 +9,12 @@ public class Spawner : MonoBehaviour
     [SerializeField] GameObject[] monsterPrefab;
     [SerializeField] float minTras;
     [SerializeField] float maxTras;
-    public float nextSpawn;
     public Timer Timer_script;
     
-    // Start is called before the first frame update
-    void Start()
-    {
-        nextSpawn = DungeonValues.Interval;
-    }
-
     public IEnumerator monsterSpawner()
     {
         
-        while (Timer_script.currentTime >= nextSpawn)
+        while (Timer_script.currentTime >= DungeonValues.Interval)
         {
             
             var pos_range_x = Random.Range(minTras, maxTras);
@@ -34,7 +27,7 @@ public class Spawner : MonoBehaviour
             gameObject.transform.SetParent(GameObject.Find("Canvas").transform, true);
 
             // Wait for Attacking
-            yield return new WaitForSeconds(nextSpawn);
+            yield return new WaitForSeconds(DungeonValues.Interval);
 
             // If Time out then Escaped
             Destroy(gameObject);

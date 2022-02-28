@@ -19,16 +19,14 @@ public class BuyItem : MonoBehaviour
         string[] textSplit = Item_Price.text.Split();
         int price = int.Parse(textSplit[0]);
         int User_gold = Player.Gold;
-         
-
-
+    
         if( price < User_gold){
 
             Player.Gold -= price;
             
             UpdateUser();
 
-            UpdateInventory(GetUserID(), GetItemID());
+            UpdateInventory(GetItemID());
             Item_popup.SetActive(false);
             SceneManager.LoadScene("Shop");
 
@@ -51,12 +49,12 @@ public class BuyItem : MonoBehaviour
     }
 
 
-     public void UpdateInventory(int userID, int itemID){ 
+     public void UpdateInventory(int itemID){ 
 
         using (var conection = new SqliteConnection(db_sever)){
             conection.Open();
             using (var command = conection.CreateCommand()){
-                command.CommandText = "INSERT INTO inventory VALUES (" + userID + ", " + itemID + ", " + 1 + ");";
+                command.CommandText = "INSERT INTO inventory VALUES (" + Player.userID + ", " + itemID + ", " + 1 + ");";
                 command.ExecuteNonQuery();
             }
             conection.Close();
@@ -65,27 +63,6 @@ public class BuyItem : MonoBehaviour
     }
 
 
-    public int GetUserID(){ 
-
-        int ID = 0;
-
-        using (var conection = new SqliteConnection(db_sever)){
-            conection.Open();
-            using (var command = conection.CreateCommand()){
-                command.CommandText = "SELECT * FROM User WHERE username='" + Player.username + "';";
-                using (var reader = command.ExecuteReader()){
-
-       
-                    ID = int.Parse(reader["ID"].ToString());
-                        
-      
-                    reader.Close();
-                }
-            }
-            conection.Close();
-        }
-        return ID;
-    }
 
      public int GetItemID(){ 
 
