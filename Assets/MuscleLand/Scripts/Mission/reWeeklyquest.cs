@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.Networking;
 using Mono.Data.Sqlite;
 
-public class reDailyquest : MonoBehaviour
+public class reWeeklyquest : MonoBehaviour
 {
   private string dbName = "URI=file:DB/server.db";
   private string dbNameC = "URI=file:DB/client.db";
@@ -17,7 +17,7 @@ public class reDailyquest : MonoBehaviour
   void Start()
   {
     daycheck();
-    //rndDailyquest();
+    //rndWeeklyquest();
   }
   public void daycheck()
   {
@@ -28,7 +28,7 @@ public class reDailyquest : MonoBehaviour
       conection.Open();
       using (var command = conection.CreateCommand())
       {
-        command.CommandText = "SELECT * FROM dailyquest;";
+        command.CommandText = "SELECT * FROM weeklyquest;";
         using (var reader = command.ExecuteReader())
         {
           startday = reader["startdate"].ToString();
@@ -39,18 +39,17 @@ public class reDailyquest : MonoBehaviour
     }
 
     DateTime startdate = Convert.ToDateTime(startday);
-
-    if (datetimer.currentdate.Date > startdate)
+    if (datetimer.currentdate.Date >= startdate.AddDays(7))
     {
       Debug.Log("reset");
-      rndDailyquest();
+      rndWeeklyquest();
     }
   }
   void Update()
   {
   }
 
-  public void rndDailyquest()
+  public void rndWeeklyquest()
   {
     int count;
     int quest;
@@ -63,15 +62,15 @@ public class reDailyquest : MonoBehaviour
       using (var command = conection.CreateCommand())
       {
 
-        command.CommandText = "SELECT questID FROM quest WHERE type == 'Daily';";
+        command.CommandText = "SELECT questID FROM quest WHERE type == 'Weekly';";
         using (var reader = command.ExecuteReader())
         {
-         while (reader.Read())
+          while (reader.Read())
             QID.Add(int.Parse(reader["questID"].ToString()));
           reader.Close();
         }
 
-        command.CommandText = "SELECT COUNT(questID) FROM quest WHERE type == 'Daily';";
+        command.CommandText = "SELECT COUNT(questID) FROM quest WHERE type == 'Weekly';";
         using (var reader = command.ExecuteReader())
         {
           count = int.Parse(reader["COUNT(questID)"].ToString());
@@ -89,11 +88,11 @@ public class reDailyquest : MonoBehaviour
     for (i = 0; i < numbers.Count; i++)
     {
       quest = i + 1;
-      ResetDailyquest(QID[numbers[i]], quest);
+      ResetWeeklyquest(QID[numbers[i]], quest);
     }
 
   }
-  public void ResetDailyquest(int id,int questnum)
+  public void ResetWeeklyquest(int id, int questnum)
   {
     using (var conection = new SqliteConnection(dbNameC))
     {
@@ -101,13 +100,24 @@ public class reDailyquest : MonoBehaviour
       using (var command = conection.CreateCommand())
       {
 
-        command.CommandText = "UPDATE dailyquest set questID = '" + id + "' where quest='" + questnum + "';";
+        command.CommandText = "UPDATE weeklyquest set questID = '" + id + "' where quest='" + questnum + "';";
         command.ExecuteNonQuery();
 
-        command.CommandText = "UPDATE dailyquest set claimed = '0' where quest='" + questnum + "';";
+        command.CommandText = "UPDATE weeklyquest set claimed = '0' where quest='" + questnum + "';";
         command.ExecuteNonQuery();
 
-        command.CommandText = "UPDATE dailyquest set startdate = '" + datetimer.currentdate.Date + "' where quest='" + questnum + "';";
+        command.CommandText = "UPDATE weeklyquest set startdate = '" + datetimer.currentdate.Date + "' where quest='" + questnum + "';";
+        command.ExecuteNonQuery();
+      }
+      conection.Close();
+    }
+
+    using (var conection = new SqliteConnection(dbName))
+    {
+      conection.Open();
+      using (var command = conection.CreateCommand())
+      {
+        command.CommandText = "UPDATE dungeonstat set weekly = '0';";
         command.ExecuteNonQuery();
       }
       conection.Close();
@@ -119,7 +129,7 @@ public class reDailyquest : MonoBehaviour
 
     while (a == 0)
     {
-      a = UnityEngine.Random.Range(0, r-1);
+      a = UnityEngine.Random.Range(0, r - 1);
       if (!numbers.Contains(a))
       {
         numbers.Add(a);

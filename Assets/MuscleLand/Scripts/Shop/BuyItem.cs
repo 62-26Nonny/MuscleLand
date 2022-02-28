@@ -19,9 +19,7 @@ public class BuyItem : MonoBehaviour
         string[] textSplit = Item_Price.text.Split();
         int price = int.Parse(textSplit[0]);
         int User_gold = Player.Gold;
-         
-
-
+    
         if( price < User_gold){
 
             Player.Gold -= price;

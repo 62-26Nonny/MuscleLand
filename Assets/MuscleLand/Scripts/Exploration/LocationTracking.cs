@@ -21,7 +21,7 @@ public class LocationTracking : MonoBehaviour
     }
 
     private void Update() {
-        if (Input.location.status == LocationServiceStatus.Running){
+        // if (Input.location.status == LocationServiceStatus.Running){
             if (Input.location.lastData.latitude != latitude || Input.location.lastData.longitude != longitude){
                 if (!isfirstLoad){
                     latitude_old = latitude;
@@ -33,7 +33,7 @@ public class LocationTracking : MonoBehaviour
                 StartCoroutine(ProgressBar.Instance.updateProgress());
                 isfirstLoad = false;
             }
-        }
+        // }
     }
 
     private IEnumerator CheckPermissions(){
