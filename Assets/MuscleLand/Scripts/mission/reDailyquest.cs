@@ -9,7 +9,7 @@ public class reDailyquest : MonoBehaviour
 {
   private string dbName = "URI=file:DB/server.db";
   private string dbNameC = "URI=file:DB/client.db";
-  public int userID = 1;
+  string userID = Player.userID;
   List<int> numbers = new List<int>();
   List<int> QID = new List<int>();
 
@@ -19,6 +19,9 @@ public class reDailyquest : MonoBehaviour
   {
     daycheck();
     //rndDailyquest();
+  }
+  void Update()
+  {
   }
   public void daycheck()
   {
@@ -45,10 +48,8 @@ public class reDailyquest : MonoBehaviour
     {
       Debug.Log("reset");
       rndDailyquest();
+      missionprogress.Instance.progresstextdaily();
     }
-  }
-  void Update()
-  {
   }
 
   public void rndDailyquest()

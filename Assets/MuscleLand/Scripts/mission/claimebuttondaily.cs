@@ -12,7 +12,7 @@ public class claimebuttondaily : MonoBehaviour
   public Text GOLDtext;
   public int getXP;
   public int getGOLD;
-  public int userID = 1;
+  string userID = Player.userID;
   void Start()
   {
 
@@ -81,7 +81,7 @@ public class claimebuttondaily : MonoBehaviour
     }
   }
 
-  public void updateuser(int ID)
+  public void updateuser(string ID)
   {
     int currentEXP;
     int currentGOLD;

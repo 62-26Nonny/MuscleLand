@@ -8,7 +8,8 @@ public class missionprogress : MonoBehaviour
 {
   private string dbName = "URI=file:DB/server.db";
   private string dbNameC = "URI=file:DB/client.db";
-  int userid = 1;
+  string userid = Player.userID;
+  public static missionprogress Instance;
   List<int> DQID = new List<int>();
   List<int> WQID = new List<int>();
 
@@ -16,6 +17,7 @@ public class missionprogress : MonoBehaviour
   public List<GameObject> missionboxWeekly;
   void Start()
   {
+    Instance = this;
     addQID();
     progresstextdaily();
     progresstextweekly();
@@ -24,7 +26,7 @@ public class missionprogress : MonoBehaviour
   // Update is called once per frame
   void Update()
   {
-    
+
   }
 
   public void progresstextdaily()
