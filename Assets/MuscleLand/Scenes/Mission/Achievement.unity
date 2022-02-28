@@ -406,7 +406,7 @@ GameObject:
   - component: {fileID: 204942585}
   - component: {fileID: 204942584}
   m_Layer: 5
-  m_Name: arcbox3
+  m_Name: 3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1616,6 +1616,7 @@ GameObject:
   - component: {fileID: 656511918}
   - component: {fileID: 656511917}
   - component: {fileID: 656511916}
+  - component: {fileID: 656511919}
   m_Layer: 5
   m_Name: Button
   m_TagString: Untagged
@@ -1699,6 +1700,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 656511919}
+        m_TargetAssemblyTypeName: arcbutton, Assembly-CSharp
+        m_MethodName: rewarding
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &656511917
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1737,6 +1750,23 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 656511914}
   m_CullTransparentMesh: 1
+--- !u!114 &656511919
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 656511914}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0731c5b699c971842b31eca45afd82d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  XPtext: {fileID: 501826080}
+  GOLDtext: {fileID: 1350223509}
+  getXP: 0
+  getGOLD: 0
+  userID: 1
 --- !u!1 &696294208
 GameObject:
   m_ObjectHideFlags: 0
@@ -2146,6 +2176,7 @@ GameObject:
   - component: {fileID: 794914366}
   - component: {fileID: 794914365}
   - component: {fileID: 794914364}
+  - component: {fileID: 794914367}
   m_Layer: 5
   m_Name: Button
   m_TagString: Untagged
@@ -2229,6 +2260,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 794914367}
+        m_TargetAssemblyTypeName: arcbutton, Assembly-CSharp
+        m_MethodName: rewarding
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &794914365
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2267,6 +2310,23 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 794914362}
   m_CullTransparentMesh: 1
+--- !u!114 &794914367
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 794914362}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0731c5b699c971842b31eca45afd82d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  XPtext: {fileID: 501826080}
+  GOLDtext: {fileID: 1350223509}
+  getXP: 0
+  getGOLD: 0
+  userID: 1
 --- !u!1 &874874775
 GameObject:
   m_ObjectHideFlags: 0
@@ -2279,7 +2339,7 @@ GameObject:
   - component: {fileID: 874874778}
   - component: {fileID: 874874777}
   m_Layer: 5
-  m_Name: EP_icon
+  m_Name: gold_icon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3229,7 +3289,7 @@ GameObject:
   - component: {fileID: 1350223510}
   - component: {fileID: 1350223509}
   m_Layer: 5
-  m_Name: EP_text
+  m_Name: gold_text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3251,8 +3311,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 238.9866, y: -18.9933}
-  m_SizeDelta: {x: 249.2457, y: 109.4634}
+  m_AnchoredPosition: {x: 317.36786, y: -18.9933}
+  m_SizeDelta: {x: 406.0082, y: 109.4634}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1350223509
 MonoBehaviour:
@@ -3331,7 +3391,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.50002, y: -372.63828}
+  m_AnchoredPosition: {x: -0.50002, y: -372.63773}
   m_SizeDelta: {x: 1732, y: 940}
   m_Pivot: {x: 0.49999997, y: 0.284428}
 --- !u!1 &1376149675
@@ -4306,8 +4366,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 36957809}
   m_HandleRect: {fileID: 36957808}
   m_Direction: 2
-  m_Value: 1.0000019
-  m_Size: 0.6327175
+  m_Value: 1.0000002
+  m_Size: 0.63829786
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -4363,7 +4423,7 @@ GameObject:
   - component: {fileID: 1747809547}
   - component: {fileID: 1747809546}
   m_Layer: 5
-  m_Name: 'complteText '
+  m_Name: complete Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4546,7 +4606,7 @@ GameObject:
   - component: {fileID: 1773086161}
   - component: {fileID: 1773086160}
   m_Layer: 5
-  m_Name: arcbox1
+  m_Name: 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4763,7 +4823,7 @@ GameObject:
   - component: {fileID: 1859075844}
   - component: {fileID: 1859075843}
   m_Layer: 5
-  m_Name: arcbox2
+  m_Name: 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4975,6 +5035,7 @@ GameObject:
   - component: {fileID: 1927053691}
   - component: {fileID: 1927053690}
   - component: {fileID: 1927053689}
+  - component: {fileID: 1927053692}
   m_Layer: 5
   m_Name: Button
   m_TagString: Untagged
@@ -5058,6 +5119,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1927053692}
+        m_TargetAssemblyTypeName: arcbutton, Assembly-CSharp
+        m_MethodName: rewarding
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1927053690
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5096,6 +5169,23 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1927053687}
   m_CullTransparentMesh: 1
+--- !u!114 &1927053692
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1927053687}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0731c5b699c971842b31eca45afd82d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  XPtext: {fileID: 501826080}
+  GOLDtext: {fileID: 1350223509}
+  getXP: 0
+  getGOLD: 0
+  userID: 1
 --- !u!1 &1949598019
 GameObject:
   m_ObjectHideFlags: 0
@@ -5360,7 +5450,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2135145372}
   m_Layer: 5
-  m_Name: EP
+  m_Name: GOLD
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -268,7 +268,7 @@ GameObject:
   - component: {fileID: 95167155}
   - component: {fileID: 95167154}
   m_Layer: 5
-  m_Name: Dmissionbox2
+  m_Name: 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -579,7 +579,7 @@ GameObject:
   - component: {fileID: 227692013}
   - component: {fileID: 227692012}
   m_Layer: 5
-  m_Name: EP_text
+  m_Name: GOLD_text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -601,8 +601,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 238.9866, y: -18.9933}
-  m_SizeDelta: {x: 249.2457, y: 109.4634}
+  m_AnchoredPosition: {x: 360.6693, y: -18.9933}
+  m_SizeDelta: {x: 492.6111, y: 109.4634}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &227692012
 MonoBehaviour:
@@ -826,7 +826,7 @@ GameObject:
   - component: {fileID: 286653689}
   - component: {fileID: 286653688}
   m_Layer: 5
-  m_Name: Wmissionbox3
+  m_Name: 3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -947,6 +947,7 @@ GameObject:
   - component: {fileID: 314149720}
   - component: {fileID: 314149719}
   - component: {fileID: 314149718}
+  - component: {fileID: 314149721}
   m_Layer: 5
   m_Name: Button
   m_TagString: Untagged
@@ -1030,6 +1031,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 314149721}
+        m_TargetAssemblyTypeName: claimebuttonweekly, Assembly-CSharp
+        m_MethodName: rewarding
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &314149719
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1068,6 +1081,24 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 314149716}
   m_CullTransparentMesh: 1
+--- !u!114 &314149721
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 314149716}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6eb15e39ba0b02945bb29f726fc5c146, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  parent: {fileID: 1143367852}
+  XPtext: {fileID: 1851204152}
+  GOLDtext: {fileID: 227692012}
+  getXP: 0
+  getGOLD: 0
+  userID: 1
 --- !u!1 &314543576
 GameObject:
   m_ObjectHideFlags: 0
@@ -1698,7 +1729,7 @@ GameObject:
   m_Component:
   - component: {fileID: 412967718}
   m_Layer: 5
-  m_Name: EP
+  m_Name: GOLD
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2192,6 +2223,7 @@ GameObject:
   - component: {fileID: 463549541}
   - component: {fileID: 463549540}
   - component: {fileID: 463549539}
+  - component: {fileID: 463549542}
   m_Layer: 5
   m_Name: Button
   m_TagString: Untagged
@@ -2275,6 +2307,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 463549542}
+        m_TargetAssemblyTypeName: dailybutton, Assembly-CSharp
+        m_MethodName: rewarding
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &463549540
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2313,6 +2357,24 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 463549537}
   m_CullTransparentMesh: 1
+--- !u!114 &463549542
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 463549537}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1486d01d9c8448742ad2643a914ccaab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  parent: {fileID: 834538946}
+  XPtext: {fileID: 1851204152}
+  GOLDtext: {fileID: 227692012}
+  getXP: 0
+  getGOLD: 0
+  userID: 1
 --- !u!1 &490503718
 GameObject:
   m_ObjectHideFlags: 0
@@ -3506,6 +3568,7 @@ GameObject:
   - component: {fileID: 808049582}
   - component: {fileID: 808049581}
   - component: {fileID: 808049580}
+  - component: {fileID: 808049583}
   m_Layer: 5
   m_Name: Button
   m_TagString: Untagged
@@ -3589,6 +3652,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 808049583}
+        m_TargetAssemblyTypeName: claimebuttonweekly, Assembly-CSharp
+        m_MethodName: rewarding
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &808049581
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3627,6 +3702,24 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 808049578}
   m_CullTransparentMesh: 1
+--- !u!114 &808049583
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 808049578}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6eb15e39ba0b02945bb29f726fc5c146, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  parent: {fileID: 286653685}
+  XPtext: {fileID: 1851204152}
+  GOLDtext: {fileID: 227692012}
+  getXP: 0
+  getGOLD: 0
+  userID: 1
 --- !u!1 &818437874
 GameObject:
   m_ObjectHideFlags: 0
@@ -3766,7 +3859,7 @@ GameObject:
   - component: {fileID: 834538950}
   - component: {fileID: 834538949}
   m_Layer: 5
-  m_Name: Dmissionbox3
+  m_Name: 3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5490,7 +5583,7 @@ GameObject:
   - component: {fileID: 1143367856}
   - component: {fileID: 1143367855}
   m_Layer: 5
-  m_Name: Wmissionbox1
+  m_Name: 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5722,7 +5815,7 @@ GameObject:
   - component: {fileID: 1211786265}
   - component: {fileID: 1211786264}
   m_Layer: 5
-  m_Name: Wmissionbox2
+  m_Name: 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6116,6 +6209,7 @@ GameObject:
   - component: {fileID: 1310703621}
   - component: {fileID: 1310703620}
   - component: {fileID: 1310703619}
+  - component: {fileID: 1310703622}
   m_Layer: 5
   m_Name: Button
   m_TagString: Untagged
@@ -6199,6 +6293,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1310703622}
+        m_TargetAssemblyTypeName: dailybutton, Assembly-CSharp
+        m_MethodName: rewarding
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1310703620
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6237,6 +6343,24 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1310703617}
   m_CullTransparentMesh: 1
+--- !u!114 &1310703622
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1310703617}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1486d01d9c8448742ad2643a914ccaab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  parent: {fileID: 1773086158}
+  XPtext: {fileID: 1851204152}
+  GOLDtext: {fileID: 227692012}
+  getXP: 0
+  getGOLD: 0
+  userID: 1
 --- !u!1 &1319198719
 GameObject:
   m_ObjectHideFlags: 0
@@ -6819,6 +6943,7 @@ GameObject:
   - component: {fileID: 1478251517}
   - component: {fileID: 1478251516}
   - component: {fileID: 1478251515}
+  - component: {fileID: 1478251518}
   m_Layer: 5
   m_Name: Button
   m_TagString: Untagged
@@ -6902,6 +7027,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1478251518}
+        m_TargetAssemblyTypeName: buttonindex, Assembly-CSharp
+        m_MethodName: rewarding
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1478251516
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6940,6 +7077,24 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1478251513}
   m_CullTransparentMesh: 1
+--- !u!114 &1478251518
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1478251513}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1486d01d9c8448742ad2643a914ccaab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  parent: {fileID: 95167151}
+  XPtext: {fileID: 1851204152}
+  GOLDtext: {fileID: 227692012}
+  getXP: 0
+  getGOLD: 0
+  userID: 1
 --- !u!1 &1546013141
 GameObject:
   m_ObjectHideFlags: 0
@@ -7840,7 +7995,7 @@ GameObject:
   - component: {fileID: 1773086161}
   - component: {fileID: 1773086160}
   m_Layer: 5
-  m_Name: Dmissionbox1
+  m_Name: 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8095,7 +8250,7 @@ GameObject:
   - component: {fileID: 1807695932}
   - component: {fileID: 1807695931}
   m_Layer: 5
-  m_Name: EP_icon
+  m_Name: GOLD_icon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8192,8 +8347,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 238.9866, y: -18.9933}
-  m_SizeDelta: {x: 249.2457, y: 109.4634}
+  m_AnchoredPosition: {x: 279.88837, y: -18.9933}
+  m_SizeDelta: {x: 331.0492, y: 109.4634}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1851204152
 MonoBehaviour:
@@ -8382,6 +8537,7 @@ GameObject:
   - component: {fileID: 1904362900}
   - component: {fileID: 1904362899}
   - component: {fileID: 1904362898}
+  - component: {fileID: 1904362901}
   m_Layer: 5
   m_Name: Button
   m_TagString: Untagged
@@ -8465,6 +8621,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1904362901}
+        m_TargetAssemblyTypeName: claimebuttonweekly, Assembly-CSharp
+        m_MethodName: rewarding
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1904362899
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8503,6 +8671,24 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1904362896}
   m_CullTransparentMesh: 1
+--- !u!114 &1904362901
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1904362896}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6eb15e39ba0b02945bb29f726fc5c146, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  parent: {fileID: 1211786261}
+  XPtext: {fileID: 1851204152}
+  GOLDtext: {fileID: 227692012}
+  getXP: 0
+  getGOLD: 0
+  userID: 1
 --- !u!1 &1906319582
 GameObject:
   m_ObjectHideFlags: 0
