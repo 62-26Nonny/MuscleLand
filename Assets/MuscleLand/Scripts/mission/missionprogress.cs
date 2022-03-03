@@ -15,18 +15,13 @@ public class missionprogress : MonoBehaviour
 
   public List<GameObject> missionboxDaily;
   public List<GameObject> missionboxWeekly;
+
   void Start()
   {
     Instance = this;
     addQID();
     progresstextdaily();
     progresstextweekly();
-  }
-
-  // Update is called once per frame
-  void Update()
-  {
-
   }
 
   public void progresstextdaily()
@@ -56,7 +51,7 @@ public class missionprogress : MonoBehaviour
             dunID = (int)reader["dungeonID"];
           }
 
-          command.CommandText = "SELECT * FROM dungeonstat WHERE userID = '" + userid + "' AND difficulty = '" + difficulty + "' AND dubgeonsID = '" + dunID + "';";
+          command.CommandText = "SELECT * FROM dungeonstat WHERE userID = '" + userid + "' AND difficulty = '" + difficulty + "' AND dungeonID = '" + dunID + "';";
           using (var reader = command.ExecuteReader())
           {
             dailyprogress = (int)(reader["daily"]);
@@ -83,7 +78,6 @@ public class missionprogress : MonoBehaviour
       missionboxDaily[i].transform.Find("Progress Slider").gameObject.GetComponent<Slider>().value = dailyprogress;
       missionboxDaily[i].transform.Find("Progress Slider").gameObject.GetComponent<Slider>().maxValue = dailygoal;
       missionboxDaily[i].transform.Find("Missioninfo").gameObject.GetComponent<Text>().text = questdescription;
-
 
       if (dailyprogress < dailygoal)
       {
@@ -131,7 +125,7 @@ public class missionprogress : MonoBehaviour
             dunID = (int)reader["dungeonID"];
           }
 
-          command.CommandText = "SELECT * FROM dungeonstat WHERE userID = '" + userid + "' AND difficulty = '" + difficulty + "' AND dubgeonsID = '" + dunID + "';";
+          command.CommandText = "SELECT * FROM dungeonstat WHERE userID = '" + userid + "' AND difficulty = '" + difficulty + "' AND dungeonID = '" + dunID + "';";
           using (var reader = command.ExecuteReader())
           {
             weeklyprogress = (int)(reader["weekly"]);

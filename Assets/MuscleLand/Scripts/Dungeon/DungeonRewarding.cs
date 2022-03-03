@@ -27,15 +27,15 @@ public class DungeonRewarding : MonoBehaviour
     public void multiple_reward(){
         switch (DungeonValues.Difficulty)
         {
-            case DungeonValues.Difficulties.Easy:
+            case DungeonValues.Difficulties.easy:
                 Gold_max *= 1;
                 Exp_max *= 1;
                 break;
-            case DungeonValues.Difficulties.Medium:
+            case DungeonValues.Difficulties.medium:
                 Gold_max = (int)(Gold_max * 1.5);
                 Exp_max = (int)(Exp_max * 1.5);
                 break;
-            case DungeonValues.Difficulties.Hard:
+            case DungeonValues.Difficulties.hard:
                 Gold_max *= 2;
                 Exp_max *= 2;
                 break;
@@ -64,6 +64,7 @@ public class DungeonRewarding : MonoBehaviour
         Player.Gold += DungeonValues.Gold_recieved;
         Player.Exp += DungeonValues.Exp_recieved;
         showRewardingPopup();
+        Database.Instance.DungeonRewarding();
     }
 
     public void showRewardingPopup(){

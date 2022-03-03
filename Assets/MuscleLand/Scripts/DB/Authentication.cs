@@ -10,6 +10,7 @@ public class Authentication : MonoBehaviour
     private string dbName = "URI=file:DB/server.db";
     public InputField username;
     public InputField password;
+    public Text error;
 
     public void LoginGuest(){
         using (var conection = new SqliteConnection(dbName)){
@@ -25,10 +26,31 @@ public class Authentication : MonoBehaviour
                         Player.EP = (int)reader["EP"];
                         Player.Exp = (int)reader["EXP"] % 100;
                         Player.Level += (int)reader["EXP"] / 100;
+                        GetExplorationData();
                         SceneManager.LoadScene("Main Menu");
                     } else {
+                        error.gameObject.SetActive(true);
                         Debug.Log("Wrong password");
                     }
+                    reader.Close();
+                }
+            }
+            conection.Close();
+        }
+    }
+
+    public void GetExplorationData(){
+        using (var conection = new SqliteConnection(dbName)){
+            conection.Open();
+            using (var command = conection.CreateCommand()){
+                command.CommandText = "SELECT * FROM exploration WHERE userID = '"+ Player.userID + "';";
+                using (var reader = command.ExecuteReader()){
+                    
+                    Player.best_progress = (float)reader["bestdistance"];
+                    Player.total_progress = (float)reader["totaldistance"];
+                    Player.current_progress = (float)reader["currentdistance"] % 10000;
+                    Player.total_reward = (int)((float)reader["currentdistance"] / 10000);
+                    
                     reader.Close();
                 }
             }

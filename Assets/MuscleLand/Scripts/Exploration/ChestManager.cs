@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UI.Popup;
+
 public class ChestManager : MonoBehaviour
 {
     public static ChestManager Instance;
     public Image chest;
     public PopupUI popup;
+    public Text stack;
     public bool isReached = false;
 
     private void Start() {
@@ -22,12 +24,17 @@ public class ChestManager : MonoBehaviour
             chest_button.onClick.AddListener(ExplorationRewarding.Instance.Rewarding);
             isReached = true;
         }
+        if (isReached & ProgressBar.Instance.total_reward > 1){
+            stack.text = "x " + ProgressBar.Instance.total_reward.ToString();
+            stack.gameObject.SetActive(true);
+        }
     }
 
     public void resetChest(){
         Button chest_button = chest.GetComponent<Button>();
         chest_button.onClick.RemoveAllListeners();
         isReached = false;
+        stack.gameObject.SetActive(false);
     }
     
 }

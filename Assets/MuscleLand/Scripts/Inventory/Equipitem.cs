@@ -24,8 +24,6 @@ public class Equipitem : MonoBehaviour
             
         }
         
-
-        
         Item_popup.SetActive(false);
 
         SceneManager.LoadScene("Inventory");
@@ -64,9 +62,9 @@ public class Equipitem : MonoBehaviour
             conection.Open();
             using (var command = conection.CreateCommand()){
                 if(string.Equals(GetCurrentWare(), GetItemID())){
-                    command.CommandText = "UPDATE wearitem SET itemID = NULL WHERE userID = '" + Player.userID + "';;";
+                    command.CommandText = "UPDATE wearitem SET itemID = NULL WHERE userID = '" + Player.userID + "';";
                 } else {
-                    command.CommandText = "UPDATE wearitem SET itemID = '" + itemID + "' WHERE userID = '" + Player.userID + "';;";
+                    command.CommandText = "UPDATE wearitem SET itemID = '" + itemID + "' WHERE userID = '" + Player.userID + "';";
                 }
                 
                 command.ExecuteNonQuery();
@@ -75,8 +73,6 @@ public class Equipitem : MonoBehaviour
         }
 
     }
-
-
 
      public string GetItemID(){ 
 
@@ -88,10 +84,8 @@ public class Equipitem : MonoBehaviour
                 command.CommandText = "SELECT * FROM item WHERE itemname='" + Item_name.text + "';";
                 using (var reader = command.ExecuteReader()){
 
-       
                     ID = reader["itemID"].ToString();
                         
-      
                     reader.Close();
                 }
             }
@@ -121,9 +115,6 @@ public class Equipitem : MonoBehaviour
         }
         return ID;
     }
-
-
-
 
     public List<string> EquipList(){
 

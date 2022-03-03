@@ -45,7 +45,7 @@ public class Archivement : MonoBehaviour
           {
             goal = float.Parse(reader["times"].ToString());
             arc = reader["arcname"].ToString();
-            dunID = (int)reader["dubgeonsID"];
+            dunID = (int)reader["dungeonID"];
           }
           command.CommandText = "SELECT * FROM userachievement WHERE userID == '" + userID + "' AND arcID = '" + arcID + "';";
           using (var reader = command.ExecuteReader())
@@ -53,13 +53,13 @@ public class Archivement : MonoBehaviour
             level = (int)reader["curlvl"];
           }
 
-          command.CommandText = "SELECT SUM(total) FROM dungeonstat WHERE userID = '" + userID + "' AND dubgeonsID = '" + dunID + "';";
+          command.CommandText = "SELECT SUM(total) FROM dungeonstat WHERE userID = '" + userID + "' AND dungeonID = '" + dunID + "';";
           using (var reader = command.ExecuteReader())
           {
             progress = float.Parse(reader["SUM(total)"].ToString());
           }
 
-          command.CommandText = "SELECT SUM(fail) FROM dungeonstat WHERE userID = '" + userID + "' AND dubgeonsID = '" + dunID + "';";
+          command.CommandText = "SELECT SUM(fail) FROM dungeonstat WHERE userID = '" + userID + "' AND dungeonID = '" + dunID + "';";
           using (var reader = command.ExecuteReader())
           {
             progress = progress - float.Parse(reader["SUM(fail)"].ToString());

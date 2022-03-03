@@ -24,9 +24,8 @@ public class claimebuttondaily : MonoBehaviour
   public void rewarding()
   {
     rewardcheck(int.Parse(this.transform.parent.gameObject.name));
-    XPtext.text = getXP.ToString() + "XP";
+    XPtext.text = getXP.ToString() + " XP";
     GOLDtext.text = getGOLD.ToString() + " GOLD";
-    updateuser(userID);
     this.gameObject.SetActive(false);
   }
 
@@ -57,7 +56,9 @@ public class claimebuttondaily : MonoBehaviour
         using (var reader = command.ExecuteReader())
         {
           getXP = (int)reader["EXP"];
+          Player.Exp += (int)reader["EXP"];
           getGOLD = (int)reader["GOLD"];
+          Player.Gold += (int)reader["GOLD"];
           reader.Close();
         }
       }
@@ -75,37 +76,6 @@ public class claimebuttondaily : MonoBehaviour
       using (var command = conection.CreateCommand())
       {
         command.CommandText = "UPDATE dailyquest set claimed = '1' where quest='" + quest + "';";
-        command.ExecuteNonQuery();
-      }
-      conection.Close();
-    }
-  }
-
-  public void updateuser(string ID)
-  {
-    int currentEXP;
-    int currentGOLD;
-    using (var conection = new SqliteConnection(dbName))
-    {
-      conection.Open();
-      using (var command = conection.CreateCommand())
-      {
-        command.CommandText = "SELECT * FROM User WHERE ID = '" + ID + "';";
-        using (var reader = command.ExecuteReader())
-        {
-          currentEXP = (int)reader["EXP"];
-          currentGOLD = (int)reader["GOLD"];
-          Debug.Log(currentGOLD);
-          reader.Close();
-        }
-      }
-      currentEXP = currentEXP + getXP;
-      currentGOLD = currentGOLD + getGOLD;
-      using (var command = conection.CreateCommand())
-      {
-        command.CommandText = "UPDATE User set EXP = '" + currentEXP + "' WHERE ID ='" + ID + "';";
-        command.ExecuteNonQuery();
-        command.CommandText = "UPDATE User set GOLD = '" + currentGOLD + "' WHERE ID ='" + ID + "';";
         command.ExecuteNonQuery();
       }
       conection.Close();
