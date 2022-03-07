@@ -1,5 +1,5 @@
 import "bootstrap/dist/css/bootstrap.min.css";
-import MyNavbar from "./Components/Header/MyNavbar";
+import MyNavbar from "./Components/Navbar/MyNavbar";
 
 function App() {
   return (
