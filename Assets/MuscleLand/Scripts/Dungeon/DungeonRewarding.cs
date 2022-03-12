@@ -64,6 +64,7 @@ public class DungeonRewarding : MonoBehaviour
         Player.Gold += DungeonValues.Gold_recieved;
         Player.Exp += DungeonValues.Exp_recieved;
         showRewardingPopup();
+        CaloriesCalculator.Instance.Calculate();
         Database.Instance.DungeonRewarding();
     }
 

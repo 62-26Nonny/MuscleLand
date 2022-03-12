@@ -20,6 +20,9 @@ public class Player : MonoBehaviour
     public static float best_progress = 0f;
     public static float total_progress = 0f;
     public static float current_progress = 0f;
+    public static int weight = 60;
+    public static float dailyBurnedCalories = 0f;
+    public static float weeklyBurnedCalories = 0f;
     public static string[] items;
 
     public static List<string>  appearance_list  = GetAppearanceList();
