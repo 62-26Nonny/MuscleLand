@@ -94,6 +94,8 @@ public class Authentication : MonoBehaviour
                     }
                 }
             }
+            
+            SceneManager.LoadScene("Main Menu");
             conection.Close();
         }
     }

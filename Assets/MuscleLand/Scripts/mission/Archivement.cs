@@ -7,14 +7,8 @@ using Mono.Data.Sqlite;
 public class Archivement : MonoBehaviour
 {
   private string dbName = "URI=file:DB/server.db";
-  string userID = Player.userID;
   public List<GameObject> arcbox;
-  void Start()
-  {
-    
-  }
 
-  // Update is called once per frame
   void Update()
   {
     progresstext();
@@ -47,23 +41,18 @@ public class Archivement : MonoBehaviour
             arc = reader["arcname"].ToString();
             dunID = (int)reader["dungeonID"];
           }
-          command.CommandText = "SELECT * FROM userachievement WHERE userID == '" + userID + "' AND arcID = '" + arcID + "';";
+          command.CommandText = "SELECT * FROM userachievement WHERE userID == '" + Player.userID + "' AND arcID = '" + arcID + "';";
           using (var reader = command.ExecuteReader())
           {
             level = (int)reader["curlvl"];
           }
 
-          command.CommandText = "SELECT SUM(total) FROM dungeonstat WHERE userID = '" + userID + "' AND dungeonID = '" + dunID + "';";
+          command.CommandText = "SELECT SUM(total) FROM dungeonstat WHERE userID = '" + Player.userID + "' AND dungeonID = '" + dunID + "';";
           using (var reader = command.ExecuteReader())
           {
             progress = float.Parse(reader["SUM(total)"].ToString());
           }
 
-          command.CommandText = "SELECT SUM(fail) FROM dungeonstat WHERE userID = '" + userID + "' AND dungeonID = '" + dunID + "';";
-          using (var reader = command.ExecuteReader())
-          {
-            progress = progress - float.Parse(reader["SUM(fail)"].ToString());
-          }
         }
         conection.Close();
       }

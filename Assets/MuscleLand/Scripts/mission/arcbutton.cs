@@ -11,7 +11,6 @@ public class arcbutton : MonoBehaviour
   public Text GOLDtext;
   public int getXP;
   public int getGOLD;
-  public int userID = 1;
   void Start()
   {
 
@@ -25,7 +24,6 @@ public class arcbutton : MonoBehaviour
     rewardcheck(int.Parse(this.transform.parent.gameObject.name));
     XPtext.text = getXP.ToString() + "XP";
     GOLDtext.text = getGOLD.ToString() + " GOLD";
-    updateuser(userID);
     this.gameObject.SetActive(false);
   }
 
@@ -40,7 +38,9 @@ public class arcbutton : MonoBehaviour
         using (var reader = command.ExecuteReader())
         {
           getXP = (int)reader["EXP"];
+          Player.Exp += (int)reader["EXP"];
           getGOLD = (int)reader["GOLD"];
+          Player.Gold += (int)reader["GOLD"];
           reader.Close();
         }
       }
@@ -57,7 +57,7 @@ public class arcbutton : MonoBehaviour
       conection.Open();
       using (var command = conection.CreateCommand())
       {
-        command.CommandText = "SELECT * FROM userachievement where userID = '" + userID + "' AND arcid='" + arcid + "';";
+        command.CommandText = "SELECT * FROM userachievement where userID = '" + Player.userID + "' AND arcid='" + arcid + "';";
         using (var reader = command.ExecuteReader())
         {
           curlvl = (int)reader["curlvl"];
@@ -67,38 +67,7 @@ public class arcbutton : MonoBehaviour
         {
           curlvl = curlvl + 1;
         }
-        command.CommandText = "UPDATE userachievement set curlvl = '" + curlvl + "' where userID = '" + userID + "' AND arcid='" + arcid + "';";
-        command.ExecuteNonQuery();
-      }
-      conection.Close();
-    }
-  }
-
-  public void updateuser(int ID)
-  {
-    int currentEXP;
-    int currentGOLD;
-    using (var conection = new SqliteConnection(dbName))
-    {
-      conection.Open();
-      using (var command = conection.CreateCommand())
-      {
-        command.CommandText = "SELECT * FROM User WHERE ID = '" + ID + "';";
-        using (var reader = command.ExecuteReader())
-        {
-          currentEXP = (int)reader["EXP"];
-          currentGOLD = (int)reader["GOLD"];
-          Debug.Log(currentGOLD);
-          reader.Close();
-        }
-      }
-      currentEXP = currentEXP + getXP;
-      currentGOLD = currentGOLD + getGOLD;
-      using (var command = conection.CreateCommand())
-      {
-        command.CommandText = "UPDATE User set EXP = '" + currentEXP + "' WHERE ID ='" + ID + "';";
-        command.ExecuteNonQuery();
-        command.CommandText = "UPDATE User set GOLD = '" + currentGOLD + "' WHERE ID ='" + ID + "';";
+        command.CommandText = "UPDATE userachievement set curlvl = '" + curlvl + "' where userID = '" + Player.userID + "' AND arcid='" + arcid + "';";
         command.ExecuteNonQuery();
       }
       conection.Close();
