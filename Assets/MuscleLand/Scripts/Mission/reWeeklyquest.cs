@@ -43,6 +43,7 @@ public class reWeeklyquest : MonoBehaviour
     {
       Debug.Log("reset");
       rndWeeklyquest();
+      missionprogress.Instance.progresstextweekly();
     }
   }
   void Update()
