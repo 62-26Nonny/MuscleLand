@@ -25,6 +25,7 @@ public class arcbutton : MonoBehaviour
     XPtext.text = getXP.ToString() + "XP";
     GOLDtext.text = getGOLD.ToString() + " GOLD";
     this.gameObject.SetActive(false);
+    Achivement.Instance.progresstext();
   }
 
   public void rewardcheck(int arcID)
@@ -67,7 +68,7 @@ public class arcbutton : MonoBehaviour
         {
           curlvl = curlvl + 1;
         }
-        command.CommandText = "UPDATE userachievement set curlvl = '" + curlvl + "' where userID = '" + Player.userID + "' AND arcid='" + arcid + "';";
+        command.CommandText = "UPDATE userachievement set curlvl = '" + curlvl + "' where userID = '" + Player.userID + "' AND arcID='" + arcid + "';";
         command.ExecuteNonQuery();
       }
       conection.Close();

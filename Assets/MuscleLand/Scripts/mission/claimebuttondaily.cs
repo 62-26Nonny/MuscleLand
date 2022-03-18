@@ -13,6 +13,7 @@ public class claimebuttondaily : MonoBehaviour
   public int getXP;
   public int getGOLD;
   string userID = Player.userID;
+  //string userID = "1";
   void Start()
   {
 
@@ -27,6 +28,7 @@ public class claimebuttondaily : MonoBehaviour
     XPtext.text = getXP.ToString() + " XP";
     GOLDtext.text = getGOLD.ToString() + " GOLD";
     this.gameObject.SetActive(false);
+    missionprogress.Instance.progresstextdaily();
   }
 
   public void rewardcheck(int quest)

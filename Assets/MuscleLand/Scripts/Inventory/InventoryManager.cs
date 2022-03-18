@@ -11,7 +11,8 @@ public class InventoryManager : MonoBehaviour
 
     [SerializeField] GameObject list;
     [SerializeField] GameObject Prefab_Item;
-    void Start()
+
+  void Start()
     {
         Debug.LogWarning("Reload shop");
         AddItem();

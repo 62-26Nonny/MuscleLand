@@ -9,7 +9,11 @@ public class missionprogress : MonoBehaviour
   private string dbName = "URI=file:DB/server.db";
   private string dbNameC = "URI=file:DB/client.db";
   string userid = Player.userID;
+  //private string userid = "1";
   public static missionprogress Instance;
+  [SerializeField] GameObject dailyQuetView;
+  [SerializeField] GameObject weeklyQuetView;
+  [SerializeField] GameObject Prefab_quest;
   List<int> DQID = new List<int>();
   List<int> WQID = new List<int>();
 
@@ -19,6 +23,7 @@ public class missionprogress : MonoBehaviour
   void Start()
   {
     Instance = this;
+    addmission();
     addQID();
     progresstextdaily();
     progresstextweekly();
@@ -54,7 +59,7 @@ public class missionprogress : MonoBehaviour
           command.CommandText = "SELECT * FROM dungeonstat WHERE userID = '" + userid + "' AND difficulty = '" + difficulty + "' AND dungeonID = '" + dunID + "';";
           using (var reader = command.ExecuteReader())
           {
-            dailyprogress = (int)(reader["daily"]);
+            dailyprogress = (int)reader["daily"];
           }
 
         }
@@ -128,7 +133,7 @@ public class missionprogress : MonoBehaviour
           command.CommandText = "SELECT * FROM dungeonstat WHERE userID = '" + userid + "' AND difficulty = '" + difficulty + "' AND dungeonID = '" + dunID + "';";
           using (var reader = command.ExecuteReader())
           {
-            weeklyprogress = (int)(reader["weekly"]);
+            weeklyprogress = (int)reader["weekly"];
           }
 
         }
@@ -200,5 +205,55 @@ public class missionprogress : MonoBehaviour
       conection.Close();
     }
   }
+  public void addmission()
+  {
+    using (var conection = new SqliteConnection(dbNameC))
+    {
+      conection.Open();
+      using (var command = conection.CreateCommand())
+      {
+        command.CommandText = "SELECT * FROM dailyquest;";
+        using (var reader = command.ExecuteReader())
+        {
+          foreach (var item in reader)
+          {
+
+            GameObject Clone = Instantiate(Prefab_quest);
+
+            Clone.SetActive(true);
+            Clone.name = reader["quest"].ToString();
+            Clone.transform.SetParent(dailyQuetView.transform, false);
+
+            Transform CloneTran = Clone.transform;
+
+            missionboxDaily.Add(Clone);
+          }
+
+        }
+
+        command.CommandText = "SELECT * FROM weeklyquest;";
+        using (var reader = command.ExecuteReader())
+        {
+          foreach (var item in reader)
+          {
+
+            GameObject Clone = Instantiate(Prefab_quest);
+
+            Clone.SetActive(true);
+            Clone.name = reader["quest"].ToString();
+
+            Clone.transform.SetParent(weeklyQuetView.transform, false);
+
+            Transform CloneTran = Clone.transform;
+
+            missionboxWeekly.Add(Clone);
+          }
+
+        }
+        conection.Close();
+      }
+    }
+  }
+
 
 }
