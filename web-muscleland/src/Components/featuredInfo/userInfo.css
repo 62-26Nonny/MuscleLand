@@ -1,0 +1,47 @@
+.featured {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.featuredItem {
+  margin: 40px 20px;
+  border-radius: 10px;
+  padding: 40px;
+  box-shadow: 7px 8px 19px -4px rgba(133, 132, 132, 0.54);
+  -webkit-box-shadow: 7px 8px 19px -4px rgba(133, 132, 132, 0.54);
+  -moz-box-shadow: 7px 8px 19px -4px rgba(133, 132, 132, 0.54);
+}
+
+.OnlineCircle {
+  background: #46f11c;
+  clip-path: circle(50%);
+  height: 10px;
+  width: 10px;
+  margin: 5px;
+  padding: 5px;
+}
+
+.OfflineCircle {
+  background: #fa6400;
+  clip-path: circle(50%);
+  height: 10px;
+  width: 10px;
+  margin: 5px;
+  padding: 5px;
+}
+
+.player {
+  display: flex;
+  align-items: center;
+}
+
+.featuredTitle {
+  font-size: 16px;
+  font-weight: 600;
+}
+.numOfPlayers {
+  margin: 10px 0px;
+  font-size: 20px;
+  font-weight: 600;
+}
