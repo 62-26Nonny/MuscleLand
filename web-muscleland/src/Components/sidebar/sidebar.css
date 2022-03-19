@@ -18,10 +18,17 @@
   color: rgb(197, 197, 197);
   margin-bottom: 2px;
 }
-
-.sidebarList {
+.sidebarList,
+.subList {
   list-style: none;
   padding: 5px;
+}
+
+.subList {
+  font-size: 18px;
+  color: rgb(146, 141, 141);
+  /* background-color: rgb(146, 141, 141); */
+  display: none;
 }
 
 .sidebarItem {

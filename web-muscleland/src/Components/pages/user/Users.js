@@ -9,7 +9,7 @@ export default function Users() {
     <div>
       <div className="users">
         <UserInfo />
-        <Chart data={userData} title="Actvie Users in 1 month" grid />
+        <Chart title="Actvie Users in 1 month" data={userData} grid />
         <UserList />
       </div>
     </div>

@@ -1,11 +1,10 @@
-import React, { Component } from "react";
+import ExplorationInfo from "../../featuredInfo/ExploInfo";
+import "./exploration.css";
 
-export default class Exploration extends Component {
-  render() {
-    return (
-      <div>
-        <h1>Exploration</h1>
-      </div>
-    );
-  }
+export default function Exploration() {
+  return (
+    <div className="exploration">
+      <ExplorationInfo />
+    </div>
+  );
 }

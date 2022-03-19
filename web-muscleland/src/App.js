@@ -7,6 +7,7 @@ import Dungeon from "./Components/pages/dungeon/Dungeon";
 import Exploration from "./Components/pages/exploration/Exploration";
 import Mission from "./Components/pages/mission/Mission";
 import Shop from "./Components/pages/shop/Shop";
+import RisingTab from "./Components/dungeonTab/risingKnee/RisingKnee";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 function App() {

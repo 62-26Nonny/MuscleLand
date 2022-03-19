@@ -10,7 +10,7 @@ export default function Sidebar() {
           <li className="sidebarItem">
             <Link to="/users">Users</Link>
           </li>
-          <li className="sidebarItem">
+          <li className="sidebarItem ulDun">
             <Link to="/dungeon">Dungeon</Link>
           </li>
           <li className="sidebarItem">
