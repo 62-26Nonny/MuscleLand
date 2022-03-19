@@ -12,6 +12,7 @@ public class Achivement : MonoBehaviour
   [SerializeField] GameObject Prefab_achivement;
   string userID = Player.userID;
   //string userID = "1";
+  public List<Sprite> madelimage;
   public List<GameObject> achivementlist;
 
   private void Start()
@@ -22,15 +23,15 @@ public class Achivement : MonoBehaviour
   }
   void Update()
   {
-    
   }
 
-  public void progresstext()
+  public async void progresstext()
   {
     float progress;
     float goal;
     string arc;
     int level;
+    int madal;
     float cerrentgoal;
     int dunID;
     int i;
@@ -71,11 +72,27 @@ public class Achivement : MonoBehaviour
         conection.Close();
       }
 
-      cerrentgoal = goal * level;
-      achivementlist[i].transform.Find("Progress Slider").gameObject.GetComponent<Slider>().value = progress;
-      achivementlist[i].transform.Find("Progress Slider").gameObject.GetComponent<Slider>().maxValue = cerrentgoal;
-      achivementlist[i].transform.Find("Archivement").gameObject.GetComponent<Text>().text = arc;
-      achivementlist[i].transform.Find("Archivement info").gameObject.GetComponent<Text>().text = "Play " + arc + " " + cerrentgoal.ToString() + " time";
+      if (level > 3)
+      {
+        cerrentgoal = goal * 3;
+        achivementlist[i].transform.Find("RawImage").gameObject.GetComponent<Image>().sprite = madelimage[2];
+        achivementlist[i].transform.Find("Progress Slider").gameObject.GetComponent<Slider>().maxValue = cerrentgoal;
+        achivementlist[i].transform.Find("Progress Slider").gameObject.GetComponent<Slider>().value = progress;
+        achivementlist[i].transform.Find("Archivement").gameObject.GetComponent<Text>().text = arc;
+        achivementlist[i].transform.Find("Archivement info").gameObject.GetComponent<Text>().text = "Play " + arc + " " + cerrentgoal.ToString() + " time";
+        achivementlist[i].transform.Find("progress Text").gameObject.GetComponent<Text>().text = cerrentgoal.ToString() + "/" + cerrentgoal.ToString();
+        achivementlist[i].transform.Find("complete Text").gameObject.SetActive(true);
+      }
+      else
+      {
+        madal = level - 1;
+        cerrentgoal = goal * level;
+        achivementlist[i].transform.Find("RawImage").gameObject.GetComponent<Image>().sprite = madelimage[madal];
+        achivementlist[i].transform.Find("Progress Slider").gameObject.GetComponent<Slider>().maxValue = cerrentgoal;
+        achivementlist[i].transform.Find("Progress Slider").gameObject.GetComponent<Slider>().value = progress;
+        achivementlist[i].transform.Find("Archivement").gameObject.GetComponent<Text>().text = arc;
+        achivementlist[i].transform.Find("Archivement info").gameObject.GetComponent<Text>().text = "Play " + arc + " " + cerrentgoal.ToString() + " time";
+      }
 
       if (progress < cerrentgoal)
       {
@@ -83,12 +100,7 @@ public class Achivement : MonoBehaviour
       }
       else
       {
-        if (level > 3)
-        {
-          achivementlist[i].transform.Find("progress Text").gameObject.GetComponent<Text>().text = cerrentgoal.ToString() + "/" + cerrentgoal.ToString();
-          achivementlist[i].transform.Find("complete Text").gameObject.SetActive(true);
-        }
-        else
+        if (level <= 3)
         {
           achivementlist[i].transform.Find("progress Text").gameObject.GetComponent<Text>().text = cerrentgoal.ToString() + "/" + cerrentgoal.ToString();
           achivementlist[i].transform.Find("Button").gameObject.SetActive(true);
