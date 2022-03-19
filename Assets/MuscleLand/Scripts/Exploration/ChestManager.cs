@@ -9,10 +9,7 @@ public class ChestManager : MonoBehaviour
     public static ChestManager Instance;
     public Image chest;
     public PopupUI popup;
-<<<<<<< HEAD
-=======
     public Text stack;
->>>>>>> 60c474e99edb936c3901460c53d9179190044a58
     public bool isReached = false;
 
     private void Start() {
@@ -38,12 +35,6 @@ public class ChestManager : MonoBehaviour
         chest_button.onClick.RemoveAllListeners();
         isReached = false;
         stack.gameObject.SetActive(false);
-    }
-
-    public void resetChest(){
-        Button chest_button = chest.GetComponent<Button>();
-        chest_button.onClick.RemoveAllListeners();
-        isReached = false;
     }
     
 }

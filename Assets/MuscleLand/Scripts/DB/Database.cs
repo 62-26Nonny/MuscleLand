@@ -21,23 +21,15 @@ public class Database : MonoBehaviour
 
         if (scence_list.Contains(SceneManager.GetActiveScene().name))
         StartCoroutine(UpdatePlayer());
-<<<<<<< HEAD
-=======
         StartCoroutine(UpdateExplorationData());
->>>>>>> 60c474e99edb936c3901460c53d9179190044a58
     }
 
     public void DungeonRewarding(){ 
         using (var conection = new SqliteConnection(dbName)){
             conection.Open();
             using (var command = conection.CreateCommand()){
-<<<<<<< HEAD
-=======
                 // Update User Gold and Exp
->>>>>>> 60c474e99edb936c3901460c53d9179190044a58
-                command.CommandText = "UPDATE User SET GOLD = " + Player.Gold + ", EXP = " + (Player.Exp + (Player.Level - 1) * 100) + " WHERE username='" + Player.username + "';";
                 command.ExecuteNonQuery();
-
                 // Complete or Failed
                 if (DungeonValues.Gold_recieved == 0 & DungeonValues.Exp_recieved == 0){
                     // Increase number of failed
@@ -58,11 +50,6 @@ public class Database : MonoBehaviour
     IEnumerator UpdatePlayer(){ 
         while (true){
             using (var conection = new SqliteConnection(dbName)){
-<<<<<<< HEAD
-            conection.Open();
-            using (var command = conection.CreateCommand()){
-                command.CommandText = "UPDATE User SET GOLD = " + Player.Gold + ", EP = " + Player.EP + ", EXP = " + (Player.Exp + (Player.Level - 1) * 100) + " WHERE username='" + Player.username + "';";
-=======
             conection.Open();
             using (var command = conection.CreateCommand()){
                 command.CommandText = "UPDATE User SET GOLD = " + Player.Gold + ", EP = " + Player.EP + ", EXP = " + (Player.Exp + (Player.Level - 1) * 100) + " WHERE username='" + Player.username + "';";
@@ -80,7 +67,6 @@ public class Database : MonoBehaviour
             conection.Open();
             using (var command = conection.CreateCommand()){
                 command.CommandText = "UPDATE exploration SET currentdistance = " + (Player.current_progress + (10000 * Player.total_reward)) + ", totaldistance = " + Player.total_progress + ", bestdistance = " + Player.best_progress + " WHERE userID='" + Player.userID + "';";
->>>>>>> 60c474e99edb936c3901460c53d9179190044a58
                 command.ExecuteNonQuery();
             }
             conection.Close();
