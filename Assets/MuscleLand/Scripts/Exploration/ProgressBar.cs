@@ -32,9 +32,20 @@ public class ProgressBar : MonoBehaviour
     public IEnumerator updateProgress(){
         float updateTimed = 1f;
         float inc_distance = DistanceCalculator.Instance.distance / (updateTimed * 100);
+
+        // Set new best distance
+        if (DistanceCalculator.Instance.distance > Player.best_progress){
+            Player.best_progress = DistanceCalculator.Instance.distance;
+        }
+
+        // Increase progress
         while (updateTimed > 0){
             // If reach max distance
+<<<<<<< HEAD
             if (Player.current_progress + inc_distance >= 10000){
+=======
+            if (progress.value + inc_distance >= 10000 || Player.current_progress + inc_distance >= 10000){
+>>>>>>> 60c474e99edb936c3901460c53d9179190044a58
                 // Store next bar distance value
                 next_bar_value += (progress.value + inc_distance) % 10000;
                 Player.current_progress = next_bar_value;
@@ -57,6 +68,7 @@ public class ProgressBar : MonoBehaviour
                 Player.current_progress += inc_distance;
                 LoopGround.Instance.loop(inc_distance);
             }
+            Player.total_progress += inc_distance;
             yield return new WaitForSeconds(0.01f);
             updateTimed -= 0.01f;
         }

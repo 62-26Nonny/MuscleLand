@@ -24,8 +24,11 @@ public class Equipitem : MonoBehaviour
             
         }
         
+<<<<<<< HEAD
 
         
+=======
+>>>>>>> 60c474e99edb936c3901460c53d9179190044a58
         Item_popup.SetActive(false);
 
         SceneManager.LoadScene("Inventory");
@@ -64,9 +67,15 @@ public class Equipitem : MonoBehaviour
             conection.Open();
             using (var command = conection.CreateCommand()){
                 if(string.Equals(GetCurrentWare(), GetItemID())){
+<<<<<<< HEAD
                     command.CommandText = "UPDATE wearitem SET itemID = NULL WHERE userID = '" + Player.userID + "';;";
                 } else {
                     command.CommandText = "UPDATE wearitem SET itemID = '" + itemID + "' WHERE userID = '" + Player.userID + "';;";
+=======
+                    command.CommandText = "UPDATE wearitem SET itemID = NULL WHERE userID = '" + Player.userID + "';";
+                } else {
+                    command.CommandText = "UPDATE wearitem SET itemID = '" + itemID + "' WHERE userID = '" + Player.userID + "';";
+>>>>>>> 60c474e99edb936c3901460c53d9179190044a58
                 }
                 
                 command.ExecuteNonQuery();
@@ -76,8 +85,11 @@ public class Equipitem : MonoBehaviour
 
     }
 
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> 60c474e99edb936c3901460c53d9179190044a58
      public string GetItemID(){ 
 
         string ID = "";
@@ -88,10 +100,15 @@ public class Equipitem : MonoBehaviour
                 command.CommandText = "SELECT * FROM item WHERE itemname='" + Item_name.text + "';";
                 using (var reader = command.ExecuteReader()){
 
+<<<<<<< HEAD
        
                     ID = reader["itemID"].ToString();
                         
       
+=======
+                    ID = reader["itemID"].ToString();
+                        
+>>>>>>> 60c474e99edb936c3901460c53d9179190044a58
                     reader.Close();
                 }
             }
@@ -122,9 +139,12 @@ public class Equipitem : MonoBehaviour
         return ID;
     }
 
+<<<<<<< HEAD
 
 
 
+=======
+>>>>>>> 60c474e99edb936c3901460c53d9179190044a58
     public List<string> EquipList(){
 
         List<string> Equip_list = new List<string>();
