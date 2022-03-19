@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using Mono.Data.Sqlite;
 
+[System.Serializable]
 public class Player : MonoBehaviour
 {
     private static string db_sever = "URI=file:DB/server.db";
@@ -17,12 +18,16 @@ public class Player : MonoBehaviour
     public static int Gold = 0;
     public static int EP = 0;
     public static int total_reward = 0;
+<<<<<<< HEAD
+    public static float current_progress = 0f;
+=======
     public static float best_progress = 0f;
     public static float total_progress = 0f;
     public static float current_progress = 0f;
     public static int weight = 60;
     public static float dailyBurnedCalories = 0f;
     public static float weeklyBurnedCalories = 0f;
+>>>>>>> 60c474e99edb936c3901460c53d9179190044a58
     public static string[] items;
 
     public static List<string>  appearance_list  = GetAppearanceList();

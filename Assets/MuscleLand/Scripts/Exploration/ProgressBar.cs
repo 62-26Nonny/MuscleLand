@@ -41,7 +41,11 @@ public class ProgressBar : MonoBehaviour
         // Increase progress
         while (updateTimed > 0){
             // If reach max distance
+<<<<<<< HEAD
+            if (Player.current_progress + inc_distance >= 10000){
+=======
             if (progress.value + inc_distance >= 10000 || Player.current_progress + inc_distance >= 10000){
+>>>>>>> 60c474e99edb936c3901460c53d9179190044a58
                 // Store next bar distance value
                 next_bar_value += (progress.value + inc_distance) % 10000;
                 Player.current_progress = next_bar_value;
