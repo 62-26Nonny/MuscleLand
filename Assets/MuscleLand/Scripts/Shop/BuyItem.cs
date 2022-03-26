@@ -11,6 +11,8 @@ public class BuyItem : MonoBehaviour
     [SerializeField] Text Item_Price;
     [SerializeField] Text Item_name;
 
+    [SerializeField] GameObject Warning_Text;
+
     [SerializeField] GameObject Item_popup;
 
     private string db_sever = "URI=file:DB/server.db";
@@ -32,6 +34,7 @@ public class BuyItem : MonoBehaviour
 
         } else {
             Debug.Log("No gold");
+            Warning_Text.SetActive(true);
         }
 
     } 

@@ -6,15 +6,40 @@ using UnityEngine.UI;
 
 public class ScreenManager : MonoBehaviour
 {
+    // [SerializeField] RectTransform fader;
+ 
+    // private void Start() {
+    //     Debug.Log("start");
+    //     fader.gameObject.SetActive(true);
 
+    //     LeanTween.alpha (fader, 1, 0);
+    //     LeanTween.alpha (fader, 0, 0.5f).setEase(LeanTweenType.easeInOutQuad).setOnComplete(() => {
+    //         fader.gameObject.SetActive(false);
+    //     });
+    // }
     public void MainMenuPage()
     {
+        // fader.gameObject.SetActive(true);
+
+        // LeanTween.alpha (fader, 0, 0);
+        // LeanTween.alpha (fader, 1, 0.5f).setEase(LeanTweenType.easeInOutQuad).setOnComplete(() => {
+        //     SceneManager.LoadScene("Main Menu");
+        // });
+
         SceneManager.LoadScene("Main Menu");
     }
 
     public void DungeonPage()
     {
+        // fader.gameObject.SetActive(true);
+
+        // LeanTween.alpha (fader, 0, 0);
+        // LeanTween.alpha (fader, 1, 0.5f).setEase(LeanTweenType.easeInOutQuad).setOnComplete(() => {
+        //     SceneManager.LoadScene("Select");
+        // });
+
         SceneManager.LoadScene("Select");
+        
     }
 
     public void DungeonPlayingPage()

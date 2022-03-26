@@ -53,6 +53,23 @@ public class DetailManager : MonoBehaviour
   {
     MonsterCount.text = "X " + DungeonValues.monsterMax.ToString();
     TimePerRound.text = ": " + DungeonValues.Duration.ToString();
+
+    switch (DungeonValues.Difficulty)
+    {    
+      case DungeonValues.Difficulties.easy:
+          MonsterCount.color = Color.Lerp(Color.green, Color.black, 0.35f);
+          TimePerRound.color = Color.Lerp(Color.green, Color.black, 0.35f);
+          break;
+      case DungeonValues.Difficulties.medium:
+          MonsterCount.color = Color.Lerp(Color.yellow, Color.red, 0.5f);
+          TimePerRound.color = Color.Lerp(Color.yellow, Color.red, 0.5f);
+          break;
+      case DungeonValues.Difficulties.hard:
+          MonsterCount.color = Color.red;
+          TimePerRound.color = Color.red;
+          break;
+    }
+
   }
 
   public void playVideo()

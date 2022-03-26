@@ -31,7 +31,7 @@ public class DungeonValues: MonoBehaviour
         switch(Dungeon_name){
             case Name.Squat:
                 Dungeon_displayname = "Squat";
-                Dungeon_detail = "Squat Squat let's to squat";
+                Dungeon_detail = "Fight your ways through the enemy by bending your knee and moving your upper body up and down";
                 monsterMax = 10;
                 Interval = 3;
                 Duration = (int)(monsterMax * Interval);
