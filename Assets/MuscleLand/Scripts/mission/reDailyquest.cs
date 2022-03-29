@@ -7,27 +7,20 @@ using Mono.Data.Sqlite;
 
 public class reDailyquest : MonoBehaviour
 {
-  private string dbName = "URI=file:DB/server.db";
-  private string dbNameC = "URI=file:DB/client.db";
-  string userID = Player.userID;
+  private string dbClient = "URI=file:DB/client.db";
   List<int> numbers = new List<int>();
   List<int> QID = new List<int>();
 
-
-  // Start is called before the first frame update
-  void Start()
+  private void Start()
   {
     daycheck();
-    //rndDailyquest();
   }
-  void Update()
-  {
-  }
+
   public void daycheck()
   {
     string startday;
 
-    using (var conection = new SqliteConnection(dbNameC))
+    using (var conection = new SqliteConnection(dbClient))
     {
       conection.Open();
       using (var command = conection.CreateCommand())
@@ -46,58 +39,46 @@ public class reDailyquest : MonoBehaviour
 
     if (datetimer.currentdate.Date > startdate)
     {
-      Debug.Log("reset");
       rndDailyquest();
-      missionprogress.Instance.progresstextdaily();
     }
   }
 
   public void rndDailyquest()
   {
-    int count;
+    int range = 9;
     int quest;
-    int rnd;
-    int i;
 
-    using (var conection = new SqliteConnection(dbName))
+    StartCoroutine(WebRequest.Instance.GetRequest("/quest/type/Daily", (json) => 
     {
-      conection.Open();
-      using (var command = conection.CreateCommand())
+      QuestSerializer[] res = JsonHelper.getJsonArray<QuestSerializer>(json);
+      foreach (var quest in res)
       {
-
-        command.CommandText = "SELECT questID FROM quest WHERE type == 'Daily';";
-        using (var reader = command.ExecuteReader())
-        {
-         while (reader.Read())
-            QID.Add(int.Parse(reader["questID"].ToString()));
-          reader.Close();
-        }
-
-        command.CommandText = "SELECT COUNT(questID) FROM quest WHERE type == 'Daily';";
-        using (var reader = command.ExecuteReader())
-        {
-          count = int.Parse(reader["COUNT(questID)"].ToString());
-          reader.Close();
-        }
-        conection.Close();
+        QID.Add(quest.questID);
       }
-    }
 
-    for (i = 0; i < 3; i++)
-    {
-      rnd = NewNumber(count);
-    };
+      for (int i = 0; i < 3; i++)
+      {
+        RandomNumber(range);
+      };
 
-    for (i = 0; i < numbers.Count; i++)
-    {
-      quest = i + 1;
-      ResetDailyquest(QID[numbers[i]], quest);
-    }
+      for (int i = 0; i < numbers.Count; i++)
+      {
+        quest = i + 1;
+        ResetDailyquest(QID[numbers[i]], quest);
+      }
 
+      WWWForm form = new WWWForm();
+      form.AddField("daily", 0);
+      StartCoroutine(WebRequest.Instance.PostRequest("/dungeonstat/reset", form, (json) => 
+      {
+        missionprogress.Instance.progresstextdaily();
+      }));
+    }));
   }
-  public void ResetDailyquest(int id,int questnum)
+
+  public void ResetDailyquest(int id, int questnum)
   {
-    using (var conection = new SqliteConnection(dbNameC))
+    using (var conection = new SqliteConnection(dbClient))
     {
       conection.Open();
       using (var command = conection.CreateCommand())
@@ -114,35 +95,18 @@ public class reDailyquest : MonoBehaviour
       }
       conection.Close();
     }
-
-    using (var conection = new SqliteConnection(dbName))
-    {
-      conection.Open();
-      using (var command = conection.CreateCommand())
-      {
-        command.CommandText = "UPDATE dungeonstat set daily = '0';";
-        command.ExecuteNonQuery();
-      }
-      conection.Close();
-    }
   }
-  public int NewNumber(int r)
+
+  public void RandomNumber(int range)
   {
-    int a = 0;
-
-    while (a == 0)
+    while (true)
     {
-      a = UnityEngine.Random.Range(0, r-1);
-      if (!numbers.Contains(a))
+      int random = UnityEngine.Random.Range(0, range);
+      if (!numbers.Contains(random))
       {
-        numbers.Add(a);
-      }
-      else
-      {
-        a = 0;
+        numbers.Add(random);
+        return;
       }
     }
-    return a;
   }
-
 }
