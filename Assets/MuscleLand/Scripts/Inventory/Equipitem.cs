@@ -10,132 +10,77 @@ public class Equipitem : MonoBehaviour
     [SerializeField] Text Item_name;
     [SerializeField] Image Steve_Image;
     [SerializeField] GameObject Item_popup;
-
-    private string db_sever = "URI=file:DB/server.db";
     private string db_client = "URI=file:DB/client.db";
-    public void EquipThis(){
 
-        UpdateWareItem(GetItemID());
+    public void EquipThis()
+    {
+        string itemID = "";
+        string wearitemID = "";
+        StartCoroutine(WebRequest.Instance.GetRequest("/item/" + Item_name.text, (json) => 
+        {
+            ItemSerializer[] res = JsonHelper.getJsonArray<ItemSerializer>(json);
+            itemID = res[0].itemID.ToString();
 
-        List<string> appearance_list  = GetAppearanceList();
-        if(appearance_list.Count > 0){
-            Steve_Image.sprite = Resources.Load<Sprite>(appearance_list[0]);
-        } else {
-            
-        }
+            StartCoroutine(WebRequest.Instance.GetRequest("/wearitem/" + Player.userID, (json) => 
+            {
+                WearItemSerializer[] res = JsonHelper.getJsonArray<WearItemSerializer>(json);
+                wearitemID = res[0].itemID.ToString();
+
+                WWWForm form = new WWWForm();
         
-        Item_popup.SetActive(false);
+                if (string.Equals(wearitemID, itemID))
+                {
+                    form.AddField("itemID", "NULL");
+                }
+                else
+                {
+                    form.AddField("itemID", itemID);
+                }
 
-        SceneManager.LoadScene("Inventory");
-    } 
-    
-    public List<string> GetAppearanceList(){
-        
-        List<string> Equipped_list = EquipList();
-        List<string> Appearance_list = new List<string>();
-
-        using (var conection = new SqliteConnection(db_client)){
-            conection.Open();
-            using (var command = conection.CreateCommand()){
-                command.CommandText = "SELECT * FROM item ORDER BY itemID ;";
-                using (var reader = command.ExecuteReader()){
-
-                        foreach (var item in reader)
+                StartCoroutine(WebRequest.Instance.PostRequest("/wearitem/" + Player.userID, form, (json) => 
+                {
+                    List<string> Equipped_list = new List<string>();
+                    StartCoroutine(WebRequest.Instance.GetRequest("/wearitem/" + Player.userID, (json) => 
+                    {
+                        WearItemSerializer[] res = JsonHelper.getJsonArray<WearItemSerializer>(json);
+                        foreach (var item in res)
                         {
-                            if( Equipped_list.Contains(reader["itemID"].ToString()) ){
-                                Appearance_list.Add(reader["appearance"].ToString());
+                            Equipped_list.Add(item.itemID.ToString());
+                        }
+
+                        List<string> Appearance_list = new List<string>();
+
+                        using (var conection = new SqliteConnection(db_client))
+                        {
+                            conection.Open();
+                            using (var command = conection.CreateCommand())
+                            {
+                                command.CommandText = "SELECT * FROM item ORDER BY itemID ;";
+                                using (var reader = command.ExecuteReader())
+                                {
+                                    foreach (var item in reader)
+                                    {
+                                        if(Equipped_list.Contains(reader["itemID"].ToString()))
+                                        {
+                                            Appearance_list.Add(reader["appearance"].ToString());
+                                        }
+                                    }
+                                    reader.Close();
+                                }
                             }
-
+                            conection.Close();
                         }
-                    
-                    reader.Close();
-                }
-            }
-            conection.Close();
-        }
-        return Appearance_list;
-    }  
 
-     public void UpdateWareItem(string itemID){ 
-
-        using (var conection = new SqliteConnection(db_sever)){
-            conection.Open();
-            using (var command = conection.CreateCommand()){
-                if(string.Equals(GetCurrentWare(), GetItemID())){
-                    command.CommandText = "UPDATE wearitem SET itemID = NULL WHERE userID = '" + Player.userID + "';";
-                } else {
-                    command.CommandText = "UPDATE wearitem SET itemID = '" + itemID + "' WHERE userID = '" + Player.userID + "';";
-                }
-                
-                command.ExecuteNonQuery();
-            }
-            conection.Close();
-        }
-
-    }
-
-     public string GetItemID(){ 
-
-        string ID = "";
-
-        using (var conection = new SqliteConnection(db_sever)){
-            conection.Open();
-            using (var command = conection.CreateCommand()){
-                command.CommandText = "SELECT * FROM item WHERE itemname='" + Item_name.text + "';";
-                using (var reader = command.ExecuteReader()){
-
-                    ID = reader["itemID"].ToString();
-                        
-                    reader.Close();
-                }
-            }
-            conection.Close();
-        }
-        return ID;
-    }
-
-    public string GetCurrentWare(){ 
-
-        string ID = "";
-
-        using (var conection = new SqliteConnection(db_sever)){
-            conection.Open();
-            using (var command = conection.CreateCommand()){
-                command.CommandText = "SELECT * FROM wearitem WHERE userID='" + Player.userID + "';";
-                using (var reader = command.ExecuteReader()){
-
-       
-                    ID = reader["itemID"].ToString();
-                        
-      
-                    reader.Close();
-                }
-            }
-            conection.Close();
-        }
-        return ID;
-    }
-
-    public List<string> EquipList(){
-
-        List<string> Equip_list = new List<string>();
-        using (var conection = new SqliteConnection(db_sever)){
-            conection.Open();
-            using (var command = conection.CreateCommand()){
-                command.CommandText = "SELECT * FROM wearitem WHERE userID = '" + Player.userID + "';";
-                using (var reader = command.ExecuteReader()){
-                    
-                        foreach(var item in reader)
+                        if(Appearance_list.Count > 0)
                         {
-                            Equip_list.Add(reader["itemID"].ToString());
+                            Steve_Image.sprite = Resources.Load<Sprite>(Appearance_list[0]);
                         }
-                        
-      
-                    reader.Close();
-                }
-            }
-            conection.Close();
-        }
-        return Equip_list;
+
+                        Item_popup.SetActive(false);
+                        SceneManager.LoadScene("Inventory");
+                    }));
+                }));
+            }));
+        }));
     }
 }

@@ -24,7 +24,8 @@ public class ExplorationRewarding : MonoBehaviour
         ChestManager.Instance.resetChest();
     }
 
-    IEnumerator RandomReward(){
+    IEnumerator RandomReward()
+    {
         System.Random random = new System.Random();
         int index = 0;
         int stack = ProgressBar.Instance.total_reward;
@@ -57,5 +58,6 @@ public class ExplorationRewarding : MonoBehaviour
             default:
                 break;
         }
+        Database.Instance.UpdatePlayer();
     }
 }

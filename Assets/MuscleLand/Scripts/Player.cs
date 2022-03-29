@@ -4,11 +4,11 @@ using UnityEngine;
 using UnityEngine.UI;
 using Mono.Data.Sqlite;
 
+[System.Serializable]
 public class Player : MonoBehaviour
 {
-    private static string db_sever = "URI=file:DB/server.db";
+    public static Player Instance;
     private static string db_client = "URI=file:DB/client.db";
-    
     public static string username = "";
     public static string userID = "";
     public static Sprite user_profile;
@@ -25,9 +25,8 @@ public class Player : MonoBehaviour
     public static float weeklyBurnedCalories = 0f;
     public static string[] items;
 
-    public static List<string>  appearance_list  = GetAppearanceList();
-
     private void Start() {
+        Instance = this;
         DontDestroyOnLoad(gameObject);
     }
 
@@ -38,54 +37,40 @@ public class Player : MonoBehaviour
         }
     }
 
-    public static List<string> GetAppearanceList(){
-        
-        List<string> Equipped_list = EquipList();
+    public List<string> GetAppearanceList()
+    {
+        List<string> Equipped_list = new List<string>();
         List<string> Appearance_list = new List<string>();
+        StartCoroutine(WebRequest.Instance.GetRequest("/wearitem/" + Player.userID, (json) => 
+        {
+            WearItemSerializer[] res = JsonHelper.getJsonArray<WearItemSerializer>(json);
+            foreach (var item in res)
+            {
+                Equipped_list.Add(item.itemID.ToString());
+            }
 
-        using (var conection = new SqliteConnection(db_client)){
-            conection.Open();
-            using (var command = conection.CreateCommand()){
-                command.CommandText = "SELECT * FROM item ORDER BY itemID ;";
-                using (var reader = command.ExecuteReader()){
-
+            using (var conection = new SqliteConnection(db_client))
+            {
+                conection.Open();
+                using (var command = conection.CreateCommand())
+                {
+                    command.CommandText = "SELECT * FROM item ORDER BY itemID ;";
+                    using (var reader = command.ExecuteReader())
+                    {
                         foreach (var item in reader)
                         {
-                            if( Equipped_list.Contains(reader["itemID"].ToString()) ){
+                            if(Equipped_list.Contains(reader["itemID"].ToString()))
+                            {
                                 Appearance_list.Add(reader["appearance"].ToString());
                             }
-
                         }
-                    
-                    reader.Close();
+                        reader.Close();
+                    }
                 }
+                conection.Close();
             }
-            conection.Close();
-        }
+        }));
+
         return Appearance_list;
-    }  
-
-    public static List<string> EquipList(){
-
-        List<string> Equip_list = new List<string>();
-        using (var conection = new SqliteConnection(db_sever)){
-            conection.Open();
-            using (var command = conection.CreateCommand()){
-                command.CommandText = "SELECT * FROM wearitem WHERE userID = '" + userID + "';";
-                using (var reader = command.ExecuteReader()){
-                    
-                        foreach(var item in reader)
-                        {
-                            Equip_list.Add(reader["itemID"].ToString());
-                        }
-                        
-      
-                    reader.Close();
-                }
-            }
-            conection.Close();
-        }
-        return Equip_list;
     }
-
 }

@@ -9,7 +9,6 @@ public class DungeonRewarding : MonoBehaviour
     public int Gold_each;
     public int Exp_max = 20;
     public int Exp_each;
-
     public Sprite[] Reward_rank;
     public Image Reward;
     public Text Header;
@@ -65,7 +64,8 @@ public class DungeonRewarding : MonoBehaviour
         Player.Exp += DungeonValues.Exp_recieved;
         showRewardingPopup();
         CaloriesCalculator.Instance.Calculate();
-        Database.Instance.DungeonRewarding();
+        Database.Instance.UpdatePlayer();
+        Database.Instance.UpdateDungeonData();
     }
 
     public void showRewardingPopup(){

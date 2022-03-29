@@ -6,35 +6,19 @@ using UnityEngine.UI;
 
 public class claimebuttonweekly : MonoBehaviour
 {
-  private string dbName = "URI=file:DB/server.db";
-  private string dbNameC = "URI=file:DB/client.db";
+  private string dbClient = "URI=file:DB/client.db";
   public Text XPtext;
   public Text GOLDtext;
-  public int getXP;
-  public int getGOLD;
-  string userID = Player.userID;
-  void Start()
-  {
-
-  }
-  void Update()
-  {
-
-  }
+  
   public void rewarding()
   {
-    rewardcheck(int.Parse(this.transform.parent.gameObject.name));
-    XPtext.text = getXP.ToString() + " XP";
-    GOLDtext.text = getGOLD.ToString() + " GOLD";
-    this.gameObject.SetActive(false);
-    missionprogress.Instance.progresstextdaily();
-
+    rewardCheck(int.Parse(this.transform.parent.gameObject.name));
   }
 
-  public void rewardcheck(int quest)
+  public void rewardCheck(int quest)
   {
     int questID;
-    using (var conection = new SqliteConnection(dbNameC))
+    using (var conection = new SqliteConnection(dbClient))
     {
       conection.Open();
       using (var command = conection.CreateCommand())
@@ -49,30 +33,23 @@ public class claimebuttonweekly : MonoBehaviour
       conection.Close();
     }
 
-    using (var conection = new SqliteConnection(dbName))
+    StartCoroutine(WebRequest.Instance.GetRequest("/quest/" + questID, (json) => 
     {
-      conection.Open();
-      using (var command = conection.CreateCommand())
-      {
-        command.CommandText = "SELECT * FROM quest WHERE questID = '" + questID + "';";
-        using (var reader = command.ExecuteReader())
-        {
-          getXP = (int)reader["EXP"];
-          Player.Exp += (int)reader["EXP"];
-          getGOLD = (int)reader["GOLD"];
-          Player.Gold += (int)reader["GOLD"];
-          reader.Close();
-        }
-      }
-      conection.Close();
-    }
-    updateclaimed(quest);
+      QuestSerializer[] res = JsonHelper.getJsonArray<QuestSerializer>(json);
+      XPtext.text = res[0].EXP.ToString() + " XP";
+      GOLDtext.text = res[0].GOLD.ToString() + " GOLD";
+      Player.Exp += res[0].EXP;
+      Player.Gold += res[0].GOLD;
+      Database.Instance.UpdatePlayer();
+      updateclaimed(quest);
+      this.gameObject.SetActive(false);
+      missionprogress.Instance.progresstextweekly();
+    }));
   }
 
   public void updateclaimed(int quest)
   {
-
-    using (var conection = new SqliteConnection(dbNameC))
+    using (var conection = new SqliteConnection(dbClient))
     {
       conection.Open();
       using (var command = conection.CreateCommand())

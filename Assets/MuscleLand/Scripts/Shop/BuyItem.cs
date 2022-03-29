@@ -7,86 +7,77 @@ using Mono.Data.Sqlite;
 
 public class BuyItem : MonoBehaviour
 {
- 
     [SerializeField] Text Item_Price;
     [SerializeField] Text Item_name;
-
     [SerializeField] GameObject Warning_Text;
-
     [SerializeField] GameObject Item_popup;
+    [SerializeField] GameObject itemID;
 
-    private string db_sever = "URI=file:DB/server.db";
-    public void Buy(){
-
+    public void Buy()
+    {
         string[] textSplit = Item_Price.text.Split();
         int price = int.Parse(textSplit[0]);
         int User_gold = Player.Gold;
     
-        if( price < User_gold){
-
+        if(price < User_gold)
+        {
             Player.Gold -= price;
-            
-            UpdateUser();
-
-            UpdateInventory(GetItemID());
+            Database.Instance.UpdatePlayer();
+            UpdateInventory();
             Item_popup.SetActive(false);
             SceneManager.LoadScene("Shop");
-
-        } else {
+        } 
+        else
+        {
             Debug.Log("No gold");
             Warning_Text.SetActive(true);
         }
-
-    } 
-
-    public void UpdateUser(){ 
-
-        using (var conection = new SqliteConnection(db_sever)){
-            conection.Open();
-            using (var command = conection.CreateCommand()){
-                command.CommandText = "UPDATE User SET GOLD = " + Player.Gold + " WHERE username='" + Player.username + "';";
-                command.ExecuteNonQuery();
-            }
-            conection.Close();
-        }
     }
 
+    public void UpdateInventory()
+    {
+        WWWForm form = new WWWForm();
+        form.AddField("userID", Player.userID);
+        form.AddField("itemID", itemID.name);
+        form.AddField("amount", 1);
+        StartCoroutine(WebRequest.Instance.PostRequest("/inventory", form));
 
-     public void UpdateInventory(int itemID){ 
-
-        using (var conection = new SqliteConnection(db_sever)){
-            conection.Open();
-            using (var command = conection.CreateCommand()){
-                command.CommandText = "INSERT INTO inventory VALUES (" + Player.userID + ", " + itemID + ", " + 1 + ");";
-                command.ExecuteNonQuery();
-            }
-            conection.Close();
-        }
-
+        // using (var conection = new SqliteConnection(db_sever))
+        // {
+        //     conection.Open();
+        //     using (var command = conection.CreateCommand())
+        //     {
+        //         command.CommandText = "INSERT INTO inventory VALUES (" + Player.userID + ", " + itemID + ", " + 1 + ");";
+        //         command.ExecuteNonQuery();
+        //     }
+        //     conection.Close();
+        // }
     }
 
+    public string GetItemID()
+    { 
+        string ID = "";
+        StartCoroutine(WebRequest.Instance.GetRequest("/item/" + Item_name.text, (json) => 
+        {
+            ItemSerializer[] res = JsonHelper.getJsonArray<ItemSerializer>(json);
+            ID = res[0].itemID.ToString();
+        }));
 
+        // using (var conection = new SqliteConnection(db_sever))
+        // {
+        //     conection.Open();
+        //     using (var command = conection.CreateCommand())
+        //     {
+        //         command.CommandText = "SELECT * FROM item WHERE itemname='" + Item_name.text + "';";
+        //         using (var reader = command.ExecuteReader())
+        //         {
+        //             ID = reader["itemID"].ToString();
+        //             reader.Close();
+        //         }
+        //     }
+        //     conection.Close();
+        // }
 
-     public int GetItemID(){ 
-
-        int ID = 0;
-
-        using (var conection = new SqliteConnection(db_sever)){
-            conection.Open();
-            using (var command = conection.CreateCommand()){
-                command.CommandText = "SELECT * FROM item WHERE itemname='" + Item_name.text + "';";
-                using (var reader = command.ExecuteReader()){
-
-       
-                    ID = int.Parse(reader["itemID"].ToString());
-                        
-      
-                    reader.Close();
-                }
-            }
-            conection.Close();
-        }
         return ID;
     }
-
 }

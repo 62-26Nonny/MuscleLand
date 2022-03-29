@@ -6,22 +6,17 @@ using System;
 public class datetimer : MonoBehaviour
 {
   public static DateTime currentdate = DateTime.UtcNow;
-  void Start()
+
+  private void Start()
   {
     StartCoroutine(nowdate());
-  }
-
-  // Update is called once per frame
-  void Update()
-  {
-
   }
 
   public IEnumerator nowdate()
   {
     while(true)
     {
-      yield return new WaitForSeconds(5f);
+      yield return new WaitForSeconds(1f);
       currentdate = DateTime.UtcNow;
     }
   }

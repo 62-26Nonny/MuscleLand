@@ -6,72 +6,44 @@ using UnityEngine.UI;
 
 public class arcbutton : MonoBehaviour
 {
-  private string dbName = "URI=file:DB/server.db";
   public Text XPtext;
   public Text GOLDtext;
-  public int getXP;
-  public int getGOLD;
-  void Start()
-  {
 
-  }
-  void Update()
-  {
-
-  }
   public void rewarding()
   {
-    rewardcheck(int.Parse(this.transform.parent.gameObject.name));
-    XPtext.text = getXP.ToString() + "XP";
-    GOLDtext.text = getGOLD.ToString() + " GOLD";
-    this.gameObject.SetActive(false);
-    Achivement.Instance.progresstext();
+    rewardCheck(int.Parse(this.transform.parent.gameObject.name));
   }
 
-  public void rewardcheck(int arcID)
+  public void rewardCheck(int achievementID)
   {
-    using (var conection = new SqliteConnection(dbName))
+    StartCoroutine(WebRequest.Instance.GetRequest("/achievement/" + achievementID, (json) => 
     {
-      conection.Open();
-      using (var command = conection.CreateCommand())
-      {
-        command.CommandText = "SELECT * FROM achievement WHERE arcID = '" + arcID + "';";
-        using (var reader = command.ExecuteReader())
-        {
-          getXP = (int)reader["EXP"];
-          Player.Exp += (int)reader["EXP"];
-          getGOLD = (int)reader["GOLD"];
-          Player.Gold += (int)reader["GOLD"];
-          reader.Close();
-        }
-      }
-      conection.Close();
-    }
-    updateclaimed(arcID);
+      AchievementSerializer[] res = JsonHelper.getJsonArray<AchievementSerializer>(json);
+      XPtext.text = res[0].EXP.ToString() + " XP";
+      Player.Exp += res[0].EXP;
+      GOLDtext.text = res[0].GOLD.ToString() + " GOLD";
+      Player.Gold += res[0].GOLD;
+      Database.Instance.UpdatePlayer();
+      updateclaimed(achievementID);
+    }));
   }
 
-  public void updateclaimed(int arcid)
+  public void updateclaimed(int achievementID)
   {
     int curlvl;
-    using (var conection = new SqliteConnection(dbName))
+    StartCoroutine(WebRequest.Instance.GetRequest("/userachievement/" + Player.userID + "/" + achievementID, (json) => 
     {
-      conection.Open();
-      using (var command = conection.CreateCommand())
+      UserAchievementSerializer[] res = JsonHelper.getJsonArray<UserAchievementSerializer>(json);
+      curlvl = res[0].curlvl;
+      curlvl = curlvl + 1;
+  
+      WWWForm form = new WWWForm();
+      form.AddField("curlvl", curlvl);
+      StartCoroutine(WebRequest.Instance.PostRequest("/userachievement/" + Player.userID + "/" + achievementID, form, (json) => 
       {
-        command.CommandText = "SELECT * FROM userachievement where userID = '" + Player.userID + "' AND arcid='" + arcid + "';";
-        using (var reader = command.ExecuteReader())
-        {
-          curlvl = (int)reader["curlvl"];
-          reader.Close();
-        }
-        if(curlvl < 3)
-        {
-          curlvl = curlvl + 1;
-        }
-        command.CommandText = "UPDATE userachievement set curlvl = '" + curlvl + "' where userID = '" + Player.userID + "' AND arcID='" + arcid + "';";
-        command.ExecuteNonQuery();
-      }
-      conection.Close();
-    }
+        this.gameObject.SetActive(false);
+        Achivement.Instance.progressText();
+      }));
+    }));
   }
 }

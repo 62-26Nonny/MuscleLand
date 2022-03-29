@@ -12,46 +12,57 @@ public class ProgressBar : MonoBehaviour
     public float next_bar_value;
     public int total_reward;
 
-    private void Start() {
+    private void Start()
+    {
         Instance = this;
         isFirstBar = true;
         total_reward = Player.total_reward;
-        if (total_reward > 0){
+        
+        if (total_reward > 0)
+        {
             progress.value = 10000;
             next_bar_value = Player.current_progress;
         }
-        else {
+        else
+        {
             progress.value = Player.current_progress;
         }
     }
 
-    private void Update() {
+    private void Update()
+    {
         current_progress.text = Mathf.Floor(progress.value / 1000).ToString() + " Km / 10 Km";
     }
 
-    public IEnumerator updateProgress(){
+    public IEnumerator updateProgress()
+    {
         float updateTimed = 1f;
         float inc_distance = DistanceCalculator.Instance.distance / (updateTimed * 100);
 
         // Set new best distance
-        if (DistanceCalculator.Instance.distance > Player.best_progress){
+        if (DistanceCalculator.Instance.distance > Player.best_progress)
+        {
             Player.best_progress = DistanceCalculator.Instance.distance;
         }
 
         // Increase progress
-        while (updateTimed > 0){
+        while (updateTimed > 0)
+        {
             // If reach max distance
-            if (progress.value + inc_distance >= 10000 || Player.current_progress + inc_distance >= 10000){
+            if (progress.value + inc_distance >= 10000 || Player.current_progress + inc_distance >= 10000)
+            {
                 // Store next bar distance value
                 next_bar_value += (progress.value + inc_distance) % 10000;
                 Player.current_progress = next_bar_value;
                 // If next bar value stack reach max distance
-                if (next_bar_value >= 10000){
+                if (next_bar_value >= 10000)
+                {
                     total_reward += (int)Mathf.Floor(next_bar_value / 10000);
                     Player.total_reward += (int)Mathf.Floor(next_bar_value / 10000);
                     next_bar_value = next_bar_value % 10000;
                 }
-                else if (isFirstBar){
+                else if (isFirstBar)
+                {
                     // Stack reward following number of reaching max distance
                     total_reward += (int)Mathf.Floor((progress.value + inc_distance) / 10000);
                     Player.total_reward += (int)Mathf.Floor((progress.value + inc_distance) / 10000);
@@ -59,7 +70,9 @@ public class ProgressBar : MonoBehaviour
                 }
                 // Set value to reach max distance
                 progress.value = 10000;
-            } else {
+            } 
+            else 
+            {
                 progress.value += inc_distance;
                 Player.current_progress += inc_distance;
                 LoopGround.Instance.loop(inc_distance);
@@ -68,9 +81,11 @@ public class ProgressBar : MonoBehaviour
             yield return new WaitForSeconds(0.01f);
             updateTimed -= 0.01f;
         }
+        Database.Instance.UpdateExplorationData();
     }
     
-    public void ResetProgress(){
+    public void ResetProgress()
+    {
         progress.value = next_bar_value;
         Player.current_progress = next_bar_value;
         next_bar_value = 0;
@@ -78,5 +93,4 @@ public class ProgressBar : MonoBehaviour
         Player.total_reward = 0;
         isFirstBar = true;
     }
-
 }
