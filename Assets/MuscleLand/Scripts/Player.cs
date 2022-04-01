@@ -25,6 +25,9 @@ public class Player : MonoBehaviour
     public static float weeklyBurnedCalories = 0f;
     public static string[] items;
 
+    public static float effectVolume = 1f;
+    public static float musicVolume = 1f;
+
     private void Start() {
         Instance = this;
         DontDestroyOnLoad(gameObject);

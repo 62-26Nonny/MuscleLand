@@ -23,11 +23,13 @@ namespace UI.Popup
         // Show popup
         public void Show(){
             canvas.SetActive(true);
+            SFX.Instance.playClickSound();
         }
 
         // Hide popup
         public void Hide(){
             canvas.SetActive(false);
+            SFX.Instance.playClickSound();
         } 
     }
 }

@@ -85,11 +85,15 @@ public class ScrollSnapRect : MonoBehaviour, IBeginDragHandler, IEndDragHandler,
         SetPageSelection(startingPage);
 
         // prev and next buttons
-        if (nextButton)
+        if (nextButton){
             nextButton.GetComponent<Button>().onClick.AddListener(() => { NextScreen(); });
+        }
+            
 
-        if (prevButton)
+        if (prevButton){
             prevButton.GetComponent<Button>().onClick.AddListener(() => { PreviousScreen(); });
+        }
+            
 	}
 
     //------------------------------------------------------------------------
@@ -225,11 +229,13 @@ public class ScrollSnapRect : MonoBehaviour, IBeginDragHandler, IEndDragHandler,
 
     //------------------------------------------------------------------------
     private void NextScreen() {
+        SFX.Instance.playClickSound();
         LerpToPage(_currentPage + 1);
     }
 
     //------------------------------------------------------------------------
     private void PreviousScreen() {
+        SFX.Instance.playClickSound();
         LerpToPage(_currentPage - 1);
     }
 

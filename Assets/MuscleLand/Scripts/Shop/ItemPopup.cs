@@ -19,6 +19,7 @@ public class ItemPopup : MonoBehaviour
     
     public void Show()
     {
+        SFX.Instance.playClickSound();
         popup_name.text = item_name.text;
         popup_image.sprite = item_image.sprite;
         popup_price.text = item_price.text;
@@ -43,8 +44,8 @@ public class ItemPopup : MonoBehaviour
 
     public void Hide()
     {
+        SFX.Instance.playClickSound();
         canvas.SetActive(false);
     } 
-   
 }
 

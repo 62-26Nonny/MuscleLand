@@ -12,6 +12,7 @@ public class TabButton : MonoBehaviour, IPointerEnterHandler, IPointerClickHandl
 
     public void OnPointerClick(PointerEventData eventData)
     {
+        SFX.Instance.playClickSound();
         tabGroup.OnTabSelected(this);
     }
 

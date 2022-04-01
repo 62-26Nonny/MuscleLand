@@ -15,6 +15,7 @@ public class Authentication : MonoBehaviour
     public Text error;
 
     public void Login(){
+        SFX.Instance.playClickSound();
         if (loginUsername.text != "" && loginPassword.text != "")
         {
             StartCoroutine(WebRequest.Instance.GetRequest("/user", (json) => 
@@ -101,6 +102,7 @@ public class Authentication : MonoBehaviour
 
     public void Register()
     {   
+        SFX.Instance.playClickSound();
         if (registerUsername.text != "" && registerPassword.text != "")
         {
             WWWForm form = new WWWForm();

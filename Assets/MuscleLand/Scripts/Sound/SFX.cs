@@ -4,16 +4,43 @@ using UnityEngine;
 
 public class SFX : MonoBehaviour
 {
-    public GameObject SFX_source;
+    public static SFX Instance;
     public AudioSource source;
-    [SerializeField] AudioClip sound;
-    
-    void Start()
-    {
-        source = SFX_source.GetComponent<AudioSource>();
+    [SerializeField] public AudioClip[] sound;
+
+    private void Awake() {
+        if (Instance == null) {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else {
+            Destroy(gameObject);
+        }
+
     }
 
-    public void play(){
-        source.PlayOneShot(sound);
+    // private void Update() {
+    //     if (Input.GetMouseButton(0)) {
+    //         playClickSound();
+    //     }
+    // }
+
+    // void Update()
+    // {    
+    //     if (Input.GetMouseButton(0))
+    //     {
+    //         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+    //         RaycastHit hit;
+    //         Physics.Raycast(ray, out hit);
+    //         Debug.Log("This hit at " + hit.point );
+    //         playClickSound();
+    //     }
+    // }
+    public void playHitSound(){
+        source.PlayOneShot(sound[0]);
+    }
+
+    public void playClickSound(){
+        source.PlayOneShot(sound[1]);
     }
 }

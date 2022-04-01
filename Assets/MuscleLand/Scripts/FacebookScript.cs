@@ -42,6 +42,7 @@ public class FacebookScript : MonoBehaviour
         if (FB.IsLoggedIn) {
             GetUserData();
             SceneManager.LoadScene("Main Menu");
+            SFX.Instance.playClickSound();
         } else {
             Debug.Log("User cancelled login");
         }
