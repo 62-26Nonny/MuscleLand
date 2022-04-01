@@ -38,10 +38,62 @@ public class reWeeklyquest : MonoBehaviour
     DateTime startdate = Convert.ToDateTime(startday);
     if (datetimer.currentdate.Date >= startdate.AddDays(7))
     {
+      ProgressCheck();
       rndWeeklyquest();
     }
   }
   
+  public void ProgressCheck(){
+    using (var conection = new SqliteConnection(dbClient))
+    {
+      conection.Open();
+      using (var command = conection.CreateCommand())
+      {
+        command.CommandText = "SELECT * FROM weeklyquest;";
+        using (var reader = command.ExecuteReader())
+        {
+          foreach (var item in reader)
+          {
+            int questId = (int)reader["questID"];
+            StartCoroutine(WebRequest.Instance.GetRequest("/quest/" + questId, (json) => 
+            { 
+              int weeklyprogress;
+              int weeklygoal;
+              bool claimedweekly;
+              string questDescription;
+              string difficulty;
+              int dungeonID;
+              int questID;
+
+              QuestSerializer[] res = JsonHelper.getJsonArray<QuestSerializer>(json);
+
+              weeklygoal = res[0].times;
+              questDescription = res[0].description;
+              difficulty = res[0].difficulty;
+              dungeonID = res[0].dungeonID;
+              questID = res[0].questID;
+
+              StartCoroutine(WebRequest.Instance.GetRequest("/dungeonstat/" + Player.userID + "/" + dungeonID + "/" + difficulty, (json) => 
+              {
+                DungeonStatSerializer[] res = JsonHelper.getJsonArray<DungeonStatSerializer>(json);
+                weeklyprogress = res[0].weekly;
+
+                if (weeklyprogress >= weeklygoal)
+                {
+                  WWWForm forms = new WWWForm();
+                    StartCoroutine(WebRequest.Instance.PostRequest("/quest/complete/"+questId.ToString(), forms));
+                }
+              }));
+
+            }));
+            
+          }
+        }
+      }
+      conection.Close();
+    }
+  }
+
   public void rndWeeklyquest()
   {
     int range = 9;
@@ -57,7 +109,10 @@ public class reWeeklyquest : MonoBehaviour
 
       for (int i = 0; i < 3; i++)
       {
-        RandomNumber(range);
+        int questId = RandomNumber(range) + 1;
+
+        WWWForm forms = new WWWForm();
+        StartCoroutine(WebRequest.Instance.PostRequest("/quest/accept/"+questId.ToString(), forms));
       };
 
       for (int i = 0; i < numbers.Count; i++)
@@ -96,7 +151,7 @@ public class reWeeklyquest : MonoBehaviour
     }
   }
 
-  public void RandomNumber(int range)
+  public int RandomNumber(int range)
   {
     while (true)
     {
@@ -104,7 +159,7 @@ public class reWeeklyquest : MonoBehaviour
       if (!numbers.Contains(random))
       {
         numbers.Add(random);
-        return;
+        return random;
       }
     }
   }

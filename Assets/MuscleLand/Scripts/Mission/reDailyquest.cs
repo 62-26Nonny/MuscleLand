@@ -39,10 +39,61 @@ public class reDailyquest : MonoBehaviour
 
     if (datetimer.currentdate.Date > startdate)
     {
+      ProgressCheck();
       rndDailyquest();
     }
   }
 
+  public void ProgressCheck(){
+    using (var conection = new SqliteConnection(dbClient))
+    {
+      conection.Open();
+      using (var command = conection.CreateCommand())
+      {
+        command.CommandText = "SELECT * FROM dailyquest;";
+        using (var reader = command.ExecuteReader())
+        {
+          foreach (var item in reader)
+          {
+            int questId = (int)reader["questID"];
+            StartCoroutine(WebRequest.Instance.GetRequest("/quest/" + questId, (json) => 
+            { 
+              int dailyprogress;
+              int dailygoal;
+              bool claimeddaily;
+              string questDescription;
+              string difficulty;
+              int dungeonID;
+              int questID;
+
+              QuestSerializer[] res = JsonHelper.getJsonArray<QuestSerializer>(json);
+
+              dailygoal = res[0].times;
+              questDescription = res[0].description;
+              difficulty = res[0].difficulty;
+              dungeonID = res[0].dungeonID;
+              questID = res[0].questID;
+
+              StartCoroutine(WebRequest.Instance.GetRequest("/dungeonstat/" + Player.userID + "/" + dungeonID + "/" + difficulty, (json) => 
+              {
+                DungeonStatSerializer[] res = JsonHelper.getJsonArray<DungeonStatSerializer>(json);
+                dailyprogress = res[0].daily;
+
+                if (dailyprogress >= dailygoal)
+                {
+                  WWWForm forms = new WWWForm();
+                    StartCoroutine(WebRequest.Instance.PostRequest("/quest/complete/"+questId.ToString(), forms));
+                }
+              }));
+
+            }));
+            
+          }
+        }
+      }
+      conection.Close();
+    }
+  }
   public void rndDailyquest()
   {
     int range = 9;
@@ -58,7 +109,11 @@ public class reDailyquest : MonoBehaviour
 
       for (int i = 0; i < 3; i++)
       {
-        RandomNumber(range);
+        int questId = RandomNumber(range) + 1;
+
+        WWWForm forms = new WWWForm();
+        StartCoroutine(WebRequest.Instance.PostRequest("/quest/accept/"+questId.ToString(), forms));
+
       };
 
       for (int i = 0; i < numbers.Count; i++)
@@ -73,6 +128,7 @@ public class reDailyquest : MonoBehaviour
       {
         missionprogress.Instance.progresstextdaily();
       }));
+
     }));
   }
 
@@ -97,7 +153,7 @@ public class reDailyquest : MonoBehaviour
     }
   }
 
-  public void RandomNumber(int range)
+  public int RandomNumber(int range)
   {
     while (true)
     {
@@ -105,7 +161,7 @@ public class reDailyquest : MonoBehaviour
       if (!numbers.Contains(random))
       {
         numbers.Add(random);
-        return;
+        return random;
       }
     }
   }
