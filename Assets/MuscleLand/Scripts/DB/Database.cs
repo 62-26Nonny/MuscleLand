@@ -9,13 +9,27 @@ public class Database : MonoBehaviour
 {
     public static Database Instance;
     List<string> scence_list = new List<string> {"Loading", "Login"};
-    public string dbClient = "URI=file:DB/client.db";
+    public string dbClient;
 
     private void Start()
     {
         if (Instance == null)
         {
             Instance = this;
+            dbClient = Application.persistentDataPath + "/client.db";
+            if(!File.Exists(dbClient))
+            {
+                Debug.LogWarning("File \"" + dbClient + "\" does not exist. Attempting to create from \"" +
+                                Application.dataPath + "!/assets/client.db");
+                // if it doesn't ->
+                // open StreamingAssets directory and load the db -> 
+                WWW loadDB = new WWW("jar:file://" + Application.dataPath + "!/assets/client.db");
+                while(!loadDB.isDone) {}
+                // then save to Application.persistentDataPath
+                File.WriteAllBytes(dbClient, loadDB.bytes);
+            }
+            //open db connection
+            dbClient = "URI=file:" + dbClient;
             DontDestroyOnLoad(gameObject);
         }
         else
