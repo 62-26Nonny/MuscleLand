@@ -5,7 +5,6 @@ using UnityEngine.UI;
 using Mono.Data.Sqlite;
 public class InventoryManager : MonoBehaviour
 {
-    private string db_client = "URI=file:DB/client.db";
     [SerializeField] GameObject list;
     [SerializeField] GameObject Prefab_Item;
 
@@ -28,7 +27,7 @@ public class InventoryManager : MonoBehaviour
 
             // Path list
             List<string> path_list = new List<string>();
-            using (var conection = new SqliteConnection(db_client))
+            using (var conection = new SqliteConnection(Database.Instance.dbClient))
             {
                 conection.Open();
                 using (var command = conection.CreateCommand())

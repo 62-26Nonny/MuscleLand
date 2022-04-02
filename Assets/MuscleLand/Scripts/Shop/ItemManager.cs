@@ -6,7 +6,6 @@ using Mono.Data.Sqlite;
 
 public class ItemManager : MonoBehaviour
 {
-    private string db_client = "URI=file:DB/client.db";
     [SerializeField] GameObject list;
     [SerializeField] GameObject Prefab_Item;
     
@@ -20,7 +19,7 @@ public class ItemManager : MonoBehaviour
     {
         List<string> Path_list = new List<string>();
     
-        using (var conection = new SqliteConnection(db_client))
+        using (var conection = new SqliteConnection(Database.Instance.dbClient))
         {
             conection.Open();
             using (var command = conection.CreateCommand())

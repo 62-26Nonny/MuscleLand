@@ -8,7 +8,6 @@ using Mono.Data.Sqlite;
 public class Player : MonoBehaviour
 {
     public static Player Instance;
-    private static string db_client = "URI=file:DB/client.db";
     public static string username = "";
     public static string userID = "";
     public static Sprite user_profile;
@@ -52,7 +51,7 @@ public class Player : MonoBehaviour
                 Equipped_list.Add(item.itemID.ToString());
             }
 
-            using (var conection = new SqliteConnection(db_client))
+            using (var conection = new SqliteConnection(Database.Instance.dbClient))
             {
                 conection.Open();
                 using (var command = conection.CreateCommand())

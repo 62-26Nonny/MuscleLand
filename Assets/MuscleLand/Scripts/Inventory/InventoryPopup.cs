@@ -6,7 +6,6 @@ using Mono.Data.Sqlite;
 
 public class InventoryPopup : MonoBehaviour
 {
-    private string db_client = "URI=file:DB/client.db";
     [SerializeField] GameObject canvas;
     [SerializeField] Text popup_name;
     [SerializeField] Image popup_image;
@@ -29,7 +28,7 @@ public class InventoryPopup : MonoBehaviour
             popup_name.text = item_name.text;
             popup_image.sprite = item_image.sprite;
 
-            using (var conection = new SqliteConnection(db_client))
+            using (var conection = new SqliteConnection(Database.Instance.dbClient))
             {
                 conection.Open();
                 using (var command = conection.CreateCommand())

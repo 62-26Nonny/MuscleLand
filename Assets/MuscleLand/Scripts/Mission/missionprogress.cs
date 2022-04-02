@@ -7,7 +7,6 @@ using Mono.Data.Sqlite;
 public class missionprogress : MonoBehaviour
 {
   public static missionprogress Instance;
-  private string dbClient = "URI=file:DB/client.db";
   [SerializeField] GameObject dailyQuetView;
   [SerializeField] GameObject weeklyQuetView;
   [SerializeField] GameObject Prefab_quest;
@@ -52,7 +51,7 @@ public class missionprogress : MonoBehaviour
           dailyprogress = res[0].daily;
           int questNum;
 
-          using (var conection = new SqliteConnection(dbClient))
+          using (var conection = new SqliteConnection(Database.Instance.dbClient))
           {
             conection.Open();
             using (var command = conection.CreateCommand())
@@ -120,7 +119,7 @@ public class missionprogress : MonoBehaviour
           weeklyprogress = res[0].weekly;
           int questNum;
 
-          using (var conection = new SqliteConnection(dbClient))
+          using (var conection = new SqliteConnection(Database.Instance.dbClient))
           {
             conection.Open();
             using (var command = conection.CreateCommand())
@@ -163,7 +162,7 @@ public class missionprogress : MonoBehaviour
 
   public void addQID()
   {
-    using (var conection = new SqliteConnection(dbClient))
+    using (var conection = new SqliteConnection(Database.Instance.dbClient))
     {
       conection.Open();
       using (var command = conection.CreateCommand())
@@ -190,7 +189,7 @@ public class missionprogress : MonoBehaviour
   
   public void addmission()
   {
-    using (var conection = new SqliteConnection(dbClient))
+    using (var conection = new SqliteConnection(Database.Instance.dbClient))
     {
       conection.Open();
       using (var command = conection.CreateCommand())

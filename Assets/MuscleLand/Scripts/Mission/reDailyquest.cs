@@ -7,7 +7,6 @@ using Mono.Data.Sqlite;
 
 public class reDailyquest : MonoBehaviour
 {
-  private string dbClient = "URI=file:DB/client.db";
   List<int> numbers = new List<int>();
   List<int> QID = new List<int>();
 
@@ -20,7 +19,7 @@ public class reDailyquest : MonoBehaviour
   {
     string startday;
 
-    using (var conection = new SqliteConnection(dbClient))
+    using (var conection = new SqliteConnection(Database.Instance.dbClient))
     {
       conection.Open();
       using (var command = conection.CreateCommand())
@@ -45,7 +44,7 @@ public class reDailyquest : MonoBehaviour
   }
 
   public void ProgressCheck(){
-    using (var conection = new SqliteConnection(dbClient))
+    using (var conection = new SqliteConnection(Database.Instance.dbClient))
     {
       conection.Open();
       using (var command = conection.CreateCommand())
@@ -134,7 +133,7 @@ public class reDailyquest : MonoBehaviour
 
   public void ResetDailyquest(int id, int questnum)
   {
-    using (var conection = new SqliteConnection(dbClient))
+    using (var conection = new SqliteConnection(Database.Instance.dbClient))
     {
       conection.Open();
       using (var command = conection.CreateCommand())

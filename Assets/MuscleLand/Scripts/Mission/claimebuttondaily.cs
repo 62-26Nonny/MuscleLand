@@ -6,7 +6,6 @@ using UnityEngine.UI;
 
 public class claimebuttondaily : MonoBehaviour
 {
-  private string dbClient = "URI=file:DB/client.db";
   public Text XPtext;
   public Text GOLDtext;
   
@@ -18,7 +17,7 @@ public class claimebuttondaily : MonoBehaviour
   public void rewardCheck(int quest)
   {
     int questID;
-    using (var conection = new SqliteConnection(dbClient))
+    using (var conection = new SqliteConnection(Database.Instance.dbClient))
     {
       conection.Open();
       using (var command = conection.CreateCommand())
@@ -49,7 +48,7 @@ public class claimebuttondaily : MonoBehaviour
 
   public void updateclaimed(int quest)
   {
-    using (var conection = new SqliteConnection(dbClient))
+    using (var conection = new SqliteConnection(Database.Instance.dbClient))
     {
       conection.Open();
       using (var command = conection.CreateCommand())

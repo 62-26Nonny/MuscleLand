@@ -7,7 +7,6 @@ using Mono.Data.Sqlite;
 
 public class LoadCharacterSkin : MonoBehaviour
 {
-    private static string db_client = "URI=file:DB/client.db";
     public string current_scene;
     List<string> scence_list = new List<string> {"Inventory", "Main Menu", "Shop", "Profile"};
 
@@ -30,7 +29,7 @@ public class LoadCharacterSkin : MonoBehaviour
                     Equipped_list.Add(item.itemID.ToString());
                 }
 
-                using (var conection = new SqliteConnection(db_client))
+                using (var conection = new SqliteConnection(Database.Instance.dbClient))
                 {
                     conection.Open();
                     using (var command = conection.CreateCommand())

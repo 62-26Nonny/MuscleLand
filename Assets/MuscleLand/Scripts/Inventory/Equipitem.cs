@@ -10,7 +10,6 @@ public class Equipitem : MonoBehaviour
     [SerializeField] Text Item_name;
     [SerializeField] Image Steve_Image;
     [SerializeField] GameObject Item_popup;
-    private string db_client = "URI=file:DB/client.db";
 
     public void EquipThis()
     {
