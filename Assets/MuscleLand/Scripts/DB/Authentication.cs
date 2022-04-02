@@ -34,12 +34,14 @@ public class Authentication : MonoBehaviour
                         Player.Level += player.EXP / 100;
                         GetExplorationData();
                         SceneManager.LoadScene("Main Menu");
+                        WWWForm form = new WWWForm();
+                        form.AddField("last_active", "online");
+                        StartCoroutine(WebRequest.Instance.PostRequest("/user/" + Player.userID, form));
                         return;
                     }
                 }
                 Debug.Log("Wrong password");
                 error.gameObject.SetActive(true);
-
             }));
         } else {
             Debug.Log("Please enter username and password");

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 using UnityEngine.SceneManagement;
 using Mono.Data.Sqlite;
 
@@ -90,5 +91,12 @@ public class Database : MonoBehaviour
         //     }
         //     conection.Close();
         // }
+    }
+
+    void OnApplicationQuit()
+    {
+        WWWForm form = new WWWForm();
+        form.AddField("last_active", DateTime.UtcNow.ToString());
+        StartCoroutine(WebRequest.Instance.PostRequest("/user/" + Player.userID, form));
     }
 }
