@@ -49,7 +49,7 @@ public class Equipitem : MonoBehaviour
 
                         List<string> Appearance_list = new List<string>();
 
-                        using (var conection = new SqliteConnection(db_client))
+                        using (var conection = new SqliteConnection(Database.Instance.dbClient))
                         {
                             conection.Open();
                             using (var command = conection.CreateCommand())

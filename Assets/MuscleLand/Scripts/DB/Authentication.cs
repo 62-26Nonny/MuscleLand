@@ -14,6 +14,8 @@ public class Authentication : MonoBehaviour
     public InputField registerWeight;
     public Text error;
 
+    
+
     public void Login(){
         SFX.Instance.playClickSound();
         if (loginUsername.text != "" && loginPassword.text != "")

@@ -16,8 +16,8 @@ public class AudioOptionsManager : MonoBehaviour
         musicSilder.value = Player.musicVolume;
         effectSilder.value = Player.effectVolume;
 
-        OnMusicSliderValueChange();
-        OnEffectSliderValueChange();
+        // OnMusicSliderValueChange();
+        // OnEffectSliderValueChange();
 
     }
 

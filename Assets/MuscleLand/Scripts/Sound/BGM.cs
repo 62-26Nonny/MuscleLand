@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-
+using Mono.Data.Sqlite;
 public class BGM : MonoBehaviour
 {
     public static BGM Instance;
@@ -16,6 +16,23 @@ public class BGM : MonoBehaviour
         if (Instance == null) {
             Instance = this;
             current_scene = SceneManager.GetActiveScene().name;
+            using (var conection = new SqliteConnection(Database.Instance.dbClient))
+            {
+                conection.Open();
+                using (var command = conection.CreateCommand())
+                {
+                    command.CommandText = "SELECT * FROM setting;";
+                    using (var reader = command.ExecuteReader())
+                    {
+                        Player.effectVolume = float.Parse(reader["SFX"].ToString());
+
+                        Player.musicVolume = float.Parse(reader["BGM"].ToString());
+                            
+                        reader.Close();
+                    }
+                }
+                conection.Close();
+            }
             DontDestroyOnLoad(gameObject);
         }
         else {
