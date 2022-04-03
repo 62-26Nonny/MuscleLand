@@ -15,8 +15,12 @@ public class LoopGround : MonoBehaviour
         float posX = ground.transform.position.x;
         posX -= 1 * distance;
         if (posX <= 0){
-            posX = 1250;
+            ground.transform.position = new Vector3(1250, ground.transform.position.y, ground.transform.position.z);
+            // posX = 1250;
+            // Debug.LogError(posX);
+        } else {
+            ground.transform.position = new Vector3(posX, ground.transform.position.y, ground.transform.position.z);
         }
-        ground.transform.position = new Vector3(posX, ground.transform.position.y, ground.transform.position.z);
     }
+        // Debug.LogError("posX before set = " + posX);        
 }
