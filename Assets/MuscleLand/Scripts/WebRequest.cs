@@ -6,8 +6,8 @@ using System.Collections;
 public class WebRequest : MonoBehaviour
 {
     public static WebRequest Instance;
-    // private string url = "https://muscle-land.herokuapp.com";
-    private string url = "http://localhost:3200";
+    private string url = "https://muscle-land.herokuapp.com";
+    //private string url = "http://localhost:3200";
 
     private void Start() {
         Instance = this;
