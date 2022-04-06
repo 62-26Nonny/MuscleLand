@@ -16,11 +16,13 @@ public class AudioManager : MonoBehaviour
     }
 
     public void openPopup() {
+        SFX.Instance.playClickSound();
         settingPopup.gameObject.SetActive(true);
     }
 
     public void closePopup() {
         settingPopup.gameObject.SetActive(false);
+        SFX.Instance.playClickSound();
         using (var conection = new SqliteConnection(Database.Instance.dbClient))
         {
             conection.Open();

@@ -20,10 +20,10 @@ public class AvatarManager : MonoBehaviour
                 Equipped_list.Add(item.itemID.ToString());
             }
 
-            Debug.Log("Equip List = " + Equipped_list[0]);
+            //Debug.Log("Equip List = " + Equipped_list[0]);
 
             if(int.Parse(Equipped_list[0]) == 0){
-                Debug.Log("Didn't Equip any");
+                //Debug.Log("Didn't Equip any");
                 Avatars[0].SetActive(true);
                 if(SceneManager.GetActiveScene().name == "Inventory"){
                     Avatars[0].GetComponent<Animator>().Play("Look Around");
@@ -44,7 +44,7 @@ public class AvatarManager : MonoBehaviour
                             if(Equipped_list.Contains(reader["itemID"].ToString()))
                             {
                                 // Appearance_list.Add(reader["appearance"].ToString());
-                                Debug.Log("Equip Avatar = " + Equipped_list[0]);
+                                //Debug.Log("Equip Avatar = " + Equipped_list[0]);
                                 Avatars[int.Parse(Equipped_list[0])].SetActive(true);
                                 if(SceneManager.GetActiveScene().name == "Inventory"){
                                     Avatars[int.Parse(Equipped_list[0])].GetComponent<Animator>().Play("Look Around");
