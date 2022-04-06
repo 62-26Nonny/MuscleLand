@@ -59,7 +59,7 @@ public class reDailyquest : MonoBehaviour
             { 
               int dailyprogress;
               int dailygoal;
-              bool claimeddaily;
+              //bool claimeddaily;
               string questDescription;
               string difficulty;
               int dungeonID;

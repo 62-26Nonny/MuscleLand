@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
-using UnityEngine.UI;
+using Mono.Data.Sqlite;
 
 public class AudioManager : MonoBehaviour
 {
@@ -16,11 +16,22 @@ public class AudioManager : MonoBehaviour
     }
 
     public void openPopup() {
+        SFX.Instance.playClickSound();
         settingPopup.gameObject.SetActive(true);
     }
 
     public void closePopup() {
         settingPopup.gameObject.SetActive(false);
+        SFX.Instance.playClickSound();
+        using (var conection = new SqliteConnection(Database.Instance.dbClient))
+        {
+            conection.Open();
+            using (var command = conection.CreateCommand()){
+                command.CommandText = "UPDATE setting SET SFX = " + Player.effectVolume.ToString() + ", BGM = " + Player.musicVolume.ToString() + ";";
+                command.ExecuteNonQuery();
+            }
+            conection.Close();
+        }
     }
 
     public void UpdateMixerVolume(){

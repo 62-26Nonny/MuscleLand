@@ -8,8 +8,11 @@ using Mono.Data.Sqlite;
 public class Equipitem : MonoBehaviour
 {
     [SerializeField] Text Item_name;
-    [SerializeField] Image Steve_Image;
     [SerializeField] GameObject Item_popup;
+
+    [SerializeField] GameObject[] Avatars;
+
+    
 
     public void EquipThis()
     {
@@ -39,6 +42,7 @@ public class Equipitem : MonoBehaviour
                 StartCoroutine(WebRequest.Instance.PostRequest("/wearitem/" + Player.userID, form, (json) => 
                 {
                     List<string> Equipped_list = new List<string>();
+
                     StartCoroutine(WebRequest.Instance.GetRequest("/wearitem/" + Player.userID, (json) => 
                     {
                         WearItemSerializer[] res = JsonHelper.getJsonArray<WearItemSerializer>(json);
@@ -49,6 +53,14 @@ public class Equipitem : MonoBehaviour
 
                         List<string> Appearance_list = new List<string>();
 
+                        if(int.Parse(Equipped_list[0]) == 0){
+                            Debug.Log("Didn't Equip any");
+                            Avatars[0].SetActive(true);
+                            Item_popup.SetActive(false);
+                            SceneManager.LoadScene("Inventory");
+                            Avatars[0].GetComponent<Animator>().Play("Look Around");
+                            return;                
+                        }
                         using (var conection = new SqliteConnection(Database.Instance.dbClient))
                         {
                             conection.Open();
@@ -59,9 +71,19 @@ public class Equipitem : MonoBehaviour
                                 {
                                     foreach (var item in reader)
                                     {
+                                        // if(Equipped_list.Contains(reader["itemID"].ToString()))
+                                        // {
+                                        //     Appearance_list.Add(reader["appearance"].ToString());
+                                        // }
                                         if(Equipped_list.Contains(reader["itemID"].ToString()))
                                         {
-                                            Appearance_list.Add(reader["appearance"].ToString());
+                                            // Appearance_list.Add(reader["appearance"].ToString());
+                                            Debug.Log("Equip Avatar = " + Equipped_list[0]);
+                                            Avatars[int.Parse(Equipped_list[0])].SetActive(true);
+                                        } 
+                                        else {
+                                            //Avatars[int.Parse(reader["itemID"].ToString()) - 1].SetActive(false);
+                                            Avatars[0].SetActive(false);
                                         }
                                     }
                                     reader.Close();
@@ -70,13 +92,15 @@ public class Equipitem : MonoBehaviour
                             conection.Close();
                         }
 
-                        if(Appearance_list.Count > 0)
-                        {
-                            Steve_Image.sprite = Resources.Load<Sprite>(Appearance_list[0]);
-                        }
+                        // if(Appearance_list.Count > 0)
+                        // {
+                        //     Steve_Image.sprite = Resources.Load<Sprite>(Appearance_list[0]);
+                        // }
 
                         Item_popup.SetActive(false);
                         SceneManager.LoadScene("Inventory");
+                        Avatars[int.Parse(Equipped_list[0])].GetComponent<Animator>().Play("Look Around");
+                        Debug.Log(Avatars[int.Parse(Equipped_list[0])].name);
                     }));
                 }));
             }));

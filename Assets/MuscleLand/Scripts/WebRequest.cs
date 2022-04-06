@@ -6,11 +6,16 @@ using System.Collections;
 public class WebRequest : MonoBehaviour
 {
     public static WebRequest Instance;
+
+    public GameObject Fader;
+    private int requestCount;
     private string url = "https://muscle-land.herokuapp.com";
-    // private string url = "http://localhost:3200";
+    
+    //private string url = "http://localhost:3200";
 
     private void Start() {
         Instance = this;
+        requestCount = 0;
         DontDestroyOnLoad(gameObject);
     }
 
@@ -22,6 +27,10 @@ public class WebRequest : MonoBehaviour
 
             string[] pages = route.Split('/');
             int page = pages.Length - 1;
+
+            requestCount++;
+            Fader = GameObject.Find("Fader");
+
 
             switch (webRequest.result)
             {
@@ -38,7 +47,24 @@ public class WebRequest : MonoBehaviour
                     break;
             }
         }
+        StartCoroutine(WaitAndClose(1.0f));
+
     }
+
+    private IEnumerator WaitAndClose(float waitTime)
+    {
+        yield return new WaitForSeconds(waitTime);
+        requestCount--;
+        Debug.LogWarning("Current request = " + requestCount);
+        if(requestCount == 0){
+            Fader.SetActive(false);
+            Debug.LogWarning("Done Loading!");
+        }
+
+    }
+
+    
+    
 
     public IEnumerator PostRequest(string route, WWWForm form)
     {

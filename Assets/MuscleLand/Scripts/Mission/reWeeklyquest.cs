@@ -58,7 +58,7 @@ public class reWeeklyquest : MonoBehaviour
             { 
               int weeklyprogress;
               int weeklygoal;
-              bool claimedweekly;
+              //bool claimedweekly;
               string questDescription;
               string difficulty;
               int dungeonID;
