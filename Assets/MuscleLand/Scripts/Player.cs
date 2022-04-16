@@ -10,6 +10,7 @@ public class Player : MonoBehaviour
     public static Player Instance;
     public static string username = "";
     public static string userID = "";
+    public static string userpic = "";
     public static Sprite user_profile;
     public static int Level = 1;
     public static int Exp = 0;
