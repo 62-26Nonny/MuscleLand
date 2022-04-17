@@ -30,6 +30,7 @@ public class Authentication : MonoBehaviour
                         Debug.Log("Login Sucessful");
                         Player.username = player.username;
                         Player.userID = player.ID.ToString();
+                        Player.userpic = player.profilepic;
                         Player.Gold = player.GOLD;
                         Player.EP = player.EP;
                         Player.Exp = player.EXP % 100;
