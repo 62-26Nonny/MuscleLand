@@ -11,8 +11,16 @@ public class AudioManager : MonoBehaviour
     [SerializeField] AudioMixerGroup musicGroup;
     [SerializeField] AudioMixerGroup effectGroup;
 
+    private float oldMusicValue;
+    private float oldEffectValue;
+
     public void Awake(){
         Instance = this;
+    }
+
+    void Start() {
+        oldMusicValue = Player.musicVolume;
+        oldEffectValue = Player.effectVolume;
     }
 
     public void openPopup() {
@@ -20,7 +28,7 @@ public class AudioManager : MonoBehaviour
         settingPopup.gameObject.SetActive(true);
     }
 
-    public void closePopup() {
+    public void closeAndSave() {
         settingPopup.gameObject.SetActive(false);
         SFX.Instance.playClickSound();
         using (var conection = new SqliteConnection(Database.Instance.dbClient))
@@ -32,6 +40,16 @@ public class AudioManager : MonoBehaviour
             }
             conection.Close();
         }
+    }
+
+    public void closePopup() {
+        settingPopup.gameObject.SetActive(false);
+        Player.musicVolume = oldMusicValue;
+        Player.effectVolume = oldEffectValue;
+        musicGroup.audioMixer.SetFloat("Music Volume", Mathf.Log10(oldMusicValue) * 20);
+        effectGroup.audioMixer.SetFloat("Effect Volume", Mathf.Log10(oldEffectValue) * 20);
+        AudioOptionsManager.Instance.updateSlider();
+        SFX.Instance.playClickSound();
     }
 
     public void UpdateMixerVolume(){
