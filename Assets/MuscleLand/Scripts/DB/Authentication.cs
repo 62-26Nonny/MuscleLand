@@ -35,6 +35,8 @@ public class Authentication : MonoBehaviour
                         Player.EP = player.EP;
                         Player.Exp = player.EXP % 100;
                         Player.Level += player.EXP / 100;
+                        Player.lastRewardLV = player.lastRewardLV;
+                        Debug.Log("last LV Login " + player.lastRewardLV);
                         GetExplorationData();
                         SceneManager.LoadScene("Main Menu");
                         WWWForm form = new WWWForm();

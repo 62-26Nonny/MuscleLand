@@ -11,6 +11,7 @@ public class AvatarManager : MonoBehaviour
     List<string> Equipped_list = new List<string>();
     List<string> Appearance_list = new List<string>();
 
+    int currentAvatarID = 0;
     private void Start(){
         StartCoroutine(WebRequest.Instance.GetRequest("/wearitem/" + Player.userID, (json) => 
         {
@@ -46,6 +47,7 @@ public class AvatarManager : MonoBehaviour
                                 // Appearance_list.Add(reader["appearance"].ToString());
                                 //Debug.Log("Equip Avatar = " + Equipped_list[0]);
                                 Avatars[int.Parse(Equipped_list[0])].SetActive(true);
+                                currentAvatarID = int.Parse(Equipped_list[0]);
                                 if(SceneManager.GetActiveScene().name == "Inventory"){
                                     Avatars[int.Parse(Equipped_list[0])].GetComponent<Animator>().Play("Look Around");
                                 }
@@ -66,6 +68,14 @@ public class AvatarManager : MonoBehaviour
             //     GameObject.Find("Character").GetComponent<Image>().sprite = Resources.Load<Sprite>(Appearance_list[0]);
             // }
         }));
+    }
+
+    public void hideAvartar(){
+        Avatars[currentAvatarID].SetActive(false);
+    }
+
+    public void showAvartar(){
+        Avatars[currentAvatarID].SetActive(true);
     }
     
 }

@@ -59,5 +59,6 @@ public class ExplorationRewarding : MonoBehaviour
                 break;
         }
         Database.Instance.UpdatePlayer();
+        Database.Instance.UpdateExplorationData();
     }
 }

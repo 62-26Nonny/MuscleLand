@@ -7,22 +7,42 @@ using UnityEngine.UI;
 
 public class reward : MonoBehaviour
 {
-    [SerializeField] GameObject test_txt;
-    [SerializeField] Add_panel itemManager;
+    [SerializeField] Add_panel PanelManager;
 
-    public int EXP = 10;
+    [SerializeField] GameObject LV_RewardPopup;
 
-    public int lastRecieve = 1;
+    [SerializeField] GameObject rewardButton;
 
-    public int GOLD = 0;
+    private int currentLV = 1;
 
-    public int EP = 0;
+    private int lastRecieve = 1;
 
-    public List<string> rewardList;
+    private int GOLD = 0;
 
-    public List<int> amountList;
+    private int EP = 0;
 
-    public List<string> imgList;
+    private List<string> rewardList;
+
+    private List<int> amountList;
+
+    private List<string> imgList;
+
+    void Start(){
+        currentLV = Player.Level;
+        lastRecieve = Player.lastRewardLV;
+        Debug.Log("last recieve " + lastRecieve);
+    }
+
+    void Update(){
+        if(Player.Level == Player.lastRewardLV){
+            rewardButton.SetActive(false);
+        } 
+        else 
+        {
+            rewardButton.SetActive(true);
+        }
+    }
+
 
     public void isContain(string name, int amount, string img)
     {
@@ -38,24 +58,30 @@ public class reward : MonoBehaviour
         }
     }
 
-    public void mileStone(int index)
-    {
-        string[] nameList = { "special", "wow" , "test"};
-        string[] image = { "games", "games" , "games"};
-        isContain(nameList[(int)index/10-1], 1, image[(int)index / 10 - 1]);
-    }
+    // public void mileStone(int index)
+    // {
+    //     string[] nameList = { "special", "wow" , "test"};
+    //     string[] image = { "games", "games" , "games"};
+    //     isContain(nameList[(int)index/10-1], 1, image[(int)index / 10 - 1]);
+    // }
+
     public void showReward()
     {
+        //PanelManager.clear_component();
+
+        LV_RewardPopup.SetActive(true);
         rewardList = new List<string>();
         amountList = new List<int>();
         imgList = new List<string>();
 
-        for (int i = lastRecieve;i <= EXP; i++)
+        for (int i = lastRecieve; i < currentLV; i++)
         {
-            isContain("money", 10, "games");
+            isContain("Gold", 100, "GameValue/Gold");
+            GOLD += 100;
             if (i%5 == 0)
             {
-                isContain("ep", 10, "games");
+                isContain("EP", 10, "GameValue/EP");
+                EP += 10;
             }
             /* else if (i%10 != 0)
             {
@@ -67,25 +93,33 @@ public class reward : MonoBehaviour
             } */
         }
 
-        itemManager.clear_component();
-
         for (int j = 0; j < rewardList.Count; j++)
         {
-            itemManager.add_component_reward(rewardList[j], amountList[j], imgList[j]);
+            PanelManager.add_component_reward(rewardList[j], amountList[j], imgList[j]);
         }
 
     }
-
-    public void getReward()
-    {
-        Text txt = test_txt.transform.GetComponent<Text>();
-        string testText = "";
-        foreach (int i in amountList)
-        {
-            testText += i.ToString() + " ";
-        }
-        txt.text = testText;
+    public void recieveReward(){
+        Player.Gold += GOLD;
+        Player.EP += EP;
+        Player.lastRewardLV = currentLV;
+        Database.Instance.UpdatePlayer();
+        LV_RewardPopup.SetActive(false);
     }
+
+    // public void getReward()
+    // {
+    //     Text txt = test_txt.transform.GetComponent<Text>();
+    //     string testText = "";
+    //     foreach (int i in amountList)
+    //     {
+    //         testText += i.ToString() + " ";
+    //     }
+    //     txt.text = testText;
+    // }
+
+
+
     /*
     public void UpdateInventory(int itemID, int amount)
     {
