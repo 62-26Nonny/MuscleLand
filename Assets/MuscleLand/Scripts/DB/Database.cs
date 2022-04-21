@@ -60,6 +60,11 @@ public class Database : MonoBehaviour
 
     public void UpdatePlayer()
     {
+        if (Player.Exp + (Player.Level - 1) * 100 > 30000)
+        {
+            Player.Exp = 100;
+            Player.Level = 300;
+        }
         WWWForm form = new WWWForm();
         form.AddField("GOLD", Player.Gold);
         form.AddField("EP", Player.EP);
