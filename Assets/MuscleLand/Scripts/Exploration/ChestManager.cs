@@ -32,7 +32,8 @@ public class ChestManager : MonoBehaviour
 
     public void resetChest(){
         Button chest_button = chest.GetComponent<Button>();
-        chest_button.onClick.RemoveAllListeners();
+        chest_button.onClick.RemoveListener(popup.Show);
+        chest_button.onClick.RemoveListener(ExplorationRewarding.Instance.Rewarding);
         isReached = false;
         stack.gameObject.SetActive(false);
     }
