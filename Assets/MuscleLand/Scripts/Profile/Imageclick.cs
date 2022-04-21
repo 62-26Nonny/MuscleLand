@@ -17,7 +17,13 @@ public class Imageclick : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        if(this.name == imageEdit.name){
+            this.GetComponent<Image>().color = new Color32(111,111,111,100);
+            this.GetComponent<Button>().enabled = false;
+        }else{
+            this.GetComponent<Image>().color = new Color32(255,255,255,255);
+            this.GetComponent<Button>().enabled = true;
+        }
     }
 
     public void ChangeProfileImage(){
