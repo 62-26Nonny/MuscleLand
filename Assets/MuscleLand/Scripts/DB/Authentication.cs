@@ -28,10 +28,13 @@ public class Authentication : MonoBehaviour
                         Debug.Log("Login Sucessful");
                         Player.username = player.username;
                         Player.userID = player.ID.ToString();
+                        Player.userpic = player.profilepic;
                         Player.Gold = player.GOLD;
                         Player.EP = player.EP;
                         Player.Exp = player.EXP % 100;
                         Player.Level += player.EXP / 100;
+                        Player.lastRewardLV = player.lastRewardLV;
+                        Debug.Log("last LV Login " + player.lastRewardLV);
                         GetExplorationData();
                         SceneManager.LoadScene("Main Menu");
                         WWWForm form = new WWWForm();

@@ -64,6 +64,7 @@ public class Database : MonoBehaviour
         form.AddField("GOLD", Player.Gold);
         form.AddField("EP", Player.EP);
         form.AddField("EXP", Player.Exp + (Player.Level - 1) * 100);
+        form.AddField("lastRewardLV", Player.lastRewardLV);
         StartCoroutine(WebRequest.Instance.PostRequest("/user/" + Player.userID, form));
     }
 

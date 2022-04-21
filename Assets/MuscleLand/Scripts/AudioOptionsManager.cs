@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 public class AudioOptionsManager : MonoBehaviour
 {
+    public static AudioOptionsManager Instance;
     public static float musicVolume { get; private set; }
     public static float effectVolume { get; private set; }
     [SerializeField] private Text musicSilderText;
@@ -11,6 +12,10 @@ public class AudioOptionsManager : MonoBehaviour
     [SerializeField] private Slider musicSilder;
     [SerializeField] private Slider effectSilder;
 
+
+    public void Awake(){
+        Instance = this;
+    }
     public void Start(){
 
         musicSilder.value = Player.musicVolume;
@@ -35,5 +40,10 @@ public class AudioOptionsManager : MonoBehaviour
         effectSilderText.text = ((int)(effectSilder.value * 100)).ToString();
         Player.effectVolume = effectSilder.value;
         AudioManager.Instance.UpdateMixerVolume();
+    }
+
+    public void updateSlider(){
+        musicSilder.value = Player.musicVolume;
+        effectSilder.value = Player.effectVolume;
     }
 }
