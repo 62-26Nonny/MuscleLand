@@ -12,11 +12,11 @@ public class LoopGround : MonoBehaviour
     }
 
     public void loop(float distance){
-        float posX = ground.transform.position.x;
+        float posX = ground.transform.localPosition.x;
         posX -= 1 * distance;
         if (posX <= 0){
-            posX = 1250;
+            posX = 1200;
         }
-        ground.transform.position = new Vector3(posX, ground.transform.position.y, ground.transform.position.z);
+        ground.transform.localPosition = new Vector3(posX, -540, -25);
     }
 }
