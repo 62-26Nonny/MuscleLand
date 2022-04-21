@@ -145,7 +145,7 @@ public class Joints : MonoBehaviour
             // Debug.Log("L_elbow: " + L_elbow.Z.ToString());
             // Debug.Log("L_shoulder: " + L_shoulder.Z.ToString());
 
-            AdjustJoint(initPoint, head_tracker.X * 1200 - 600, (1 - head_tracker.Y) * 540 - 1270, head_tracker.Z * 200 - 250);
+            AdjustJoint(initPoint, head_tracker.X * 1200 - 600, (1 - head_tracker.Y) * 540 - 900, head_tracker.Z * 200 - 250);
             AdjustJoint(nose, head_tracker.X * 1200 - 600, (1 - head_tracker.Y) * 540 - 270, head_tracker.Z * 200 - 250);
 
             float heightModel = Mathf.Abs(head.transform.position.y - initPoint.transform.position.y);
@@ -155,7 +155,7 @@ public class Joints : MonoBehaviour
             {
                 while (heightModel <= heightTracker)
                 {
-                    model.transform.localScale += new Vector3(10, 10, 10);
+                    model.transform.localScale += new Vector3(0.1f, 0.1f, 0.1f);
                     heightModel = Mathf.Abs(head.transform.position.y - initPoint.transform.position.y);
                 }
             }
@@ -163,13 +163,13 @@ public class Joints : MonoBehaviour
             {
                 while (heightModel >= heightTracker)
                 {
-                    model.transform.localScale -= new Vector3(10, 10, 10);
+                    model.transform.localScale -= new Vector3(0.1f, 0.1f, 0.1f);
                     heightModel = Mathf.Abs(head.transform.position.y - initPoint.transform.position.y);
                 }
             }
 
-            Debug.Log("Model: " + heightModel);
-            Debug.Log("Tracker: " + heightTracker);
+            // Debug.Log("Model: " + heightModel);
+            // Debug.Log("Tracker: " + heightTracker);
         }
     }
 

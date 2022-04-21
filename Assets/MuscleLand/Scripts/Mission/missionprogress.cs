@@ -59,7 +59,7 @@ public class missionprogress : MonoBehaviour
               command.CommandText = "SELECT * FROM dailyquest WHERE questID = '" + questID + "';";
               using (var reader = command.ExecuteReader())
               {
-                questNum = (int)reader["quest"] - 1;
+                questNum = int.Parse(reader["quest"].ToString()) - 1;
                 claimeddaily = (bool)reader["claimed"];
               }
             }

@@ -6,7 +6,6 @@ using System.Collections;
 public class WebRequest : MonoBehaviour
 {
     public static WebRequest Instance;
-
     public GameObject Fader;
     private int requestCount;
     private string url = "https://muscle-land.herokuapp.com";

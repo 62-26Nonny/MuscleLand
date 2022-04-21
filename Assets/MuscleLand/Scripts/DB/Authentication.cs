@@ -137,6 +137,15 @@ public class Authentication : MonoBehaviour
                         StartCoroutine(WebRequest.Instance.PostRequest("/dungeonstat", form));
                     }
                 }
+
+                for (int i = 1; i <= 3; i++)
+                {
+                    form = new WWWForm();
+                    form.AddField("userID", Player.userID);
+                    form.AddField("arcID", i);
+                    StartCoroutine(WebRequest.Instance.PostRequest("/userachievement", form));
+                }
+
             }));
         }
         else
