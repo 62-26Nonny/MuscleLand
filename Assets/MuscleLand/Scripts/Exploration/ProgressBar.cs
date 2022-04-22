@@ -44,6 +44,8 @@ public class ProgressBar : MonoBehaviour
         {
             Player.best_progress = DistanceCalculator.Instance.distance;
         }
+        //start animation
+        AvatarManager.Instance.playRunAnimation();
 
         // Increase progress
         while (updateTimed > 0)
@@ -51,6 +53,9 @@ public class ProgressBar : MonoBehaviour
             // If reach max distance
             if (progress.value + inc_distance >= 10000 || Player.current_progress + inc_distance >= 10000)
             {
+                //stop animation
+                AvatarManager.Instance.stopRunAnimation();
+                
                 // Store next bar distance value
                 next_bar_value += (progress.value + inc_distance) % 10000;
                 Player.current_progress = next_bar_value;
@@ -81,6 +86,10 @@ public class ProgressBar : MonoBehaviour
             yield return new WaitForSeconds(0.01f);
             updateTimed -= 0.01f;
         }
+        //stop animation
+        AvatarManager.Instance.stopRunAnimation();
+
+
         Database.Instance.UpdateExplorationData();
     }
     
