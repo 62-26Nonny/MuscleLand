@@ -9,22 +9,15 @@ public class Editbox : MonoBehaviour
     public Text fillText;
     public Text NewUserName;
     public GameObject GameEditBox;
-     public GameObject ImageEdit;
+    public GameObject ImageEdit;
     public GameObject ImageProfileEditBox;
     // Start is called before the first frame update
     void Start()
     {   
-        var NewImage  =  Resources.Load<Sprite>("Profileimage/"+Player.userpic);
-        ImageEdit.GetComponent<Image>().sprite = NewImage;
+        ImageEdit.GetComponent<Image>().sprite = Resources.Load<Sprite>("Profileimage/"+Player.userpic);
         Debug.Log("Profileimage/"+Player.userpic);
         fillText.text = Player.username;
         ImageEdit.name = Player.userpic;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
     }
 
     public void CancelEdit()
@@ -33,6 +26,7 @@ public class Editbox : MonoBehaviour
     }
     public void EditProfile()
     {
+        ImageEdit.GetComponent<Image>().sprite = Resources.Load<Sprite>("Profileimage/"+Player.userpic);
         GameEditBox.SetActive(true);
     }
 
