@@ -42,19 +42,6 @@ public class MediaPipeManager : MonoBehaviour
         L_FINDEX = 32,
         R_FINDEX = 31
     }
-
-    [SerializeField] public Text L_Shoulder_Text;
-    [SerializeField] public Text R_Shoulder_Text;
-    [SerializeField] public Text L_Elbow_Text;
-    [SerializeField] public Text R_Elbow_Text;
-    [SerializeField] public Text L_Wrist_Text;
-    [SerializeField] public Text R_Wrist_Text;
-    [SerializeField] public Text L_Hip_Text;
-    [SerializeField] public Text R_Hip_Text;
-    [SerializeField] public Text L_Knee_Text;
-    [SerializeField] public Text R_Knee_Text;
-    [SerializeField] public Text L_Ankle_Text;
-    [SerializeField] public Text R_Ankle_Text;
     [SerializeField] public GameObject loading;
     [SerializeField] public GameObject countdown;
     public Image[] frame_status;
@@ -125,36 +112,6 @@ public class MediaPipeManager : MonoBehaviour
                     break;
             }
 
-            setAngleText(L_Elbow_Text, Counter.L_elbow_angle.ToString());
-            setAngleText(R_Elbow_Text, Counter.R_elbow_angle.ToString());
-
-            setAngleText(L_Shoulder_Text, Counter.L_shoulder_angle.ToString());
-            setAngleText(R_Shoulder_Text, Counter.R_shoulder_angle.ToString());
-
-            setAngleText(L_Knee_Text, Counter.L_knee_angle.ToString());
-            setAngleText(R_Knee_Text, Counter.R_knee_angle.ToString());
-
-            setAngleText(L_Hip_Text, Counter.L_hip_angle.ToString());
-            setAngleText(R_Hip_Text, Counter.R_hip_angle.ToString());
-
-            setPosText(L_Shoulder_Text , L_shoulder.X * 1200 - 600, (1 - L_shoulder.Y) * 540 - 270, L_shoulder.Z * 200 -250);
-            setPosText(R_Shoulder_Text , R_shoulder.X * 1200 - 600, (1 - R_shoulder.Y) * 540 - 270, R_shoulder.Z * 200 -250);
-
-            setPosText(L_Elbow_Text , L_elbow.X * 1200 - 600, (1 - L_elbow.Y) * 540 - 270, L_elbow.Z * 200 -250);
-            setPosText(R_Elbow_Text , R_elbow.X * 1200 - 600, (1 - R_elbow.Y) * 540 - 270, R_elbow.Z * 200 -250);
-
-            setPosText(L_Wrist_Text , L_wrist.X * 1200 - 600, (1 - L_wrist.Y) * 540 - 270, L_wrist.Z * 200 - 250);
-            setPosText(R_Wrist_Text , R_wrist.X * 1200 - 600, (1 - R_wrist.Y) * 540 - 270, R_wrist.Z * 200 -250);
-
-            setPosText(L_Hip_Text , L_hip.X * 1200 - 600, (1 - L_hip.Y) * 540 - 270, L_hip.Z * 200 -250);
-            setPosText(R_Hip_Text , R_hip.X * 1200 - 600, (1 - R_hip.Y) * 540 - 270, R_hip.Z * 200 -250);
-            
-            setPosText(L_Knee_Text , L_knee.X * 1200 - 600, (1 - L_knee.Y) * 540 - 270, L_knee.Z * 200 -250);
-            setPosText(R_Knee_Text , R_knee.X * 1200 - 600, (1 - R_knee.Y) * 540 - 270, R_knee.Z * 200 -250);
-
-            setPosText(L_Ankle_Text , L_ankle.X * 1200 - 600, (1 - L_ankle.Y) * 540 - 270, L_ankle.Z * 200 -250);
-            setPosText(R_Ankle_Text , R_ankle.X * 1200 - 600, (1 - R_ankle.Y) * 540 - 270, R_ankle.Z * 200 -250);
-            
             Counter.counter();
         }
 
@@ -184,27 +141,19 @@ public class MediaPipeManager : MonoBehaviour
         return angle;
     }
 
-    public void setAngleText(Text text_box, string newText){
-        text_box.text = newText;
-    }
-
-    public void setPosText(Text text_box, double posX, double posY, double posZ){
-        text_box.transform.position = new Vector3((float)posX, (float)posY, (float)posZ);
-    }
-
     public bool isInFrame(){
         foreach(int index in Enum.GetValues(typeof(pose))){
             NormalizedLandmark landmark = MediaPipeValues.poseLandmarks.Landmark[index];
             float posX = landmark.X * 1200 - 600;
             float posY = landmark.Y * 540 - 270;
             if (posX < -530 || posX > 530 || posY < -530 || posY > 530){
-                frame_status[0].color = new Color32(255,0,0,100);
-                frame_status[1].color = new Color32(255,0,0,100);
+                frame_status[0].color = new Color32(255,0,0,255);
+                frame_status[1].color = new Color32(255,0,0,255);
                 return false;
             }
         }
-        frame_status[0].color = new Color32(0,255,0,100);
-        frame_status[1].color = new Color32(0,255,0,100);
+        frame_status[0].color = new Color32(0,255,0,255);
+        frame_status[1].color = new Color32(0,255,0,255);
         return true;
     }
 

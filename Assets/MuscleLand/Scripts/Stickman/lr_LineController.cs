@@ -6,13 +6,13 @@ using UnityEngine.UI;
 public class lr_LineController : MonoBehaviour
 {
     private LineRenderer lr;
-    private Text[] points;
+    private GameObject[] points;
 
     private void Awake() {
         lr = GetComponent<LineRenderer>();
     }
 
-    public void SetUpLine(Text[] points) {
+    public void SetUpLine(GameObject[] points) {
         lr.positionCount = points.Length;
         this.points = points;
     }

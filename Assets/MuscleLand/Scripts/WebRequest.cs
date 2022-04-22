@@ -62,9 +62,6 @@ public class WebRequest : MonoBehaviour
 
     }
 
-    
-    
-
     public IEnumerator PostRequest(string route, WWWForm form)
     {
         using (UnityWebRequest webRequest = UnityWebRequest.Post(url + route, form))

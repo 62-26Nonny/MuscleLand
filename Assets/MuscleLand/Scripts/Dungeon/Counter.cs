@@ -8,7 +8,6 @@ public class Counter : MonoBehaviour
     public static string stage = "None";
     public static string knee_stage = "";
     public static int count = 0;
-    public static string warning = "";
     public static int L_elbow_angle;
     public static int R_elbow_angle;
     public static int L_shoulder_angle;
@@ -17,20 +16,26 @@ public class Counter : MonoBehaviour
     public static int R_hip_angle;
     public static int L_knee_angle;
     public static int R_knee_angle;
-    public GameObject warningBox;
-    public Text warningText;
+    public Image handStatus;
+    public Image legStatus;
 
-    private void Update()
-    {
-        if (warning != "")
+    private void Update() {
+        if (hand_gesture())
         {
-            warningText.text = warning;
-            warningBox.gameObject.SetActive(true);
+            handStatus.color = new Color32(0,255,0,255);
         }
         else
         {
-            warningText.text = "";
-            warningBox.gameObject.SetActive(false);
+            handStatus.color = new Color32(255,0,0,255);
+        }
+
+        if (leg_gesture())
+        {
+            legStatus.color = new Color32(0,255,0,255);
+        }
+        else
+        {
+            legStatus.color = new Color32(255,0,0,255);
         }
     }
 
@@ -131,27 +136,16 @@ public class Counter : MonoBehaviour
             case "Squat":
             case "Jumping Jack":
                 if (hand_gesture() & leg_gesture()) {
-                    warning = "";
                     return true;
-                }
-                else if (!hand_gesture()){
-                    warning = "!! Wrong Hand Gesture !!";
-                    return false;
-                }
-                else if (!leg_gesture()){
-                    warning = "!! Wrong Leg Gesture !!";
-                    return false;
                 }
                 else{
                     return false;
                 }
             case "Rising Knee":
                 if (leg_gesture()) {
-                    warning = "";
                     return true;
                 }
                 else{
-                    warning = "!! Wrong Leg Gesture !!";
                     return false;
                 }
             default:
@@ -164,9 +158,11 @@ public class Counter : MonoBehaviour
             case "Squat":
             case "Jumping Jack":
                 if (isCorrectGesture()) {
+                    // Debug.Log("Down");
                     stage = "Down";
                 }
                 if (isStand() & stage == "Down") {
+                    // Debug.Log("Up");
                     stage = "Up";
                     count += 1;
                     Destroyer.Destruction();   

@@ -8,8 +8,8 @@ public class Head_stickman : MonoBehaviour
 {
     [SerializeField] private Image head;
     [SerializeField] private RectTransform rt;
-    [SerializeField] private Text L_shoulder;
-    [SerializeField] private Text R_shoulder;
+    [SerializeField] private GameObject L_shoulder;
+    [SerializeField] private GameObject R_shoulder;
 
     // Update is called once per frame
     void Update()

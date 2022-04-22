@@ -16,6 +16,7 @@ public class DungeonRewarding : MonoBehaviour
     public Text Gold_Text;
     public Text Exp_Text;
     public Text Monster_Text;
+    public GameObject stickman;
 
     private void Start() {
         multiple_reward();
@@ -72,6 +73,8 @@ public class DungeonRewarding : MonoBehaviour
         Gold_Text.text = DungeonValues.Gold_recieved.ToString() + " Gold";
         Exp_Text.text = DungeonValues.Exp_recieved.ToString() + " Exp";
         Monster_Text.text = DungeonValues.monsterKilled.ToString() + "/" + DungeonValues.monsterMax.ToString();
+        AvatarManager.Instance.hideAvartar();
+        stickman.SetActive(false);
         Popup.SetActive(true);
     }
 }

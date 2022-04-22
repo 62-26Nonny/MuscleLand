@@ -5,19 +5,22 @@ using UnityEngine.UI;
 
 public class DungeonDisplayer : MonoBehaviour
 {
-    public Text Combo;
+    public Text ComboCount;
+    public Text ComboText;
     public Text Monster;
 
     private void Update() {
         if (DungeonValues.Combo > 0)
         {
-            Combo.gameObject.SetActive(true);
-            Combo.text = DungeonValues.Combo.ToString();
+            ComboText.gameObject.SetActive(true);
+            ComboCount.gameObject.SetActive(true);
+            ComboCount.text = DungeonValues.Combo.ToString();
         }
         else
         {
-            Combo.gameObject.SetActive(false);
-            Combo.text = "";
+            ComboText.gameObject.SetActive(false);
+            ComboCount.gameObject.SetActive(false);
+            ComboCount.text = "??";
         }
 
         Monster.text = DungeonValues.monsterKilled.ToString() + "/" + DungeonValues.monsterMax.ToString();

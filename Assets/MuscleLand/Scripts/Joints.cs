@@ -57,10 +57,10 @@ public class Joints : MonoBehaviour
     public GameObject wristR;
     public GameObject elbowL;
     public GameObject elbowR;
-    // public GameObject shoulderL;
-    // public GameObject shoulderR;
-    // public GameObject hipL;
-    // public GameObject hipR;
+    public GameObject shoulderL;
+    public GameObject shoulderR;
+    public GameObject hipL;
+    public GameObject hipR;
     public GameObject kneeL;
     public GameObject kneeR;
     public GameObject ankleL;
@@ -124,11 +124,11 @@ public class Joints : MonoBehaviour
             AdjustJoint(elbowL, L_elbow.X * 1200 - 600, (1 - L_elbow.Y) * 540 - 270, L_elbow.Z * 200 - 250);
             AdjustJoint(elbowR, R_elbow.X * 1200 - 600, (1 - R_elbow.Y) * 540 - 270, R_elbow.Z * 200 - 250);
 
-            // AdjustJoint(shoulderL , L_shoulder.X * 1200 - 600, (1 - L_shoulder.Y) * 540 - 270, L_shoulder.Z * 250);
-            // AdjustJoint(shoulderR , R_shoulder.X * 1200 - 600, (1 - R_shoulder.Y) * 540 - 270, R_shoulder.Z * 250);
+            AdjustJoint(shoulderL , L_shoulder.X * 1200 - 600, (1 - L_shoulder.Y) * 540 - 270, L_shoulder.Z * 250);
+            AdjustJoint(shoulderR , R_shoulder.X * 1200 - 600, (1 - R_shoulder.Y) * 540 - 270, R_shoulder.Z * 250);
 
-            // AdjustJoint(hipL , L_hip.X * 1200 - 600, (1 - L_hip.Y) * 540 - 270, L_hip.Z * 250);
-            // AdjustJoint(hipR , R_hip.X * 1200 - 600, (1 - R_hip.Y) * 540 - 270, R_hip.Z * 250);
+            AdjustJoint(hipL , L_hip.X * 1200 - 600, (1 - L_hip.Y) * 540 - 270, L_hip.Z * 250);
+            AdjustJoint(hipR , R_hip.X * 1200 - 600, (1 - R_hip.Y) * 540 - 270, R_hip.Z * 250);
 
             AdjustJoint(ankleL, L_ankle.X * 1200 - 600, (1 - L_ankle.Y) * 540 - 270, L_ankle.Z * 200 - 250);
             AdjustJoint(ankleR, R_ankle.X * 1200 - 600, (1 - R_ankle.Y) * 540 - 270, R_ankle.Z * 200 - 250);
@@ -142,10 +142,7 @@ public class Joints : MonoBehaviour
             // AdjustJoint(footIndexL , L_foot_index.X * 1200 - 600, (1 - L_foot_index.Y) * 540 - 270, L_foot_index.Z * 250);
             // AdjustJoint(footIndexR , R_foot_index.X * 1200 - 600, (1 - R_foot_index.Y) * 540 - 270, R_foot_index.Z * 250);
 
-            // Debug.Log("L_elbow: " + L_elbow.Z.ToString());
-            // Debug.Log("L_shoulder: " + L_shoulder.Z.ToString());
-
-            AdjustJoint(initPoint, head_tracker.X * 1200 - 600, (1 - head_tracker.Y) * 540 - 900, head_tracker.Z * 200 - 250);
+            AdjustJoint(initPoint, head_tracker.X * 1200 - 600, (1 - head_tracker.Y) * 540 - 1200, head_tracker.Z * 200 - 250);
             AdjustJoint(nose, head_tracker.X * 1200 - 600, (1 - head_tracker.Y) * 540 - 270, head_tracker.Z * 200 - 250);
 
             float heightModel = Mathf.Abs(head.transform.position.y - initPoint.transform.position.y);
