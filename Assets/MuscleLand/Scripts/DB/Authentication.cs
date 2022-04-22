@@ -14,8 +14,6 @@ public class Authentication : MonoBehaviour
     public InputField registerWeight;
     public Text error;
 
-    
-
     public void Login(){
         SFX.Instance.playClickSound();
         if (loginUsername.text != "" && loginPassword.text != "")
@@ -142,6 +140,15 @@ public class Authentication : MonoBehaviour
                         StartCoroutine(WebRequest.Instance.PostRequest("/dungeonstat", form));
                     }
                 }
+
+                for (int i = 1; i <= 3; i++)
+                {
+                    form = new WWWForm();
+                    form.AddField("userID", Player.userID);
+                    form.AddField("arcID", i);
+                    StartCoroutine(WebRequest.Instance.PostRequest("/userachievement", form));
+                }
+
             }));
         }
         else

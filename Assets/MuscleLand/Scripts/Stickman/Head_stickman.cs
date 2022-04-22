@@ -16,6 +16,7 @@ public class Head_stickman : MonoBehaviour
     {
         var xPos = (L_shoulder.transform.position.x + R_shoulder.transform.position.x)/2;
         var yPos = (L_shoulder.transform.position.y + R_shoulder.transform.position.y)/2 + 50;
+        var zPos = (L_shoulder.transform.position.z + R_shoulder.transform.position.z)/2;
         var size = Math.Abs(L_shoulder.transform.position.x - R_shoulder.transform.position.x) / 4;
 
         head.transform.position = new Vector3(xPos, yPos, -250);

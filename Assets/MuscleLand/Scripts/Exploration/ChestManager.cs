@@ -17,7 +17,7 @@ public class ChestManager : MonoBehaviour
     }
 
     private void Update() {
-        chest.transform.localPosition = new Vector3(10000 - ProgressBar.Instance.progress.value, -297, 0);
+        chest.transform.localPosition = new Vector3(10000 - ProgressBar.Instance.progress.value, -297, -115);
         if (chest.transform.localPosition.x == 0 & !isReached) {
             Button chest_button = chest.GetComponent<Button>();
             chest_button.onClick.AddListener(popup.Show);
@@ -32,7 +32,8 @@ public class ChestManager : MonoBehaviour
 
     public void resetChest(){
         Button chest_button = chest.GetComponent<Button>();
-        chest_button.onClick.RemoveAllListeners();
+        chest_button.onClick.RemoveListener(popup.Show);
+        chest_button.onClick.RemoveListener(ExplorationRewarding.Instance.Rewarding);
         isReached = false;
         stack.gameObject.SetActive(false);
     }

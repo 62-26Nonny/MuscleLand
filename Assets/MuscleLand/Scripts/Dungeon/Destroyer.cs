@@ -30,11 +30,13 @@ public class Destroyer : MonoBehaviour
     }
 
     IEnumerator hit(){
+        monster.GetComponent<Animator>().enabled = false;
         monster.GetComponent<Image>().sprite = hit_effect;
         hit_sound.playHitSound();
         yield return new WaitForSeconds(0.5f);
         Destroy(monster);
         DungeonValues.monsterKilled++;
+        DungeonValues.Combo++;
     }
 }
 

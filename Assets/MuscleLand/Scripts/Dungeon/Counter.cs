@@ -5,14 +5,10 @@ using UnityEngine.UI;
 
 public class Counter : MonoBehaviour
 {
-    [SerializeField] public Text stage_text;
-    [SerializeField] public Text count_text;
-    [SerializeField] public Text hand_status;
-    [SerializeField] public Text leg_status;
-    [SerializeField] public Text stand_status;
     public static string stage = "None";
     public static string knee_stage = "";
     public static int count = 0;
+    public static string warning = "";
     public static int L_elbow_angle;
     public static int R_elbow_angle;
     public static int L_shoulder_angle;
@@ -21,6 +17,22 @@ public class Counter : MonoBehaviour
     public static int R_hip_angle;
     public static int L_knee_angle;
     public static int R_knee_angle;
+    public GameObject warningBox;
+    public Text warningText;
+
+    private void Update()
+    {
+        if (warning != "")
+        {
+            warningText.text = warning;
+            warningBox.gameObject.SetActive(true);
+        }
+        else
+        {
+            warningText.text = "";
+            warningBox.gameObject.SetActive(false);
+        }
+    }
 
     public static bool hand_gesture() {
         switch (DungeonValues.Dungeon_displayname){
@@ -119,16 +131,27 @@ public class Counter : MonoBehaviour
             case "Squat":
             case "Jumping Jack":
                 if (hand_gesture() & leg_gesture()) {
+                    warning = "";
                     return true;
                 }
-                else {
+                else if (!hand_gesture()){
+                    warning = "!! Wrong Hand Gesture !!";
+                    return false;
+                }
+                else if (!leg_gesture()){
+                    warning = "!! Wrong Leg Gesture !!";
+                    return false;
+                }
+                else{
                     return false;
                 }
             case "Rising Knee":
                 if (leg_gesture()) {
+                    warning = "";
                     return true;
                 }
-                else {
+                else{
+                    warning = "!! Wrong Leg Gesture !!";
                     return false;
                 }
             default:
@@ -160,15 +183,8 @@ public class Counter : MonoBehaviour
                         Destroyer.Destruction();
                     }
                 }
-                break;
+                break;                
         }
     }
 
-    private void Update() {
-        stage_text.text = stage;
-        count_text.text = "Reps: " + count.ToString();
-        hand_status.text = "Hand: " + hand_gesture().ToString();
-        leg_status.text = "Leg: " + leg_gesture().ToString();
-        stand_status.text = "Stand: " + isStand().ToString();
-    }
 }

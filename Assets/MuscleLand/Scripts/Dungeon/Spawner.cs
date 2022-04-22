@@ -16,10 +16,18 @@ public class Spawner : MonoBehaviour
         
         while (Timer_script.currentTime >= DungeonValues.Interval)
         {
-            
-            var pos_range_x = Random.Range(minTras, maxTras);
-            var pos_range_y = Random.Range(GameObject.Find("Canvas").transform.position.y - 300, GameObject.Find("Canvas").transform.position.y + 100); 
-            var position = new Vector3(pos_range_x, pos_range_y, GameObject.Find("Canvas").transform.position.z+1);
+            var directions = "LR";
+            var direction = directions[Random.Range(0, directions.Length)];
+            var pos_range_x = 0f;
+            if (direction == 'L')
+            {
+                pos_range_x = Random.Range(minTras, -250);
+            }
+            else 
+            {
+                pos_range_x = Random.Range(250, maxTras);
+            }
+            var position = new Vector3(pos_range_x, -350, 0);
             GameObject gameObject = Instantiate(monsterPrefab[Random.Range(0, monsterPrefab.Length)],
                                     position, Quaternion.identity);
             
@@ -30,7 +38,11 @@ public class Spawner : MonoBehaviour
             yield return new WaitForSeconds(DungeonValues.Interval);
 
             // If Time out then Escaped
-            Destroy(gameObject);
+            if (gameObject != null)
+            {
+                Destroy(gameObject);
+                DungeonValues.Combo = 0;
+            }
         }
     }
 }

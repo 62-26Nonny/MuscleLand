@@ -24,20 +24,6 @@ namespace Game.Timer
 
         public IEnumerator StartCountdown()
         {
-            // while (countdownTime > 0) {
-            //     if (mediaPipe_script.isInFrame()){
-            //         countdownText.gameObject.SetActive(true);
-            //         countdownText.text = countdownTime.ToString();
-            //         yield return new WaitForSeconds(1f);
-            //         countdownTime--;
-            //     }
-            //     else {
-            //         countdownText.gameObject.SetActive(false);
-            //         countdownTime = 3;
-            //         yield return new WaitForSeconds(1f);
-            //     }
-            // }
-
             countdownText.gameObject.SetActive(true);
             while (countdownTime > 0) {
                 countdownText.text = countdownTime.ToString();
