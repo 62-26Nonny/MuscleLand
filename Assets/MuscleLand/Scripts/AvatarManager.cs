@@ -7,12 +7,17 @@ using Mono.Data.Sqlite;
 public class AvatarManager : MonoBehaviour
 {
     // Start is called before the first frame update
+
+    public static AvatarManager Instance;
     [SerializeField] GameObject[] Avatars;
     List<string> Equipped_list = new List<string>();
     List<string> Appearance_list = new List<string>();
 
     int currentAvatarID = 0;
     private void Start(){
+
+        Instance = this;
+
         StartCoroutine(WebRequest.Instance.GetRequest("/wearitem/" + Player.userID, (json) => 
         {
             WearItemSerializer[] res = JsonHelper.getJsonArray<WearItemSerializer>(json);
@@ -73,9 +78,14 @@ public class AvatarManager : MonoBehaviour
     public void hideAvartar(){
         Avatars[currentAvatarID].SetActive(false);
     }
-
     public void showAvartar(){
         Avatars[currentAvatarID].SetActive(true);
+    }
+    public void playRunAnimation(){
+        Avatars[currentAvatarID].GetComponent<Animator>().SetBool("isRunning", true);
+    }
+    public void stopRunAnimation(){
+        Avatars[currentAvatarID].GetComponent<Animator>().SetBool("isRunning", false);
     }
     
 }
