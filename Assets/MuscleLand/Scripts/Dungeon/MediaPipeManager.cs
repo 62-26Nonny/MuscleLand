@@ -55,16 +55,10 @@ public class MediaPipeManager : MonoBehaviour
     [SerializeField] public Text R_Knee_Text;
     [SerializeField] public Text L_Ankle_Text;
     [SerializeField] public Text R_Ankle_Text;
-
-    [SerializeField] public Text L_Shoulder_Text_Box;
-    [SerializeField] public Text R_Shoulder_Text_Box;
-    [SerializeField] public Text L_Elbow_Text_Box;
-    [SerializeField] public Text R_Elbow_Text_Box;
     [SerializeField] public GameObject loading;
     [SerializeField] public GameObject countdown;
     public Image[] frame_status;
     public Timer Timer_script;
-
     private bool firstLoad;
 
     private void Start() {
@@ -142,12 +136,6 @@ public class MediaPipeManager : MonoBehaviour
 
             setAngleText(L_Hip_Text, Counter.L_hip_angle.ToString());
             setAngleText(R_Hip_Text, Counter.R_hip_angle.ToString());
-
-            setAngleText(L_Elbow_Text_Box, Counter.L_elbow_angle.ToString());
-            setAngleText(R_Elbow_Text_Box, Counter.R_elbow_angle.ToString());
-
-            setAngleText(L_Shoulder_Text_Box, Counter.L_shoulder_angle.ToString());
-            setAngleText(R_Shoulder_Text_Box, Counter.R_shoulder_angle.ToString());
 
             setPosText(L_Shoulder_Text , L_shoulder.X * 1200 - 600, (1 - L_shoulder.Y) * 540 - 270, L_shoulder.Z * 200 -250);
             setPosText(R_Shoulder_Text , R_shoulder.X * 1200 - 600, (1 - R_shoulder.Y) * 540 - 270, R_shoulder.Z * 200 -250);

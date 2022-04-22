@@ -18,6 +18,7 @@ public class DungeonValues: MonoBehaviour
     public static float Interval = 0;
     public static int Gold_recieved = 0;
     public static int Exp_recieved = 0;
+    public static int Combo = 0;
 
     private void Start(){
         initDungeonValue();
@@ -79,6 +80,7 @@ public class DungeonValues: MonoBehaviour
         monsterKilled = 0;
         Duration = 0;
         monsterMax = 0;
+        Combo = 0;
     }
 }
 
