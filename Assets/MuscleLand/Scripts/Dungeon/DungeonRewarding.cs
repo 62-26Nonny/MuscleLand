@@ -74,6 +74,7 @@ public class DungeonRewarding : MonoBehaviour
         Exp_Text.text = DungeonValues.Exp_recieved.ToString() + " Exp";
         Monster_Text.text = DungeonValues.monsterKilled.ToString() + "/" + DungeonValues.monsterMax.ToString();
         AvatarManager.Instance.hideAvartar();
+        SkeletonHider.Instance.hide();
         stickman.SetActive(false);
         Popup.SetActive(true);
     }

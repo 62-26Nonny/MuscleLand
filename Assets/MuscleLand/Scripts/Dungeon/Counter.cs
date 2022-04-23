@@ -131,6 +131,19 @@ public class Counter : MonoBehaviour
         }
     }
 
+    public static bool isReady()
+    {
+        if (L_shoulder_angle <= 40 & R_shoulder_angle <= 40 & L_elbow_angle >= 100 & R_elbow_angle >= 100 & 
+            L_knee_angle >= 110 & R_knee_angle >= 110 & L_hip_angle >= 135 & R_hip_angle >= 135)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
     public static bool isCorrectGesture() {
         switch (DungeonValues.Dungeon_displayname){
             case "Squat":

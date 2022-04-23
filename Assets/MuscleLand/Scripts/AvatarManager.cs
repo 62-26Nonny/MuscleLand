@@ -13,7 +13,7 @@ public class AvatarManager : MonoBehaviour
     List<string> Equipped_list = new List<string>();
     List<string> Appearance_list = new List<string>();
 
-    int currentAvatarID = 0;
+    public int currentAvatarID = 0;
     private void Start(){
 
         Instance = this;

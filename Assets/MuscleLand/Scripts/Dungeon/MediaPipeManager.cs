@@ -142,6 +142,10 @@ public class MediaPipeManager : MonoBehaviour
     }
 
     public bool isInFrame(){
+        if (!Counter.isReady())
+        {
+            return false;
+        }
         foreach(int index in Enum.GetValues(typeof(pose))){
             NormalizedLandmark landmark = MediaPipeValues.poseLandmarks.Landmark[index];
             float posX = landmark.X * 1200 - 600;
