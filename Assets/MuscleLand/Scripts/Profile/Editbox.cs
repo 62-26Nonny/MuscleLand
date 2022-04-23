@@ -8,6 +8,8 @@ public class Editbox : MonoBehaviour
     
     public Text fillText;
     public Text NewUserName;
+
+    public InputField inputField;
     public GameObject GameEditBox;
     public GameObject ImageEdit;
     public GameObject ImageProfileEditBox;
@@ -22,10 +24,15 @@ public class Editbox : MonoBehaviour
 
     public void CancelEdit()
     {
+        SFX.Instance.playClickSound();
+        inputField.text = "";
         GameEditBox.SetActive(false);
     }
     public void EditProfile()
     {
+        SFX.Instance.playClickSound();
+        inputField.text = "";
+        ImageEdit.name = Player.userpic;
         ImageEdit.GetComponent<Image>().sprite = Resources.Load<Sprite>("Profileimage/"+Player.userpic);
         GameEditBox.SetActive(true);
     }
@@ -37,6 +44,7 @@ public class Editbox : MonoBehaviour
         }else{
             Player.username = NewUserName.text;
         }
+        SFX.Instance.playClickSound();
         Player.userpic = ImageEdit.name;
         WWWForm form = new WWWForm();
         form.AddField("username", Player.username);
@@ -47,6 +55,7 @@ public class Editbox : MonoBehaviour
 
     public void ImageProfileChange()
     {
+        SFX.Instance.playClickSound();
         ImageProfileEditBox.SetActive(true);
     }
 }

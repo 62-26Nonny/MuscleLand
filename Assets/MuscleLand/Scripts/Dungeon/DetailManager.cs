@@ -74,6 +74,7 @@ public class DetailManager : MonoBehaviour
 
   public void playVideo()
   {
+    SFX.Instance.playClickSound();
     Video.Play();
     PlayButton.gameObject.SetActive(false);
     PauseButton.gameObject.SetActive(true);
@@ -82,6 +83,7 @@ public class DetailManager : MonoBehaviour
 
   public void pauseVideo()
   {
+    SFX.Instance.playClickSound();
     Video.Pause();
     PauseButton.gameObject.SetActive(false);
     PlayButton.gameObject.SetActive(true);

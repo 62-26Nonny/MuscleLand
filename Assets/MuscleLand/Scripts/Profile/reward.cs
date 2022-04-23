@@ -68,7 +68,7 @@ public class reward : MonoBehaviour
     public void showReward()
     {
         //PanelManager.clear_component();
-
+        SFX.Instance.playClickSound();
         LV_RewardPopup.SetActive(true);
         rewardList = new List<string>();
         amountList = new List<int>();
@@ -100,6 +100,7 @@ public class reward : MonoBehaviour
 
     }
     public void recieveReward(){
+        SFX.Instance.playClickSound();
         Player.Gold += GOLD;
         Player.EP += EP;
         Player.lastRewardLV = currentLV;

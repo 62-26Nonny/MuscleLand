@@ -27,6 +27,7 @@ public class Imageclick : MonoBehaviour
     }
 
     public void ChangeProfileImage(){
+        SFX.Instance.playClickSound();
         imageEdit.name = this.name;
         var NewImage  =  Resources.Load<Sprite>("Profileimage/"+imageEdit.name);
         imageEdit.GetComponent<Image>().sprite = NewImage;

@@ -8,6 +8,7 @@ public class Share : MonoBehaviour
 {
     public void Sharing()
     {
+        SFX.Instance.playClickSound();
         StartCoroutine(TakeScreenshotAndShare());
     }
 
