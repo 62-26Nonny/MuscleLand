@@ -12,7 +12,9 @@ public class Authentication : MonoBehaviour
     public InputField registerUsername;
     public InputField registerPassword;
     public InputField registerWeight;
-    public Text error;
+    public Text errorLogin;
+    public Text errorRegister;
+    public GameObject registerPopup;
 
     public void Login(){
         SFX.Instance.playClickSound();
@@ -33,8 +35,8 @@ public class Authentication : MonoBehaviour
                         Player.EP = player.EP;
                         Player.Exp = player.EXP % 100;
                         Player.Level += player.EXP / 100;
-                        Player.lastRewardLV = player.lastRewardLV;
-                        Debug.Log("last LV Login " + player.lastRewardLV);
+                        Player.last_LV = player.last_LV;
+                        Debug.LogWarning("last LV Login " + player.last_LV);
                         GetExplorationData();
                         SceneManager.LoadScene("Main Menu");
                         WWWForm form = new WWWForm();
@@ -44,11 +46,13 @@ public class Authentication : MonoBehaviour
                     }
                 }
                 Debug.Log("Wrong password");
-                error.gameObject.SetActive(true);
+                errorLogin.text = "Wrong password";
+                errorLogin.gameObject.SetActive(true);
             }));
         } else {
             Debug.Log("Please enter username and password");
-            error.gameObject.SetActive(true);
+            errorLogin.text = "Please enter username and password";
+            errorLogin.gameObject.SetActive(true);
         }
         
         // using (var conection = new SqliteConnection(dbName)){
@@ -148,12 +152,14 @@ public class Authentication : MonoBehaviour
                     form.AddField("arcID", i);
                     StartCoroutine(WebRequest.Instance.PostRequest("/userachievement", form));
                 }
-
+                registerPopup.SetActive(false);
             }));
         }
         else
         {
             Debug.Log("Please enter username and password");
+            errorRegister.text = "Please enter username and password";
+            errorRegister.gameObject.SetActive(true);
         }
 
         // using (var conection = new SqliteConnection(dbName)){

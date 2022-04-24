@@ -13,6 +13,6 @@ public class PlayerSerializer
     public int EXP;
     public int EP;
     public int GOLD;
-    public int lastRewardLV;
+    public int last_LV;
     public string last_active;
 }

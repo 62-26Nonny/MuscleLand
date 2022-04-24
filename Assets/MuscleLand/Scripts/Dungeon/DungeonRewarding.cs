@@ -7,7 +7,7 @@ public class DungeonRewarding : MonoBehaviour
 {
     public int Gold_max = 200;
     public int Gold_each;
-    public int Exp_max = 20;
+    public int Exp_max = 30;
     public int Exp_each;
     public Sprite[] Reward_rank;
     public Image Reward;
@@ -21,7 +21,7 @@ public class DungeonRewarding : MonoBehaviour
     private void Start() {
         multiple_reward();
         Gold_each = (int)(Gold_max / DungeonValues.monsterMax);
-        Exp_each = (int)(Exp_max / DungeonValues.monsterMax);
+        Exp_each = 1;
     }
 
     public void multiple_reward(){

@@ -86,10 +86,6 @@ public class ProgressBar : MonoBehaviour
             yield return new WaitForSeconds(0.01f);
             updateTimed -= 0.01f;
         }
-        //stop animation
-        AvatarManager.Instance.stopRunAnimation();
-
-
         Database.Instance.UpdateExplorationData();
     }
     

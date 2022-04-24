@@ -5,7 +5,6 @@ using UnityEngine;
 public class NotificationManager : MonoBehaviour
 {
     // Start is called before the first frame update
-
     [SerializeField] GameObject profileNoti;
 
     [SerializeField] GameObject exploreNoti;
@@ -14,7 +13,7 @@ public class NotificationManager : MonoBehaviour
     void Start()
     {
 
-        if(Player.Level != Player.lastRewardLV)
+        if(Player.Level != Player.last_LV)
         {
             profileNoti.SetActive(true);
         } 

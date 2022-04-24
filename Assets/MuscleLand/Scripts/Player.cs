@@ -13,7 +13,7 @@ public class Player : MonoBehaviour
     public static string userpic = "";
     public static Sprite user_profile;
     public static int Level = 1;
-    public static int lastRewardLV = 1;
+    public static int last_LV = 1;
     public static int Exp = 0;
     public static int Gold = 0;
     public static int EP = 0;

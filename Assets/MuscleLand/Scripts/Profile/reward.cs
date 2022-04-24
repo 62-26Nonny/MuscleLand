@@ -29,12 +29,12 @@ public class reward : MonoBehaviour
 
     void Start(){
         currentLV = Player.Level;
-        lastRecieve = Player.lastRewardLV;
+        lastRecieve = Player.last_LV;
         Debug.Log("last recieve " + lastRecieve);
     }
 
     void Update(){
-        if(Player.Level == Player.lastRewardLV){
+        if(Player.Level == Player.last_LV){
             rewardButton.SetActive(false);
         } 
         else 
@@ -103,7 +103,7 @@ public class reward : MonoBehaviour
         SFX.Instance.playClickSound();
         Player.Gold += GOLD;
         Player.EP += EP;
-        Player.lastRewardLV = currentLV;
+        Player.last_LV = currentLV;
         Database.Instance.UpdatePlayer();
         LV_RewardPopup.SetActive(false);
     }
