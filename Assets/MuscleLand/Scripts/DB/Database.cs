@@ -32,6 +32,7 @@ public class Database : MonoBehaviour
             //open db connection
             dbClient = "URI=file:" + dbClient;
             DontDestroyOnLoad(gameObject);
+            InitThaiCalendarCrashFix();
         }
         else
         {
@@ -69,7 +70,7 @@ public class Database : MonoBehaviour
         form.AddField("GOLD", Player.Gold);
         form.AddField("EP", Player.EP);
         form.AddField("EXP", Player.Exp + (Player.Level - 1) * 100);
-        // form.AddField("lastRewardLV", Player.lastRewardLV);
+        form.AddField("last_LV", Player.last_LV);
         StartCoroutine(WebRequest.Instance.PostRequest("/user/" + Player.userID, form));
     }
 
@@ -82,10 +83,37 @@ public class Database : MonoBehaviour
         StartCoroutine(WebRequest.Instance.PostRequest("/exploration/" + Player.userID, form));
     }
 
-    void OnApplicationQuit()
+    private void OnApplicationQuit()
     {
-        WWWForm form = new WWWForm();
-        form.AddField("last_active", DateTime.UtcNow.ToString());
-        StartCoroutine(WebRequest.Instance.PostRequest("/user/" + Player.userID, form));
+        if (Player.userID != "")
+        {
+            Debug.LogWarning("quit");
+            WWWForm form = new WWWForm();
+            form.AddField("last_active", DateTime.UtcNow.ToString());
+            StartCoroutine(WebRequest.Instance.PostRequest("/user/" + Player.userID, form));
+        }
+    }
+
+    private void OnApplicationFocus(bool focusStatus) {
+        if (Player.userID != "" && focusStatus)
+        {
+            Debug.LogWarning("focus");
+            WWWForm form = new WWWForm();
+            form.AddField("last_active", "online");
+            StartCoroutine(WebRequest.Instance.PostRequest("/user/" + Player.userID, form));
+        }
+        else if (Player.userID != "" && !focusStatus)
+        {
+            OnApplicationQuit();
+        }
+    }
+
+    private static void InitThaiCalendarCrashFix()
+    {
+        if (Application.systemLanguage == SystemLanguage.Thai)
+        {
+            Debug.LogWarning("Thai");
+            new System.Globalization.ThaiBuddhistCalendar();
+        }
     }
 }

@@ -7,33 +7,30 @@ public class BGM : MonoBehaviour
 {
     public static BGM Instance;
     public string current_scene;
-
     public AudioSource bgm;
-
     public AudioClip[] audio_list;
 
     private void Awake() {
         if (Instance == null) {
             Instance = this;
             current_scene = SceneManager.GetActiveScene().name;
-            using (var conection = new SqliteConnection(Database.Instance.dbClient))
-            {
-                conection.Open();
-                using (var command = conection.CreateCommand())
-                {
-                    command.CommandText = "SELECT * FROM setting;";
-                    using (var reader = command.ExecuteReader())
-                    {
-                        Player.effectVolume = float.Parse(reader["SFX"].ToString());
-
-                        Player.musicVolume = float.Parse(reader["BGM"].ToString());
-                            
-                        reader.Close();
-                    }
-                }
-                conection.Close();
-            }
+            // using (var conection = new SqliteConnection(Database.Instance.dbClient))
+            // {
+            //     conection.Open();
+            //     using (var command = conection.CreateCommand())
+            //     {
+            //         command.CommandText = "SELECT * FROM setting;";
+            //         using (var reader = command.ExecuteReader())
+            //         {
+            //             Player.musicVolume = float.Parse(reader["BGM"].ToString());
+            //             Player.effectVolume = float.Parse(reader["SFX"].ToString());
+            //             reader.Close();
+            //         }
+            //     }
+            //     conection.Close();
+            // }
             DontDestroyOnLoad(gameObject);
+            main_menu();
         }
         else {
             Destroy(gameObject);
@@ -72,5 +69,4 @@ public class BGM : MonoBehaviour
         }
         current_scene = SceneManager.GetActiveScene().name;
     }
-
 }

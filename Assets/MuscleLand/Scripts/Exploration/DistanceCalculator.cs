@@ -30,7 +30,7 @@ public class DistanceCalculator : MonoBehaviour
             float a = Mathf.Sin(dif_lat/2) * Mathf.Sin(dif_lat/2) + Mathf.Cos(lat1) * Mathf.Cos(lat2) * Mathf.Sin(dif_lon/2) * Mathf.Sin(dif_lon/2);
             float c = 2 * Mathf.Atan2(Mathf.Sqrt(a), Mathf.Sqrt(1-a));
             float d = R * c;
-            return d;
+            return d * 100;
         } else {
             return 0f;
         }

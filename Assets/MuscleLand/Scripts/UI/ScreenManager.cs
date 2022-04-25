@@ -6,7 +6,6 @@ using UnityEngine.UI;
 
 public class ScreenManager : MonoBehaviour
 {
-
     public void MainMenuPage()
     {
         SceneManager.LoadScene("Main Menu");

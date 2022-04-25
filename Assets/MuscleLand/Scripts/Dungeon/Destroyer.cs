@@ -11,8 +11,6 @@ public class Destroyer : MonoBehaviour
 
     public static Destroyer Instance;
 
-    public SFX hit_sound;
-
     private void Start() {
         Instance = this;
     }
@@ -32,11 +30,11 @@ public class Destroyer : MonoBehaviour
     IEnumerator hit(){
         monster.GetComponent<Animator>().enabled = false;
         monster.GetComponent<Image>().sprite = hit_effect;
-        hit_sound.playHitSound();
-        yield return new WaitForSeconds(0.5f);
-        Destroy(monster);
+        SFX.Instance.playHitSound();
         DungeonValues.monsterKilled++;
         DungeonValues.Combo++;
+        yield return new WaitForSeconds(0.5f);
+        Destroy(monster);
     }
 }
 

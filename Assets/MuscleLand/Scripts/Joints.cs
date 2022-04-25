@@ -109,8 +109,8 @@ public class Joints : MonoBehaviour
             NormalizedLandmark L_foot_index = MediaPipeValues.poseLandmarks.Landmark[(int)pose.L_FINDEX];
             NormalizedLandmark R_foot_index = MediaPipeValues.poseLandmarks.Landmark[(int)pose.R_FINDEX];
 
-            AdjustJoint(indexL, L_index.X * 1200 - 600, (1 - L_index.Y) * 540 - 400, L_index.Z * 200 - 250);
-            AdjustJoint(indexR, R_index.X * 1200 - 600, (1 - R_index.Y) * 540 - 400, R_index.Z * 200 - 250);
+            AdjustJoint(indexL, (1 - L_index.X) * 1200 - 600, (1 - L_index.Y) * 540 - 400, L_index.Z * 200 - 250);
+            AdjustJoint(indexR, (1 - R_index.X) * 1200 - 600, (1 - R_index.Y) * 540 - 400, R_index.Z * 200 - 250);
 
             // AdjustJoint(pinkyL , L_pinky.X * 1200 - 600, (1 - L_pinky.Y) * 540 - 540, L_pinky.Z * 250);
             // AdjustJoint(pinkyR , R_pinky.X * 1200 - 600, (1 - R_pinky.Y) * 540 - 540, R_pinky.Z * 250);
@@ -118,23 +118,23 @@ public class Joints : MonoBehaviour
             // AdjustJoint(thumbL , L_thumb.X * 1200 - 600, (1 - L_thumb.Y) * 540 - 540, L_thumb.Z * 250);
             // AdjustJoint(thumbR , R_thumb.X * 1200 - 600, (1 - R_thumb.Y) * 540 - 540, R_thumb.Z * 250);
 
-            AdjustJoint(wristL, L_wrist.X * 1200 - 600, (1 - L_wrist.Y) * 540 - 400, L_wrist.Z * 200 - 250);
-            AdjustJoint(wristR, R_wrist.X * 1200 - 600, (1 - R_wrist.Y) * 540 - 400, R_wrist.Z * 200 - 250);
+            AdjustJoint(wristL, (1 - L_wrist.X) * 1200 - 600, (1 - L_wrist.Y) * 540 - 400, L_wrist.Z * 200 - 250);
+            AdjustJoint(wristR, (1 - R_wrist.X) * 1200 - 600, (1 - R_wrist.Y) * 540 - 400, R_wrist.Z * 200 - 250);
 
-            AdjustJoint(elbowL, L_elbow.X * 1200 - 600, (1 - L_elbow.Y) * 540 - 400, L_elbow.Z * 200 - 250);
-            AdjustJoint(elbowR, R_elbow.X * 1200 - 600, (1 - R_elbow.Y) * 540 - 400, R_elbow.Z * 200 - 250);
+            AdjustJoint(elbowL, (1 - L_elbow.X) * 1200 - 600, (1 - L_elbow.Y) * 540 - 400, L_elbow.Z * 200 - 250);
+            AdjustJoint(elbowR, (1 - R_elbow.X) * 1200 - 600, (1 - R_elbow.Y) * 540 - 400, R_elbow.Z * 200 - 250);
 
-            AdjustJoint(shoulderL , L_shoulder.X * 1200 - 600, (1 - L_shoulder.Y) * 540 - 400, L_shoulder.Z * 250);
-            AdjustJoint(shoulderR , R_shoulder.X * 1200 - 600, (1 - R_shoulder.Y) * 540 - 400, R_shoulder.Z * 250);
+            AdjustJoint(shoulderL , (1 - L_shoulder.X) * 1200 - 600, (1 - L_shoulder.Y) * 540 - 400, L_shoulder.Z * 250);
+            AdjustJoint(shoulderR , (1 - R_shoulder.X) * 1200 - 600, (1 - R_shoulder.Y) * 540 - 400, R_shoulder.Z * 250);
 
-            AdjustJoint(hipL , L_hip.X * 1200 - 600, (1 - L_hip.Y) * 540 - 400, L_hip.Z * 250);
-            AdjustJoint(hipR , R_hip.X * 1200 - 600, (1 - R_hip.Y) * 540 - 400, R_hip.Z * 250);
+            AdjustJoint(hipL , (1 - L_hip.X) * 1200 - 600, (1 - L_hip.Y) * 540 - 400, L_hip.Z * 250);
+            AdjustJoint(hipR , (1 - R_hip.X) * 1200 - 600, (1 - R_hip.Y) * 540 - 400, R_hip.Z * 250);
 
-            AdjustJoint(ankleL, L_ankle.X * 1200 - 600, (1 - L_ankle.Y) * 540 - 400, L_ankle.Z * 200 - 250);
-            AdjustJoint(ankleR, R_ankle.X * 1200 - 600, (1 - R_ankle.Y) * 540 - 400, R_ankle.Z * 200 - 250);
+            AdjustJoint(ankleL, (1 - L_ankle.X) * 1200 - 600, (1 - L_ankle.Y) * 540 - 400, L_ankle.Z * 200 - 250);
+            AdjustJoint(ankleR, (1 - R_ankle.X) * 1200 - 600, (1 - R_ankle.Y) * 540 - 400, R_ankle.Z * 200 - 250);
 
-            AdjustJoint(kneeL, L_knee.X * 1200 - 600, (1 - L_knee.Y) * 540 - 400, L_knee.Z * 200 - 250);
-            AdjustJoint(kneeR, R_knee.X * 1200 - 600, (1 - R_knee.Y) * 540 - 400, R_knee.Z * 200 - 250);
+            AdjustJoint(kneeL, (1 - L_knee.X) * 1200 - 600, (1 - L_knee.Y) * 540 - 400, L_knee.Z * 200 - 250);
+            AdjustJoint(kneeR, (1 - R_knee.X) * 1200 - 600, (1 - R_knee.Y) * 540 - 400, R_knee.Z * 200 - 250);
             
             // AdjustJoint(heelL , L_heel.X * 1200 - 600, (1 - L_heel.Y) * 540 - 540, L_heel.Z * 250);
             // AdjustJoint(heelR , R_heel.X * 1200 - 600, (1 - R_heel.Y) * 540 - 540, R_heel.Z * 250);

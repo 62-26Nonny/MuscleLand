@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class ProgressBar : MonoBehaviour
@@ -45,7 +46,14 @@ public class ProgressBar : MonoBehaviour
             Player.best_progress = DistanceCalculator.Instance.distance;
         }
         //start animation
-        AvatarManager.Instance.playRunAnimation();
+        if (SceneManager.GetActiveScene().name == "MileStone")
+        {
+            AvatarManager.Instance.playRunAnimation();
+        }
+        else
+        {
+            AvatarManager.Instance.stopRunAnimation();
+        }
 
         // Increase progress
         while (updateTimed > 0)
@@ -86,6 +94,8 @@ public class ProgressBar : MonoBehaviour
             yield return new WaitForSeconds(0.01f);
             updateTimed -= 0.01f;
         }
+
+        AvatarManager.Instance.stopRunAnimation();
         Database.Instance.UpdateExplorationData();
     }
     

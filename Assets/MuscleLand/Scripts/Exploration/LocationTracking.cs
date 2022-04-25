@@ -17,7 +17,7 @@ public class LocationTracking : MonoBehaviour
         Instance = this;
         isfirstLoad = true;
         DontDestroyOnLoad(gameObject);
-        StartCoroutine(CheckPermissions());
+        StartCoroutine(StartLocationService());
     }
 
     private void Update() {
@@ -34,16 +34,6 @@ public class LocationTracking : MonoBehaviour
                 isfirstLoad = false;
             }
         // }
-    }
-
-    private IEnumerator CheckPermissions(){
-        while (!Permission.HasUserAuthorizedPermission(Permission.FineLocation)){
-            Permission.RequestUserPermission(Permission.FineLocation);
-        }
-
-        StartCoroutine(StartLocationService());
-
-        yield break;
     }
 
     private IEnumerator StartLocationService(){
