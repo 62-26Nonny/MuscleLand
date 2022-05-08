@@ -43,6 +43,7 @@ public class MediaPipeManager : MonoBehaviour
         R_FINDEX = 31
     }
     [SerializeField] public GameObject loading;
+    [SerializeField] public GameObject setupPopup;
     [SerializeField] public GameObject countdown;
     public Image[] frame_status;
     public Timer Timer_script;
@@ -56,7 +57,7 @@ public class MediaPipeManager : MonoBehaviour
     {
         if (MediaPipeValues.poseLandmarks != null) {
             loading.SetActive(false);
-            if (firstLoad) {
+            if (firstLoad && !setupPopup.activeSelf) {
                 countdown.SetActive(true);
                 if (isInFrame()){
                     StartCoroutine(Timer_script.StartCountdown());
@@ -161,4 +162,9 @@ public class MediaPipeManager : MonoBehaviour
         return true;
     }
 
+    public void closePopup(){
+        setupPopup.SetActive(false);
+    }
 }
+
+

@@ -1,7 +1,9 @@
 using UnityEngine;
 using UnityEngine.Networking;
+using UnityEngine.SceneManagement;
 using System;
 using System.Collections;
+
 
 public class WebRequest : MonoBehaviour
 {
@@ -55,7 +57,7 @@ public class WebRequest : MonoBehaviour
         yield return new WaitForSeconds(waitTime);
         requestCount--;
         Debug.LogWarning("Current request = " + requestCount);
-        if(requestCount == 0){
+        if(requestCount == 0 && SceneManager.GetActiveScene().name != "Playing"){
             Fader.SetActive(false);
             Debug.LogWarning("Done Loading!");
         }
