@@ -12,8 +12,6 @@ public class Equipitem : MonoBehaviour
 
     [SerializeField] GameObject[] Avatars;
 
-    
-
     public void EquipThis()
     {
         string itemID = "";

@@ -16,6 +16,7 @@ public class InventoryPopup : MonoBehaviour
 
     public void Show()
     {
+        popup_buttonText.text = "Equip";
         List<string> Equipped_list = new List<string>();
         StartCoroutine(WebRequest.Instance.GetRequest("/wearitem/" + Player.userID, (json) => 
         {
