@@ -42,7 +42,7 @@ public class DungeonValues: MonoBehaviour
                 Dungeon_displayname = "Jumping Jack";
                 Dungeon_detail = "Fight your ways through the enemy by jumping to a position with the legs spread wide and the hands going overhead";
                 monsterMax = 20;
-                Interval = 1.5f;
+                Interval = 2f;
                 Duration = (int)(monsterMax * Interval);
                 Dungeon_ID = "3";
                 break;
@@ -50,7 +50,7 @@ public class DungeonValues: MonoBehaviour
                 Dungeon_displayname = "Rising Knee";
                 Dungeon_detail = "Fight your ways through the enemy by move your knee up and down repeatly";
                 monsterMax = 30;
-                Interval = 1;
+                Interval = 2f;
                 Duration = (int)(monsterMax * Interval);
                 Dungeon_ID = "2";
                 break;

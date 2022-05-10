@@ -142,7 +142,7 @@ public class Joints : MonoBehaviour
             // AdjustJoint(footIndexL , L_foot_index.X * 1200 - 600, (1 - L_foot_index.Y) * 540 - 540, L_foot_index.Z * 250);
             // AdjustJoint(footIndexR , R_foot_index.X * 1200 - 600, (1 - R_foot_index.Y) * 540 - 540, R_foot_index.Z * 250);
 
-            AdjustJoint(initPoint, head_tracker.X * 1200 - 600, (1 - head_tracker.Y) * 540 - 930, head_tracker.Z * 200 - 250);
+            AdjustJoint(initPoint, head_tracker.X * 1200 - 600, (1 - head_tracker.Y) * 540 - 930, head_tracker.Z * 200 - 125);
             AdjustJoint(nose, head_tracker.X * 1200 - 600, (1 - head_tracker.Y) * 540 - 400, head_tracker.Z * 200 - 250);
 
             float heightModel = Mathf.Abs(head.transform.position.y - initPoint.transform.position.y);
