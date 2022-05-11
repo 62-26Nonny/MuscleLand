@@ -57,7 +57,6 @@ public class ScreenManager : MonoBehaviour
     }
     public void MissionPage()
     {
-        AvatarManager.Instance.stopRunAnimation();
         SceneManager.LoadScene("Mission");
         SFX.Instance.playClickSound();
     }
