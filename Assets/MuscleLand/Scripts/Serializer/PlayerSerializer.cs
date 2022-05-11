@@ -8,7 +8,6 @@ public class PlayerSerializer
     public string password;
     public float weight;
     public float caloriesburn;
-    public float caloriesburn_daily;
     public string profilepic;
     public int EXP;
     public int EP;

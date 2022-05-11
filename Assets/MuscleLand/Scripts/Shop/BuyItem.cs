@@ -17,21 +17,42 @@ public class BuyItem : MonoBehaviour
     {
         string[] textSplit = Item_Price.text.Split();
         int price = int.Parse(textSplit[0]);
-        int User_gold = Player.Gold;
-    
-        if(price < User_gold)
+        string type = textSplit[1];
+
+        if (type == "Gold")
         {
-            Player.Gold -= price;
-            Database.Instance.UpdatePlayer();
-            UpdateInventory();
-            Item_popup.SetActive(false);
-            SceneManager.LoadScene("Shop");
-        } 
+            if(price < Player.Gold)
+            {
+                Player.Gold -= price;
+                Database.Instance.UpdatePlayer();
+                UpdateInventory();
+                Item_popup.SetActive(false);
+                SceneManager.LoadScene("Shop");
+            } 
+            else
+            {
+                Debug.Log("No gold");
+                Warning_Text.SetActive(true);
+            }
+        }
         else
         {
-            Debug.Log("No gold");
-            Warning_Text.SetActive(true);
+            if(price < Player.EP)
+            {
+                Player.EP -= price;
+                Database.Instance.UpdatePlayer();
+                UpdateInventory();
+                Item_popup.SetActive(false);
+                SceneManager.LoadScene("Shop");
+            } 
+            else
+            {
+                Debug.Log("No gold");
+                Warning_Text.SetActive(true);
+            }
         }
+    
+        
     }
 
     public void UpdateInventory()

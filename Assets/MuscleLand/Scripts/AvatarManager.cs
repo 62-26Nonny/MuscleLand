@@ -51,8 +51,11 @@ public class AvatarManager : MonoBehaviour
                             {
                                 // Appearance_list.Add(reader["appearance"].ToString());
                                 //Debug.Log("Equip Avatar = " + Equipped_list[0]);
-                                Avatars[int.Parse(Equipped_list[0])].SetActive(true);
                                 currentAvatarID = int.Parse(Equipped_list[0]);
+                                if (SceneManager.GetActiveScene().name != "Playing"){
+                                    showAvartar();
+                                }
+                                
                                 if(SceneManager.GetActiveScene().name == "Inventory"){
                                     Avatars[int.Parse(Equipped_list[0])].GetComponent<Animator>().Play("Look Around");
                                 }

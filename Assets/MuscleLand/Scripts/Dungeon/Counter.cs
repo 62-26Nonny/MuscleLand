@@ -79,7 +79,7 @@ public class Counter : MonoBehaviour
                     return false;
                 }
             case "Jumping Jack":
-                if (L_knee_angle >= 165 & R_knee_angle >= 165 & L_hip_angle <= 170 & R_hip_angle <= 170 & L_hip_angle >= 160 & R_hip_angle >= 160) {
+                if (L_knee_angle >= 155 & R_knee_angle >= 155 & L_hip_angle <= 170 & R_hip_angle <= 170 & L_hip_angle >= 140 & R_hip_angle >= 140) {
                     return true;
                 }
                 else {

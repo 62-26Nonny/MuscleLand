@@ -5,11 +5,9 @@ using UnityEngine.UI;
 
 public class CaloriesDisplayer : MonoBehaviour
 {
-    public Text dailyBurnedCalories;
-    public Text weeklyBurnedCalories;
+    public Text BurnedCalories;
 
     private void Update() {
-        dailyBurnedCalories.text = Player.dailyBurnedCalories.ToString();
-        weeklyBurnedCalories.text = Player.weeklyBurnedCalories.ToString();
+        BurnedCalories.text = Player.BurnedCalories.ToString();
     }
 }

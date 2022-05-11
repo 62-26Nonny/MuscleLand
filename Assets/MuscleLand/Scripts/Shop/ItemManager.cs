@@ -83,7 +83,7 @@ public class ItemManager : MonoBehaviour
                     img.transform.GetComponent<Image>().sprite = Resources.Load<Sprite>(path_list[index]);
 
                     Transform price = BuyButton.Find("Price");
-                    price.transform.GetComponent<Text>().text = item.price.ToString() + " Gold";
+                    price.transform.GetComponent<Text>().text = item.price.ToString() + " " + item.type;
 
                     if(DontHave.Contains(item.itemID.ToString()))
                     {

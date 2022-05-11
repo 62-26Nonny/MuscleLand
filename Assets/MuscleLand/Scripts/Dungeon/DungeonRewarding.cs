@@ -67,6 +67,7 @@ public class DungeonRewarding : MonoBehaviour
         CaloriesCalculator.Instance.Calculate();
         Database.Instance.UpdatePlayer();
         Database.Instance.UpdateDungeonData();
+        Database.Instance.UpdateCalories();
     }
 
     public void showRewardingPopup(){

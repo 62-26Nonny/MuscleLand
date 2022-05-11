@@ -11,7 +11,6 @@ public class CaloriesCalculator : MonoBehaviour
     }
 
     public void Calculate(){
-        Player.dailyBurnedCalories += (float)((DungeonValues.Duration / 60) * 8 * 3.5 * Player.weight / 200);
-        Player.weeklyBurnedCalories += (float)((DungeonValues.Duration / 60) * 8 * 3.5 * Player.weight / 200);
+        Player.BurnedCalories += (float)((DungeonValues.Duration / 60) * 8 * 3.5 * Player.weight / 200);
     }
 }

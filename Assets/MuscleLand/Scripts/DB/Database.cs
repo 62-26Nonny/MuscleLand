@@ -74,6 +74,13 @@ public class Database : MonoBehaviour
         StartCoroutine(WebRequest.Instance.PostRequest("/user/" + Player.userID, form));
     }
 
+    public void UpdateCalories()
+    {
+        WWWForm form = new WWWForm();
+        form.AddField("caloriesburn", Player.BurnedCalories.ToString());
+        StartCoroutine(WebRequest.Instance.PostRequest("/user/" + Player.userID, form));
+    }
+
     public void UpdateExplorationData()
     { 
         WWWForm form = new WWWForm();

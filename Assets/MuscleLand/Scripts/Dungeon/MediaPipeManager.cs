@@ -45,6 +45,8 @@ public class MediaPipeManager : MonoBehaviour
     [SerializeField] public GameObject loading;
     [SerializeField] public GameObject setupPopup;
     [SerializeField] public GameObject countdown;
+    [SerializeField] public GameObject stickman;
+    [SerializeField] public GameObject model;
     public Image[] frame_status;
     public Timer Timer_script;
     private bool firstLoad;
@@ -59,6 +61,7 @@ public class MediaPipeManager : MonoBehaviour
             loading.SetActive(false);
             if (firstLoad && !setupPopup.activeSelf) {
                 countdown.SetActive(true);
+                model.SetActive(true);
                 if (isInFrame()){
                     StartCoroutine(Timer_script.StartCountdown());
                     firstLoad = false;
