@@ -9,7 +9,7 @@ public class BuyItem : MonoBehaviour
 {
     [SerializeField] Text Item_Price;
     [SerializeField] Text Item_name;
-    [SerializeField] GameObject Warning_Text;
+    [SerializeField] Text Warning_Text;
     [SerializeField] GameObject Item_popup;
     [SerializeField] GameObject itemID;
 
@@ -31,8 +31,8 @@ public class BuyItem : MonoBehaviour
             } 
             else
             {
-                Debug.Log("No gold");
-                Warning_Text.SetActive(true);
+                Warning_Text.text = "Not enough gold";
+                Warning_Text.gameObject.SetActive(true);
             }
         }
         else
@@ -47,8 +47,8 @@ public class BuyItem : MonoBehaviour
             } 
             else
             {
-                Debug.Log("No gold");
-                Warning_Text.SetActive(true);
+                Warning_Text.text = "Not enough EP";
+                Warning_Text.gameObject.SetActive(true);
             }
         }
     
