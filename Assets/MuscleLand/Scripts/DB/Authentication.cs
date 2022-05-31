@@ -36,6 +36,7 @@ public class Authentication : MonoBehaviour
                         Player.Exp = player.EXP % 100;
                         Player.Level += player.EXP / 100;
                         Player.last_LV = player.last_LV;
+                        Player.weight = player.weight;
                         Player.BurnedCalories = player.caloriesburn;
                         Debug.LogWarning("last LV Login " + player.last_LV);
                         GetExplorationData();

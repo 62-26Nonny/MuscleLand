@@ -33,7 +33,6 @@ namespace Game.Timer
             countdown.SetActive(false);
             StartCoroutine(TimeIEn());
             StartCoroutine(spawner_script.monsterSpawner());
-            DungeonValues.ResetValues();
         }
 
         IEnumerator TimeIEn()
